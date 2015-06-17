@@ -1,2 +1,4 @@
-# VERTEXShowcase
-An OSB Showcase project to create examples of export from &amp; import to the VERTEX simulator
+### Showcase project for VERTEX simulator
+
+An OSB Showcase project for the [VERTEX simulator](http://vertexsimulator.org/) to create examples of export from and import to NeuroML.
+
