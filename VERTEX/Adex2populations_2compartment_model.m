@@ -144,6 +144,6 @@ set(gca,'FontSize',16)
 title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
-% create txt file containing cell positions
-cellpositions(params,RecordingSettings.saveDir,'Adex2populations_2compartment_model'); 
-
+% create txt files containing cell positions
+cellpositions(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
+cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
