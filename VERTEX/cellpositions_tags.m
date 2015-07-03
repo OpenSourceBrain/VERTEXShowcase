@@ -22,7 +22,7 @@ fileID=fopen(t,'w');
 for i=1:VERTEX_params.TissueParams.numGroups
     Index_vector=(VERTEX_params.TissueParams.groupBoundaryIDArr(i)+1):VERTEX_params.TissueParams.groupBoundaryIDArr(i+1);
     if isempty(Index_vector)==1
-        population_heading=sprintf('<population id="%d">',i);
+        population_heading=sprintf('<population id="%d">',i-1);
         fprintf(fileID,'%s\r\n',population_heading);
         fprintf(fileID,'%s\r\n','population is empty');
         fprintf(fileID,'%s\r\n\r\n','</population>');
@@ -30,7 +30,7 @@ for i=1:VERTEX_params.TissueParams.numGroups
         population_data=Formatted_data(:,Index_vector(1):Index_vector(end));
         dim=size(population_data);
         population_data(1,:)=0:1:dim(2)-1; %normalize the indexing so that it is compatible with neuroml
-        population_heading=sprintf('<population id="%d">',i);
+        population_heading=sprintf('<population id="%d">',i-1);
         fprintf(fileID,'%s\r\n',population_heading);
         for j=1:dim(2)
             instance_tag=sprintf('  <instance id="%d">',population_data(1,j));
@@ -43,7 +43,10 @@ for i=1:VERTEX_params.TissueParams.numGroups
     end
 
 end
-fclose(fileID);
+a=fclose(fileID);
+if a==-1
+    disp('File closing is not successful');
+end
 
 
 

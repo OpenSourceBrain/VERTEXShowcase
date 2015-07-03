@@ -113,7 +113,7 @@ ConnectionParams(2).axonArborRadius = 100;
 ConnectionParams(2).axonArborLimit = 200;
 ConnectionParams(2).axonConductionSpeed = 0.3;
 ConnectionParams(2).synapseReleaseDelay = 0.5;
-RecordingSettings.saveDir='results';
+RecordingSettings.saveDir='results\';
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:1:10;
 RecordingSettings.maxRecTime = 100;
@@ -144,6 +144,7 @@ set(gca,'FontSize',16)
 title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
-% create txt files containing cell positions
+% create txt files containing cell positions and cellconnectivity
 cellpositions(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
 cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
+cellconnectivity(connections,params,RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
