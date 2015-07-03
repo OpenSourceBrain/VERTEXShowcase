@@ -1,8 +1,8 @@
 function cellconnectivity(VERTEX_connections,VERTEX_params,directory,filename)
-% cellconnectivity() receives matlab structure array specifying VERTEX
+% cellconnectivity() receives matlab structure matrix specifying VERTEX
 % connecions, VERTEX parameters' structure named params, which has 5
 % fields, including TissueParams; cellconnectivity() then produces a txt file 
-% containing connectivity information in terms element ids. Cellconnectivity() also
+% containing connectivity information in terms of elements' ids. Cellconnectivity() also
 % receives string specifying file directory and string specifying a name of
 % txt file.
 Size=size(VERTEX_connections);
