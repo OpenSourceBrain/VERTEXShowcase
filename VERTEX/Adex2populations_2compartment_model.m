@@ -92,7 +92,7 @@ ConnectionParams(1).targetCompartments{2} =NeuronParams(2).dendritesID;
 ConnectionParams(1).weights{2} = 28;
 ConnectionParams(1).tau{2} = 1;
 ConnectionParams(1).axonArborSpatialModel = 'gaussian';
-ConnectionParams(1).sliceSynapses = true;
+ConnectionParams(1).sliceSynapses = false;
 ConnectionParams(1).axonArborRadius = 100;
 ConnectionParams(1).axonArborLimit = 200;
 ConnectionParams(1).axonConductionSpeed = 0.3;
@@ -108,7 +108,7 @@ ConnectionParams(2).targetCompartments{2} =NeuronParams(2).dendritesID;
 ConnectionParams(2).weights{2} = -4;
 ConnectionParams(2).tau{2} = 3;
 ConnectionParams(2).axonArborSpatialModel = 'gaussian';
-ConnectionParams(2).sliceSynapses = true;
+ConnectionParams(2).sliceSynapses = false;
 ConnectionParams(2).axonArborRadius = 100;
 ConnectionParams(2).axonArborLimit = 200;
 ConnectionParams(2).axonConductionSpeed = 0.3;
@@ -147,4 +147,5 @@ ylabel('Membrane potential (mV)', 'FontSize', 16)
 % create txt files containing cell positions and cellconnectivity
 cellpositions(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
 cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
-cellconnectivity(connections,params,RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity_tags');
