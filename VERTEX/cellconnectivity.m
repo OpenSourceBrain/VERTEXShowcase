@@ -18,6 +18,13 @@ function varargout=cellconnectivity(VERTEX_connections,VERTEX_params,output_type
 % 5) if output_type=='ID_Matrix+group_boundaries' cellconnectivity returns
 %    both ID_Matrix and group_boundaries vector, but does not produce txt
 %    file.
+if isstruct(VERTEX_params)==1
+    c=VERTEX_params.TissueParams;
+end
+
+if iscell(VERTEX_params)==1
+    c=VERTEX_params{1};
+end
 Size=size(VERTEX_connections);
 dim1=0;
 for i=1:Size(1)
@@ -36,16 +43,16 @@ start=0;
 for i=1:Size(1)
     group_boundary=length(VERTEX_connections{i,1});
     for j=1:group_boundary
-        ID_Matrix(1,start+j)=i;
-        ID_Matrix(3,start+j)=VERTEX_connections{i,1}(j);
-        ID_Matrix(5,start+j)=VERTEX_connections{i,2}(j);
+        ID_Matrix(1,start+j)=i-1; %normalize ID_Matrix so that cell and compartment indexing is compatible with neuroml.
+        ID_Matrix(3,start+j)=VERTEX_connections{i,1}(j)-1;
+        ID_Matrix(5,start+j)=VERTEX_connections{i,2}(j)-1;
     end
     start=group_boundaries(i);
     
 end
 start=1;
-for i=1:VERTEX_params.TissueParams.numGroups
-    Index_vector=(VERTEX_params.TissueParams.groupBoundaryIDArr(i)+1):VERTEX_params.TissueParams.groupBoundaryIDArr(i+1);
+for i=1:c.numGroups
+    Index_vector=(c.groupBoundaryIDArr(i)+1):c.groupBoundaryIDArr(i+1);
     if isempty(Index_vector)~=1
       
          ID_Matrix(2,start:group_boundaries(Index_vector(end)))=i;
@@ -54,8 +61,8 @@ for i=1:VERTEX_params.TissueParams.numGroups
   
 end
 start=1;
-for i=1:VERTEX_params.TissueParams.numGroups
-    Index_vector=(VERTEX_params.TissueParams.groupBoundaryIDArr(i)+1):VERTEX_params.TissueParams.groupBoundaryIDArr(i+1);
+for i=1:c.numGroups
+    Index_vector=(c.groupBoundaryIDArr(i)+1):c.groupBoundaryIDArr(i+1);
     if isempty(Index_vector)~=1
       
          for j=start:group_boundaries(Index_vector(end))
@@ -68,7 +75,6 @@ for i=1:VERTEX_params.TissueParams.numGroups
   
 end
         
-ID_Matrix=ID_Matrix-1;     %normalize ID_Matrix so that indexing is compatible with neuroml.
 if strcmp(output_type,'ID_Matrix')==1
     varargout{1}=ID_Matrix;
 elseif strcmp(output_type,'group_boundaries')==1

@@ -7,22 +7,22 @@ function cellpositions_tags(VERTEX_params,directory,filename)
 % directory as simulation results (RecordingSettings.saveDir) or
 % in a different directory. To save a file as filename.txt, there has to be \  at the end
 % of directory path.
-if isfield(VERTEX_params,'TissueParams')~=1
-    errorMessage='Parameter structure must contain the field named TissueParams';
-    error('cellpositions:fieldNotFound',errorMessage);
+if isstruct(VERTEX_params)==1
+    b=VERTEX_params.TissueParams;
 end
-if isfield(VERTEX_params.TissueParams,'somaPositionMat')~=1
-    errorMessage='TissueParams must contain the field named somaPositionMat';
-    error('cellpositions:fieldNotFound',errorMessage);
+
+if iscell(VERTEX_params)==1
+    b=VERTEX_params{1};
 end
-Position_mat=VERTEX_params.TissueParams.somaPositionMat;
+
+Position_mat=b.somaPositionMat;
 Formatted_data=[round(Position_mat(:,4)');Position_mat(:,1)';Position_mat(:,2)';Position_mat(:,3)'];
 t=sprintf('%s%s.txt',directory,filename);
 fileID=fopen(t,'w');
-for i=1:VERTEX_params.TissueParams.numGroups
-    Index_vector=(VERTEX_params.TissueParams.groupBoundaryIDArr(i)+1):VERTEX_params.TissueParams.groupBoundaryIDArr(i+1);
+for i=1:b.numGroups
+    Index_vector=(b.groupBoundaryIDArr(i)+1):b.groupBoundaryIDArr(i+1);
     if isempty(Index_vector)==1
-        population_heading=sprintf('<population id="%d">',i-1);
+        population_heading=sprintf('<population id="%d">',i);
         fprintf(fileID,'%s\r\n',population_heading);
         fprintf(fileID,'%s\r\n','population is empty');
         fprintf(fileID,'%s\r\n\r\n','</population>');
@@ -30,7 +30,7 @@ for i=1:VERTEX_params.TissueParams.numGroups
         population_data=Formatted_data(:,Index_vector(1):Index_vector(end));
         dim=size(population_data);
         population_data(1,:)=0:1:dim(2)-1; %normalize the indexing so that it is compatible with neuroml
-        population_heading=sprintf('<population id="%d">',i-1);
+        population_heading=sprintf('<population id="%d">',i);
         fprintf(fileID,'%s\r\n',population_heading);
         for j=1:dim(2)
             instance_tag=sprintf('  <instance id="%d">',population_data(1,j));

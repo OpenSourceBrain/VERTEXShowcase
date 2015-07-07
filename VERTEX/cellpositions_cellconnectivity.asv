@@ -1,4 +1,4 @@
-function cellpositions_cellconnectivity(VERTEX_params,network_id,component_array,directory,filename)
+function cellpositions_cellconnectivity(VERTEX_params,network_id,directory,filename)
 
 Formatted_data=cellpositions(VERTEX_params,'soma_matrix');
 
@@ -28,7 +28,7 @@ for i=1:b.numGroups
         population_data(1,:)=0:1:dim(2)-1;
         population=docNode.createElement('population');
         population.setAttribute('id',sprintf('%d',i-1));
-        population.setAttribute('component',sprintf('%s',component_array{i}));
+        
         network.appendChild(population);
         for j=1:dim(2)
             instance=docNode.createElement('instance');

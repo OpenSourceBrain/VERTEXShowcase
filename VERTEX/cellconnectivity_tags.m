@@ -21,7 +21,7 @@ for i=1:b
     if isempty(Index_vector)~=1
         for j=1:b
             
-            Index_array{i,j}=find(ID_Matrix(4,start:group_boundaries(Index_vector(end)))==j-1);
+            Index_array{i,j}=find(ID_Matrix(4,start:group_boundaries(Index_vector(end)))==j);
             
         end
         start=group_boundaries(Index_vector(end))+1;
@@ -40,7 +40,7 @@ for i=1:b
     if isempty(Group_members{1,i})~=1
         for j=1:b
             if isempty(Index_array{i,j})~=1
-                projection_tag=sprintf('<projection id="%d" presynapticPopulation="%d" postsynapticPopulation="%d">',projection_counter,i-1,j-1);
+                projection_tag=sprintf('<projection id="%d" presynapticPopulation="%d" postsynapticPopulation="%d">',projection_counter,i,j);
                 fprintf(fileID,'%s\r\n',projection_tag);
                 No_of_connections=length(Index_array{i,j});
                 projection_data=ID_Matrix(:,[Index_array{i,j}]);
