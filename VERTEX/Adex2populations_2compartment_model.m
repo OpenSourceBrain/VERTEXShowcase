@@ -148,4 +148,5 @@ ylabel('Membrane potential (mV)', 'FontSize', 16)
 cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
 cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
 [ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity_tags');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity_tags');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_2comp',{'pyr_23layer','basket_inter'},RecordingSettings.saveDir,'Adex2pop_2comp_model');

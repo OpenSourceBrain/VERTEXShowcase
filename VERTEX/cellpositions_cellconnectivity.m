@@ -1,7 +1,8 @@
-function cellpositions_cellconnectivity(VERTEX_params,network_id,component_array,directory,filename)
+function cellpositions_cellconnectivity(VERTEX_params,connections,network_id,component_array,directory,filename)
 
 Formatted_data=cellpositions(VERTEX_params,'soma_matrix');
-
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,VERTEX_params,'ID_Matrix+group_boundaries');
+[Group_members, Index_array]=cellconnectivity_tags(VERTEX_params,ID_Matrix,group_boundaries,'arrays');
 if isstruct(VERTEX_params)==1
     b=VERTEX_params.TissueParams;
 end
@@ -27,7 +28,7 @@ for i=1:b.numGroups
         dim=size(population_data);
         population_data(1,:)=0:1:dim(2)-1;
         population=docNode.createElement('population');
-        population.setAttribute('id',sprintf('%d',i-1));
+        population.setAttribute('id',sprintf('%d',i));
         population.setAttribute('component',sprintf('%s',component_array{i}));
         network.appendChild(population);
         for j=1:dim(2)
@@ -44,7 +45,37 @@ for i=1:b.numGroups
     end
     
 end
-t=sprintf('%s%s.nml',directory,filename);
+projection_counter=0;
+for i=1:b.numGroups
+    if isempty(Group_members{1,i})~=1
+        for j=1:b.numGroups
+            if isempty(Index_array{i,j})~=1
+                projection=docNode.createElement('projection');
+                projection.setAttribute('id',sprintf('%d',projection_counter));
+                projection.setAttribute('presynapticPopulation',sprintf('%d',i));
+                projection.setAttribute('postsynapticPopulation',sprintf('%d',j));
+                projection.setAttribute('synapse',sprintf('%s','i_exp'));
+                network.appendChild(projection);
+                No_of_connections=length(Index_array{i,j});
+                projection_data=ID_Matrix(:,[Index_array{i,j}]);
+                for k=1:No_of_connections
+                    connection=docNode.createElement('connection');
+                    connection.setAttribute('id',sprintf('%d',k-1));
+                    connection.setAttribute('preCellId',sprintf('../%d/%d/%s',i,projection_data(1,k),component_array{i}));
+                    connection.setAttribute('postCellId',sprintf('../%d/%d/%s',j,projection_data(3,k),component_array{j}));
+                    connection.setAttribute('postSegmentId',sprintf('%d',projection_data(5,k)));
+                    projection.appendChild(connection);
+                end
+                
+                projection_counter=projection_counter+1;
+            end
+        end
+    
+    end
+    
+    
+end
+t=sprintf('%s%s.net.nml',directory,filename);
 xmlwrite(t,docNode);
 edit(t);
 

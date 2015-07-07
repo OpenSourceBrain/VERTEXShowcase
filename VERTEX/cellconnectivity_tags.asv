@@ -32,13 +32,10 @@ for i=1:b
         for j=1:b
             if i==1
                 start=1;
-                Index_array{i,j}=find(ID_Matrix(4,start:group_boundaries(Group_members{1,i}(end)))==j);
             else
-                start=(group_boundaries(Group_members{1,i-1}(end))+1);
-                Index_array{i,j}=find(ID_Matrix(4,start:group_boundaries(Group_members{1,i}(end)))==j);
-                Index_array{i,j}=Index_array{i,j}+group_boundaries(Group_members{1,i-1}(end));
+                start=
             end
-            
+            Index_array{i,j}=find(ID_Matrix(4,start:group_boundaries(Group_members{1,i}(end)))==j);
             
         end
         
