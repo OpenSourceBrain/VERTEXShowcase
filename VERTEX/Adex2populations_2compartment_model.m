@@ -145,7 +145,7 @@ title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
 % create txt files containing cell positions and cellconnectivity
-cellpositions(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
+cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
 cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
 [ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
 cellconnectivity_tags(params,ID_Matrix,group_boundaries,RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity_tags');
