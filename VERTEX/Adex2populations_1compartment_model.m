@@ -103,7 +103,7 @@ ConnectionParams(2).axonArborRadius = 100;
 ConnectionParams(2).axonArborLimit = 200;
 ConnectionParams(2).axonConductionSpeed = 0.3;
 ConnectionParams(2).synapseReleaseDelay = 0.5;
-RecordingSettings.saveDir='results';
+RecordingSettings.saveDir='results\';
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:1:10;
 RecordingSettings.maxRecTime = 100;
@@ -134,4 +134,8 @@ set(gca,'FontSize',16)
 title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
-          
+cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_cellpositions'); 
+cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_cellpositions_tags');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_cellconnectivity_tags');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp',{'pyr_23layer','basket_inter'},RecordingSettings.saveDir,'Adex2pop_1comp_model');          
