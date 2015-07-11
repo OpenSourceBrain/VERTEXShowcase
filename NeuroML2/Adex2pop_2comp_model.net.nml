@@ -39,102 +39,102 @@
          </instance>
       </population>
       <projection id="0" postsynapticPopulation="1" presynapticPopulation="1" synapse="g_exp">
-         <connection id="0" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="1" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="2" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="3" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="4" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="5" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="6" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="7" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="8" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="9" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="10" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="11" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="12" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="13" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="14" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="15" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="16" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="17" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="18" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="19" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
+         <connection id="0" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="1" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="2" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="3" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="4" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="5" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="6" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="7" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="8" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="9" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="10" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="11" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="12" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="13" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="14" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="15" postCellId="../1/4/pyr_23layer" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="16" postCellId="../1/0/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="17" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="18" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="19" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
       </projection>
       <projection id="1" postsynapticPopulation="2" presynapticPopulation="1" synapse="g_exp">
-         <connection id="0" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="1" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="2" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="3" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="4" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer"/>
-         <connection id="5" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="6" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="7" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="8" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="9" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer"/>
-         <connection id="10" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="11" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="12" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="13" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="14" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer"/>
-         <connection id="15" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="16" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="17" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="18" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="19" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer"/>
-         <connection id="20" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="21" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="22" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="23" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
-         <connection id="24" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer"/>
+         <connection id="0" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="1" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="2" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="3" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="4" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
+         <connection id="5" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="6" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="7" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="8" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="9" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/1/pyr_23layer" preSegmentId="0"/>
+         <connection id="10" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="11" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="12" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="13" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="14" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/2/pyr_23layer" preSegmentId="0"/>
+         <connection id="15" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="16" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="17" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="18" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="19" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/3/pyr_23layer" preSegmentId="0"/>
+         <connection id="20" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="21" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="22" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="23" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
+         <connection id="24" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
       </projection>
       <projection id="2" postsynapticPopulation="1" presynapticPopulation="2" synapse="g_exp">
-         <connection id="0" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter"/>
-         <connection id="1" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter"/>
-         <connection id="2" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter"/>
-         <connection id="3" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter"/>
-         <connection id="4" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter"/>
-         <connection id="5" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter"/>
-         <connection id="6" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter"/>
-         <connection id="7" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter"/>
-         <connection id="8" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter"/>
-         <connection id="9" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter"/>
-         <connection id="10" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter"/>
-         <connection id="11" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter"/>
-         <connection id="12" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter"/>
-         <connection id="13" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter"/>
-         <connection id="14" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter"/>
-         <connection id="15" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter"/>
-         <connection id="16" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter"/>
-         <connection id="17" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter"/>
-         <connection id="18" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter"/>
-         <connection id="19" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter"/>
-         <connection id="20" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter"/>
-         <connection id="21" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter"/>
-         <connection id="22" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter"/>
-         <connection id="23" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter"/>
-         <connection id="24" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter"/>
+         <connection id="0" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="1" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="2" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="3" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="4" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="5" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="6" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="7" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="8" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="9" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="10" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="11" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="12" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="13" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="14" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="15" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="16" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="17" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="18" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="19" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="20" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="21" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="22" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="23" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="24" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
       </projection>
       <projection id="3" postsynapticPopulation="2" presynapticPopulation="2" synapse="g_exp">
-         <connection id="0" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter"/>
-         <connection id="1" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter"/>
-         <connection id="2" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter"/>
-         <connection id="3" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter"/>
-         <connection id="4" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter"/>
-         <connection id="5" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter"/>
-         <connection id="6" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter"/>
-         <connection id="7" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter"/>
-         <connection id="8" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter"/>
-         <connection id="9" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter"/>
-         <connection id="10" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter"/>
-         <connection id="11" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter"/>
-         <connection id="12" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter"/>
-         <connection id="13" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter"/>
-         <connection id="14" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter"/>
-         <connection id="15" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter"/>
-         <connection id="16" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter"/>
-         <connection id="17" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter"/>
-         <connection id="18" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter"/>
-         <connection id="19" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter"/>
+         <connection id="0" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="1" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="2" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="3" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
+         <connection id="4" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="5" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="6" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="7" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/6/basket_inter" preSegmentId="0"/>
+         <connection id="8" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="9" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="10" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="11" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/7/basket_inter" preSegmentId="0"/>
+         <connection id="12" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="13" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="14" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="15" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../2/8/basket_inter" preSegmentId="0"/>
+         <connection id="16" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="17" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="18" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter" preSegmentId="0"/>
+         <connection id="19" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/9/basket_inter" preSegmentId="0"/>
       </projection>
    </network>
 </neuroml>
