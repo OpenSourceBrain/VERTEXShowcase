@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="i_exp" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   <expOneSynapse erev="0.0V" gbase="30e-9S" id="i_exp" tauDecay="0.001s"/>
+</neuroml>
