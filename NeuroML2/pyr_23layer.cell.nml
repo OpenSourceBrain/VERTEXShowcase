@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="pyr_23layer" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   <cell id="pyr_23layer">
+      <morphology id="morphology_pyr_23layer">
+         <segment id="0">
+            <proximal diameter="29.800000" x="0.000000" y="0.000000" z="-13.000000"/>
+            <distal diameter="29.800000" x="0.000000" y="0.000000" z="0.000000"/>
+         </segment>
+         <segment id="1">
+            <parent segment="0"/>
+            <proximal diameter="3.750000" x="0.000000" y="0.000000" z="0.000000"/>
+            <distal diameter="3.750000" x="0.000000" y="0.000000" z="48.000000"/>
+         </segment>
+      </morphology>
+   </cell>
+</neuroml>

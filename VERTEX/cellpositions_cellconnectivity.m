@@ -18,6 +18,11 @@ neuroml.setAttribute('xmlns','http://www.neuroml.org/schema/neuroml2');
 neuroml.setAttribute('xmlns:xsi','http://www.w3.org/2001/XMLSchema-instance');
 neuroml.setAttribute('xsi:schemaLocation','http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd');
 neuroml.setAttribute('id',sprintf('%s',network_id));
+for l=1:length(component_array)
+    include=docNode.createElement('include');
+    include.setAttribute('href',sprintf('%s.cell.nml',component_array{l}));
+    neuroml.appendChild(include);
+end
 network=docNode.createElement('network');
 network.setAttribute('id',sprintf('%s',network_id));
 neuroml.appendChild(network);

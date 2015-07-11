@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Adex2pop_2comp" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   <include href="pyr_23layer.cell.nml"/>
+   <include href="basket_inter.cell.nml"/>
    <network id="Adex2pop_2comp">
       <population component="pyr_23layer" id="1">
          <instance id="0">
