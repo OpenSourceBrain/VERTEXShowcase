@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+<!--
+Rot z: 0.0, rot y: 90.0 of: Rot z: 90.0, rot y: 0.0 of: Rot z: 0.0, rot y: 90.0 of: Cell: pyr_23layer
+[ 0, 0, 65, 126 ]
+-->
+    <rect x="0.0" y="0.0" width="65.0" height="126.0" style="fill:none;stroke:black;stroke-width:1;"/>
+    <line x1="20.0" y1="81.0" x2="20.0" y2="68.0" style="stroke:rgb(100,100,100);stroke-width:30.0"/>
+    <line x1="20.0" y1="68.0" x2="20.000000000000004" y2="20.0" style="stroke:rgb(100,100,100);stroke-width:4.0"/>
+    <line x1="45.0" y1="106.0" x2="35.0" y2="106.0" style="stroke:green;stroke-width:1.0"/>
+    <circle cx="45.0" cy="106.0" r="0.5" stroke-width="0" fill="yellow"/>
+    <line x1="45.0" y1="106.0" x2="45.0" y2="96.0" style="stroke:red;stroke-width:1.0"/>
+<!--
+Rot z: -10.0, rot y: -20.0 of: Cell: pyr_23layer
+[ 65, 0, 99, 74 ]
+-->
+    <rect x="65.0" y="0.0" width="99.0" height="74.0" style="fill:none;stroke:black;stroke-width:1;"/>
+    <line x1="122.87615637299" y1="37.37683896018707" x2="118.42989450975631" y2="37.37683896018707" style="stroke:rgb(100,100,100);stroke-width:30.0"/>
+    <line x1="118.42989450975631" y1="37.37683896018707" x2="102.01292763012421" y2="37.37683896018707" style="stroke:rgb(100,100,100);stroke-width:4.0"/>
+    <line x1="111.67757117940216" y1="49.544232590366235" x2="139.44006853135187" y2="54.753677920374145" style="stroke:green;stroke-width:0.5"/>
+    <line x1="116.5728485143982" y1="20.0" x2="144.3353458663479" y2="25.20944533000791" style="stroke:green;stroke-width:0.5"/>
+    <line x1="89.89527733499605" y1="20.0" x2="117.65777468694574" y2="25.20944533000791" style="stroke:green;stroke-width:0.5"/>
+    <line x1="85.0" y1="49.544232590366235" x2="112.7624973519497" y2="54.753677920374145" style="stroke:green;stroke-width:0.5"/>
+    <line x1="111.67757117940216" y1="49.544232590366235" x2="116.5728485143982" y2="20.0" style="stroke:yellow;stroke-width:0.5"/>
+    <line x1="139.44006853135187" y1="54.753677920374145" x2="144.3353458663479" y2="25.20944533000791" style="stroke:yellow;stroke-width:0.5"/>
+    <line x1="85.0" y1="49.544232590366235" x2="89.89527733499605" y2="20.0" style="stroke:yellow;stroke-width:0.5"/>
+    <line x1="112.7624973519497" y1="54.753677920374145" x2="117.65777468694574" y2="25.20944533000791" style="stroke:yellow;stroke-width:0.5"/>
+    <line x1="111.67757117940216" y1="49.544232590366235" x2="85.0" y2="49.544232590366235" style="stroke:red;stroke-width:0.5"/>
+    <line x1="139.44006853135187" y1="54.753677920374145" x2="112.7624973519497" y2="54.753677920374145" style="stroke:red;stroke-width:0.5"/>
+    <line x1="116.5728485143982" y1="20.0" x2="89.89527733499605" y2="20.0" style="stroke:red;stroke-width:0.5"/>
+    <line x1="144.3353458663479" y1="25.20944533000791" x2="117.65777468694574" y2="25.20944533000791" style="stroke:red;stroke-width:0.5"/>
+<!--
+Rot z: 0.0, rot y: 90.0 of: Cell: pyr_23layer
+[ 65, 74, 126, 65 ]
+-->
+    <rect x="65.0" y="74.0" width="126.0" height="65.0" style="fill:none;stroke:black;stroke-width:1;"/>
+    <line x1="110.0" y1="94.0" x2="123.0" y2="94.0" style="stroke:rgb(100,100,100);stroke-width:30.0"/>
+    <line x1="123.0" y1="94.0" x2="171.0" y2="94.0" style="stroke:rgb(100,100,100);stroke-width:4.0"/>
+    <circle cx="85.0" cy="119.0" r="0.5" stroke-width="0" fill="green"/>
+    <line x1="85.0" y1="119.0" x2="85.0" y2="109.0" style="stroke:yellow;stroke-width:1.0"/>
+    <line x1="85.0" y1="119.0" x2="95.0" y2="119.0" style="stroke:red;stroke-width:1.0"/>
+<!--
+Rot z: 0.0, rot y: 0.0 of: Cell: pyr_23layer
+[ 0, 126, 65, 65 ]
+-->
+    <rect x="0.0" y="126.0" width="65.0" height="65.0" style="fill:none;stroke:black;stroke-width:1;"/>
+    <circle cx="45.0" cy="146.0" r="15.0" stroke-width="0" fill="rgb(100,100,100)"/>
+    <circle cx="45.0" cy="146.0" r="2.0" stroke-width="0" fill="rgb(100,100,100)"/>
+    <line x1="20.0" y1="171.0" x2="30.0" y2="171.0" style="stroke:green;stroke-width:1.0"/>
+    <line x1="20.0" y1="171.0" x2="20.0" y2="161.0" style="stroke:yellow;stroke-width:1.0"/>
+    <circle cx="20.0" cy="171.0" r="0.5" stroke-width="0" fill="red"/>
+</svg>

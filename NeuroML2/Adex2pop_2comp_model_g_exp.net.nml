@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Adex2pop_2comp" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Adex2pop_2comp_g_exp" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
    <include href="pyr_23layer.cell.nml"/>
    <include href="basket_inter.cell.nml"/>
-   <include href="i_exp.synapse.nml"/>
-   <network id="Adex2pop_2comp">
+   <include href="g_exp.synapse.nml"/>
+   <network id="Adex2pop_2comp_g_exp">
       <population component="pyr_23layer" id="1">
          <instance id="0">
             <location x="17.411730" y="33.848517" z="13.136440"/>
@@ -38,7 +38,7 @@
             <location x="213.295690" y="57.795471" z="7.380478"/>
          </instance>
       </population>
-      <projection id="0" postsynapticPopulation="1" presynapticPopulation="1" synapse="i_exp">
+      <projection id="0" postsynapticPopulation="1" presynapticPopulation="1" synapse="g_exp">
          <connection id="0" postCellId="../1/1/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
          <connection id="1" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
          <connection id="2" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
@@ -60,7 +60,7 @@
          <connection id="18" postCellId="../1/2/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
          <connection id="19" postCellId="../1/3/pyr_23layer" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
       </projection>
-      <projection id="1" postsynapticPopulation="2" presynapticPopulation="1" synapse="i_exp">
+      <projection id="1" postsynapticPopulation="2" presynapticPopulation="1" synapse="g_exp">
          <connection id="0" postCellId="../2/5/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
          <connection id="1" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
          <connection id="2" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../1/0/pyr_23layer" preSegmentId="0"/>
@@ -87,7 +87,7 @@
          <connection id="23" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
          <connection id="24" postCellId="../2/9/basket_inter" postSegmentId="1" preCellId="../1/4/pyr_23layer" preSegmentId="0"/>
       </projection>
-      <projection id="2" postsynapticPopulation="1" presynapticPopulation="2" synapse="i_exp">
+      <projection id="2" postsynapticPopulation="1" presynapticPopulation="2" synapse="g_exp">
          <connection id="0" postCellId="../1/0/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
          <connection id="1" postCellId="../1/1/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
          <connection id="2" postCellId="../1/2/pyr_23layer" postSegmentId="0" preCellId="../2/5/basket_inter" preSegmentId="0"/>
@@ -114,7 +114,7 @@
          <connection id="23" postCellId="../1/3/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
          <connection id="24" postCellId="../1/4/pyr_23layer" postSegmentId="0" preCellId="../2/9/basket_inter" preSegmentId="0"/>
       </projection>
-      <projection id="3" postsynapticPopulation="2" presynapticPopulation="2" synapse="i_exp">
+      <projection id="3" postsynapticPopulation="2" presynapticPopulation="2" synapse="g_exp">
          <connection id="0" postCellId="../2/6/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
          <connection id="1" postCellId="../2/7/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>
          <connection id="2" postCellId="../2/8/basket_inter" postSegmentId="1" preCellId="../2/5/basket_inter" preSegmentId="0"/>

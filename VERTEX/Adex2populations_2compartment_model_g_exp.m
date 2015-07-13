@@ -82,15 +82,17 @@ NeuronParams(2).Input(1).tau = 0.8;
 NeuronParams(2).Input(1).stdInput = 50;
 
 ConnectionParams(1).numConnectionsToAllFromOne{1} = 4;
-ConnectionParams(1).synapseType{1} = 'i_exp';
+ConnectionParams(1).synapseType{1} = 'g_exp';
 ConnectionParams(1).targetCompartments{1} =NeuronParams(1).dendritesID;
 ConnectionParams(1).weights{1} = 1;
 ConnectionParams(1).tau{1} = 2;
+ConnectionParams(1).E_reversal{1}=0;
 ConnectionParams(1).numConnectionsToAllFromOne{2} = 5;
-ConnectionParams(1).synapseType{2} = 'i_exp';
+ConnectionParams(1).synapseType{2} = 'g_exp';
 ConnectionParams(1).targetCompartments{2} =NeuronParams(2).dendritesID;
 ConnectionParams(1).weights{2} = 28;
 ConnectionParams(1).tau{2} = 1;
+ConnectionParams(1).E_reversal{2}=0;
 ConnectionParams(1).axonArborSpatialModel = 'gaussian';
 ConnectionParams(1).sliceSynapses = false;
 ConnectionParams(1).axonArborRadius = 100;
@@ -98,15 +100,17 @@ ConnectionParams(1).axonArborLimit = 200;
 ConnectionParams(1).axonConductionSpeed = 0.3;
 ConnectionParams(1).synapseReleaseDelay = 0.5;
 ConnectionParams(2).numConnectionsToAllFromOne{1} = 5;
-ConnectionParams(2).synapseType{1} = 'i_exp';
+ConnectionParams(2).synapseType{1} = 'g_exp';
 ConnectionParams(2).targetCompartments{1} = NeuronParams(1).somaID;
 ConnectionParams(2).weights{1} = -5;
 ConnectionParams(2).tau{1} = 6;
+ConnectionParams(2).E_reversal{1}=-75;
 ConnectionParams(2).numConnectionsToAllFromOne{2} = 4;
-ConnectionParams(2).synapseType{2} = 'i_exp';
+ConnectionParams(2).synapseType{2} = 'g_exp';
 ConnectionParams(2).targetCompartments{2} =NeuronParams(2).dendritesID;
 ConnectionParams(2).weights{2} = -4;
 ConnectionParams(2).tau{2} = 3;
+ConnectionParams(2).E_reversal{2}=-75;
 ConnectionParams(2).axonArborSpatialModel = 'gaussian';
 ConnectionParams(2).sliceSynapses = false;
 ConnectionParams(2).axonArborRadius = 100;
@@ -145,9 +149,9 @@ title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
 % create txt files containing cell positions and cellconnectivity
-cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions'); 
-cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_cellpositions_tags');
-[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_cellconnectivity_tags');
+cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellpositions'); 
+cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellpositions_tags');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellconnectivity_tags');
 cell_components=cell_morphology(params,{'pyr_23layer','basket_inter'},'all',RecordingSettings.saveDir);
-cellpositions_cellconnectivity(params,connections,'Adex2pop_2comp',cell_components,RecordingSettings.saveDir,'Adex2pop_2comp_model');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_2comp_g_exp',cell_components,RecordingSettings.saveDir,'Adex2pop_2comp_model_g_exp');

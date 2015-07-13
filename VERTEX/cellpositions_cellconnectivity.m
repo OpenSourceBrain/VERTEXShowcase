@@ -3,6 +3,7 @@ function cellpositions_cellconnectivity(VERTEX_params,connections,network_id,com
 Formatted_data=cellpositions(VERTEX_params,'soma_matrix');
 [ID_Matrix, group_boundaries]=cellconnectivity(connections,VERTEX_params,'ID_Matrix+group_boundaries');
 [Group_members, Index_array]=cellconnectivity_tags(VERTEX_params,ID_Matrix,group_boundaries,'arrays');
+synapse_types=synapse_parameters_export(VERTEX_params);
 if isstruct(VERTEX_params)==1
     b=VERTEX_params.TissueParams;
 end
@@ -21,6 +22,12 @@ neuroml.setAttribute('id',sprintf('%s',network_id));
 for l=1:length(component_array)
     include=docNode.createElement('include');
     include.setAttribute('href',sprintf('%s.cell.nml',component_array{l}));
+    neuroml.appendChild(include);
+end
+unique_types=unique(synapse_types);
+for l=1:length(unique_types)
+    include=docNode.createElement('include');
+    include.setAttribute('href',sprintf('%s.synapse.nml',unique_types{l}));
     neuroml.appendChild(include);
 end
 network=docNode.createElement('network');
@@ -59,7 +66,7 @@ for i=1:b.numGroups
                 projection.setAttribute('id',sprintf('%d',projection_counter));
                 projection.setAttribute('presynapticPopulation',sprintf('%d',i));
                 projection.setAttribute('postsynapticPopulation',sprintf('%d',j));
-                projection.setAttribute('synapse',sprintf('%s','i_exp'));
+                projection.setAttribute('synapse',sprintf('%s',synapse_types{i,j}));
                 network.appendChild(projection);
                 No_of_connections=length(Index_array{i,j});
                 projection_data=ID_Matrix(:,[Index_array{i,j}]);
@@ -69,6 +76,7 @@ for i=1:b.numGroups
                     connection.setAttribute('preCellId',sprintf('../%d/%d/%s',i,projection_data(1,k),component_array{i}));
                     connection.setAttribute('postCellId',sprintf('../%d/%d/%s',j,projection_data(3,k),component_array{j}));
                     connection.setAttribute('postSegmentId',sprintf('%d',projection_data(5,k)));
+                    connection.setAttribute('preSegmentId','0');
                     projection.appendChild(connection);
                 end
                 
