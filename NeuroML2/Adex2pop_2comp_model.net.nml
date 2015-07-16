@@ -43,7 +43,13 @@
          
 
       </projection>
-      
+      <projection id="1" postsynapticPopulation="pop2" presynapticPopulation="pop1" synapse="i_exp">
+         <connection id="0" postCellId="../pop2/1/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
+         <connection id="1" postCellId="../pop2/2/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
+         <connection id="2" postCellId="../pop2/3/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
+
+      </projection>
+     
 
    </network>
 </neuroml>
