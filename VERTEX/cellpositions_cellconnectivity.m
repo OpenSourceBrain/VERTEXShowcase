@@ -11,7 +11,21 @@ end
 if iscell(VERTEX_params)==1
     b=VERTEX_params{1};
 end
-
+% change original ID_Matrix used for cellconnectivity.txt to make sure it
+% is compatible with indexing of cell instances.
+for y=1:length(Group_members)
+    if isempty(Group_members{1,y})~=1
+       for k=1:length(Group_members{1,y})
+           index_vector1= find(ID_Matrix(1,:)==Group_members{1,y}(k)-1);
+           index_vector2=find(ID_Matrix(3,:)==Group_members{1,y}(k)-1);
+           ID_Matrix(1,index_vector1)=k-1;
+           ID_Matrix(3,index_vector2)=k-1;
+           
+           
+       end
+    
+    end
+end
 
 docNode=com.mathworks.xml.XMLUtils.createDocument('neuroml');
 neuroml=docNode.getDocumentElement;
@@ -35,13 +49,16 @@ network.setAttribute('id',sprintf('%s',network_id));
 neuroml.appendChild(network);
 for i=1:b.numGroups
     Index_vector=(b.groupBoundaryIDArr(i)+1):b.groupBoundaryIDArr(i+1);
+    population_size=length(Index_vector);
     if isempty(Index_vector)~=1
         population_data=Formatted_data(:,Index_vector(1):Index_vector(end));
         dim=size(population_data);
         population_data(1,:)=0:1:dim(2)-1;
         population=docNode.createElement('population');
-        population.setAttribute('id',sprintf('%d',i));
+        population.setAttribute('id',sprintf('pop%d',i));
         population.setAttribute('component',sprintf('%s',component_array{i}));
+        population.setAttribute('type','populationList');
+        population.setAttribute('size',sprintf('%d',population_size));
         network.appendChild(population);
         for j=1:dim(2)
             instance=docNode.createElement('instance');
@@ -64,8 +81,8 @@ for i=1:b.numGroups
             if isempty(Index_array{i,j})~=1
                 projection=docNode.createElement('projection');
                 projection.setAttribute('id',sprintf('%d',projection_counter));
-                projection.setAttribute('presynapticPopulation',sprintf('%d',i));
-                projection.setAttribute('postsynapticPopulation',sprintf('%d',j));
+                projection.setAttribute('presynapticPopulation',sprintf('pop%d',i));
+                projection.setAttribute('postsynapticPopulation',sprintf('pop%d',j));
                 projection.setAttribute('synapse',sprintf('%s',synapse_types{i,j}));
                 network.appendChild(projection);
                 No_of_connections=length(Index_array{i,j});
@@ -73,8 +90,8 @@ for i=1:b.numGroups
                 for k=1:No_of_connections
                     connection=docNode.createElement('connection');
                     connection.setAttribute('id',sprintf('%d',k-1));
-                    connection.setAttribute('preCellId',sprintf('../%d/%d/%s',i,projection_data(1,k),component_array{i}));
-                    connection.setAttribute('postCellId',sprintf('../%d/%d/%s',j,projection_data(3,k),component_array{j}));
+                    connection.setAttribute('preCellId',sprintf('../pop%d/%d/%s',i,projection_data(1,k),component_array{i}));
+                    connection.setAttribute('postCellId',sprintf('../pop%d/%d/%s',j,projection_data(3,k),component_array{j}));
                     connection.setAttribute('postSegmentId',sprintf('%d',projection_data(5,k)));
                     connection.setAttribute('preSegmentId','0');
                     projection.appendChild(connection);
