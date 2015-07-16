@@ -38,7 +38,7 @@
             <location x="213.295690" y="57.795471" z="7.380478"/>
          </instance>
       </population>
-      <projection id="0" postsynapticPopulation="1" presynapticPopulation="1" synapse="i_exp">
+      <projection id="0" postsynapticPopulation="pop1" presynapticPopulation="pop1" synapse="i_exp">
          <connection id="0" postCellId="../pop1/1/pyr_23layer" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="1" postCellId="../pop1/2/pyr_23layer" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="2" postCellId="../pop1/3/pyr_23layer" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
@@ -60,7 +60,7 @@
          <connection id="18" postCellId="../pop1/2/pyr_23layer" postSegmentId="1" preCellId="../pop1/4/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="19" postCellId="../pop1/3/pyr_23layer" postSegmentId="1" preCellId="../pop1/4/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
       </projection>
-      <projection id="1" postsynapticPopulation="2" presynapticPopulation="1" synapse="i_exp">
+      <projection id="1" postsynapticPopulation="pop2" presynapticPopulation="pop1" synapse="i_exp">
          <connection id="0" postCellId="../pop2/5/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="1" postCellId="../pop2/6/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="2" postCellId="../pop2/7/basket_inter" postSegmentId="1" preCellId="../pop1/0/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
@@ -87,7 +87,7 @@
          <connection id="23" postCellId="../pop2/8/basket_inter" postSegmentId="1" preCellId="../pop1/4/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="24" postCellId="../pop2/9/basket_inter" postSegmentId="1" preCellId="../pop1/4/pyr_23layer" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
       </projection>
-      <projection id="2" postsynapticPopulation="1" presynapticPopulation="2" synapse="i_exp">
+      <projection id="2" postsynapticPopulation="pop1" presynapticPopulation="pop2" synapse="i_exp">
          <connection id="0" postCellId="../pop1/0/pyr_23layer" postSegmentId="0" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="1" postCellId="../pop1/1/pyr_23layer" postSegmentId="0" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="2" postCellId="../pop1/2/pyr_23layer" postSegmentId="0" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
@@ -114,7 +114,7 @@
          <connection id="23" postCellId="../pop1/3/pyr_23layer" postSegmentId="0" preCellId="../pop2/9/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="24" postCellId="../pop1/4/pyr_23layer" postSegmentId="0" preCellId="../pop2/9/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
       </projection>
-      <projection id="3" postsynapticPopulation="2" presynapticPopulation="2" synapse="i_exp">
+      <projection id="3" postsynapticPopulation="pop2" presynapticPopulation="pop2" synapse="i_exp">
          <connection id="0" postCellId="../pop2/6/basket_inter" postSegmentId="1" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="1" postCellId="../pop2/7/basket_inter" postSegmentId="1" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
          <connection id="2" postCellId="../pop2/8/basket_inter" postSegmentId="1" preCellId="../pop2/5/basket_inter" preSegmentId="0" preFractionAlong="0.5" postFractionAlong="0.5"/>
