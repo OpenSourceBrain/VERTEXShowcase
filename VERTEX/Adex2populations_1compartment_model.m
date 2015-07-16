@@ -138,4 +138,5 @@ cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_cellpositio
 cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_cellpositions_tags');
 [ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_cellconnectivity');
 cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_cellconnectivity_tags');
-cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp',{'pyr_23layer','basket_inter'},RecordingSettings.saveDir,'Adex2pop_1comp_model');          
+cell_components=cell_morphology(params,{'pyr_23layer_1comp','basket_inter_1comp'},'all',RecordingSettings.saveDir);
+cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_model');          
