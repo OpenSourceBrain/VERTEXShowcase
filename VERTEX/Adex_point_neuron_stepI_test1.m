@@ -53,7 +53,7 @@ ConnectionParams(1).axonConductionSpeed = 0.3;
 ConnectionParams(1).synapseReleaseDelay = 0.5;
 
 
-RecordingSettings.saveDir='results\';
+RecordingSettings.saveDir='Adex_1comp_results_test1\'; % change this for other simulations
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1;
 RecordingSettings.maxRecTime = 100;
@@ -66,21 +66,9 @@ SimulationSettings.parallelSim = false;
 % run simulation
 runSimulation(params,connections,electrodes);
 
-% Visualize results
+% conversion to LEMS
+cells_to_display={0};
+VERTEX_Adex_1comp_to_LEMS(params,'C:\Users\Rokas\Documents\MATLAB\VERTEXproject\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_stepI_test1',cells_to_display);
+% load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
-subplot(1,2,1)
-plot(Results.spikes(:, 2), Results.spikes(:, 1), 'k.')
-axis([0 SimulationSettings.simulationTime 0 3])
-set(gcf,'color','w');
-set(gca,'YDir','reverse');
-set(gca,'FontSize',16)
-title('Spike raster', 'FontSize', 16)
-xlabel('Time (ms)', 'FontSize', 16)
-ylabel('Neuron ID', 'FontSize', 16)
-subplot(1,2,2)
-plot(Results.v_m(1, :), 'LineWidth', 2) 
-set(gcf,'color','w');
-set(gca,'FontSize',16)
-title('Membrane potential for neuron ID=1', 'FontSize', 16)
-xlabel('Time (ms)', 'FontSize', 16)
-ylabel('Membrane potential (mV)', 'FontSize', 16)
+% run LEMS model through the command line using jNeuroML

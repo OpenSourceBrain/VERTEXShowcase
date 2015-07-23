@@ -1,0 +1,63 @@
+<Lems>
+
+   
+    <Include file="Cells.xml"/>
+   
+    
+    <ComponentType name="VERTEX_Adex"
+        extends="baseCellMembPotCap"
+        description="VERTEX simulator version of the model based on Brette R and Gerstner W (2005) Adaptive Exponential Integrate-and-Fire Model as an Effective Description of Neuronal Activity. 
+        J Neurophysiol 94:3637-3642. The difference between VERTEX_Adex and adExIaFCell is that VERTEX_Adex does not
+        have a refractory period and two distinct dynamic regimes.">
+
+        <Parameter name="gL" dimension="conductance"/>
+        <Parameter name="EL" dimension="voltage"/>
+        <Parameter name="VT" dimension="voltage"/>
+        <Parameter name="reset" dimension="voltage"/>
+        <Parameter name="delT" dimension="voltage"/>
+        <Parameter name="tauw" dimension="time"/>
+        <Parameter name="v_cutoff" dimension="voltage"/>
+        <Parameter name="a" dimension="conductance"/>
+        <Parameter name="b" dimension="current"/>
+
+        <Attachments name="synapses" type="basePointCurrent"/>
+
+        <Exposure name="w" dimension="current"/>
+
+        <Dynamics>
+
+            <StateVariable name="v" dimension="voltage" exposure="v"/>
+            <StateVariable name="w" dimension="current" exposure="w"/>
+
+            <DerivedVariable name="iSyn" dimension="current" exposure="iSyn" select="synapses[*]/i" reduce="add" />
+            <DerivedVariable name="iMemb" dimension="current" exposure="iMemb" value="-1 * gL * (v - EL) + gL * delT * exp((v - VT) / delT) - w + iSyn"/>
+
+            <OnStart>
+                <StateAssignment variable="v" value="EL"/>
+                <StateAssignment variable="w" value="0"/>
+            </OnStart>
+
+                <TimeDerivative variable="v" value="iMemb / C"/>
+                <TimeDerivative variable="w" value="(a * (v - EL) - w) / tauw"/>
+
+                <OnCondition test="v .gt. v_cutoff">
+                    <EventOut port="spike"/>
+                    <StateAssignment variable="v" value="reset" />
+                    <StateAssignment variable="w" value="w + b"/>
+                </OnCondition>
+                
+                <OnCondition test="v .eq. v_cutoff">
+                    <EventOut port="spike"/>
+                    <StateAssignment variable="v" value="reset"/>
+                    <StateAssignment variable="w" value="w+b"/>
+                </OnCondition>
+
+           </Dynamics>
+
+    </ComponentType>
+    
+    
+           
+
+
+</Lems>
