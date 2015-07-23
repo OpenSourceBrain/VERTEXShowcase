@@ -53,7 +53,7 @@ ConnectionParams(1).axonConductionSpeed = 0.3;
 ConnectionParams(1).synapseReleaseDelay = 0.5;
 
 
-RecordingSettings.saveDir='Adex_1comp_results_test1\'; % change this for other simulations
+RecordingSettings.saveDir='Adex_1comp_results_test1/'; % change this for other simulations
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1;
 RecordingSettings.maxRecTime = 100;
@@ -68,7 +68,7 @@ runSimulation(params,connections,electrodes);
 
 % conversion to LEMS
 cells_to_display={0};
-VERTEX_Adex_1comp_to_LEMS(params,'C:\Users\Rokas\Documents\MATLAB\VERTEXproject\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_stepI_test1',cells_to_display);
+VERTEX_Adex_1comp_to_LEMS(params,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_stepI_test1',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
 % run LEMS model through the command line using jNeuroML
