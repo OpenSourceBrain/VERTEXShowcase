@@ -5,7 +5,7 @@
    <Include file="Networks.xml"/>
    <Include file="Simulation.xml"/>
    <Include file="Inputs.xml"/>
-   <Include file="C:\Users\Rokas\Documents\MATLAB\VERTEXproject\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml"/>
+   <Include file="~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml"/>
    <pulseGenerator amplitude="0.100000nA" delay="50.000000ms" duration="350.000000ms" id="pulse0"/>
    <pulseGenerator amplitude="0.150000nA" delay="50.000000ms" duration="350.000000ms" id="pulse1"/>
    <VERTEX_Adex C="36.024769pF" EL="-70.000000mV" VT="-50.000000mV" a="2.600000nS" b="0.200000nA" delT="2.000000mV" gL="1.801238nS" id="VERTEX_Adex_1comp_group_0" reset="-70.000000mV" tauw="50.000000ms" v_cutoff="-45.000000mV"/>
