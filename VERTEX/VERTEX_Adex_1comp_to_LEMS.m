@@ -1,4 +1,4 @@
-function VERTEX_Adex_1comp_to_LEMS(VERTEX_params,component_Type_path,Saving_directory,filename,display_save_array)
+function VERTEX_Adex_1comp_to_LEMS(VERTEX_params,connections,component_Type_path,Saving_directory,filename,display_save_array)
 
 %prepare parameters for conversion to LEMS
 Adex_params=VERTEX_Adex_1comp_model_export(VERTEX_params);
@@ -83,7 +83,7 @@ for j=1:length(Input_params)
     population.setAttribute('id',sprintf('pop%d',j-1));
     population.setAttribute('component',sprintf('VERTEX_Adex_1comp_group_%d',j-1));
     population.setAttribute('size',sprintf('%d',Tissue_params.groupSizeArr(j,1)));
-    % later include cell positions and morphology inside population element
+    
     network.appendChild(population);
     for i=1:Tissue_params.groupSizeArr(j,1)
         explicitInput=docNode.createElement('explicitInput');
@@ -93,8 +93,74 @@ for j=1:length(Input_params)
         network.appendChild(explicitInput);
         
     end
-    % later include synaptic connections
+    
 end
+
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,VERTEX_params,'ID_Matrix+group_boundaries');
+[Group_members, Index_array]=cellconnectivity_tags(VERTEX_params,ID_Matrix,group_boundaries,'arrays');
+[synapse_types,weights,tau,E_reversal]=synapse_parameters_export(VERTEX_params);
+%currently supports export to expOneSynapse only
+%below, change original ID_Matrix used for cellconnectivity.txt to make sure it
+% is compatible with indexing of cell instances.
+for y=1:length(Group_members)
+    if isempty(Group_members{1,y})~=1
+       for k=1:length(Group_members{1,y})
+           index_vector1= find(ID_Matrix(1,:)==Group_members{1,y}(k)-1);
+           index_vector2=find(ID_Matrix(3,:)==Group_members{1,y}(k)-1);
+           ID_Matrix(1,index_vector1)=k-1;
+           ID_Matrix(3,index_vector2)=k-1;
+           
+           
+       end
+    
+    end
+end
+if strcmp(unique(synapse_types),'g_exp')==1
+    dim=size(synapse_types);
+    for i=1:dim(1)
+        for j=1:dim(2)
+            expOneSynapse=docNode.createElement('expOneSynapse');
+            expOneSynapse.setAttribute('id',sprintf('g_exp_%d%d',i-1,j-1));
+            expOneSynapse.setAttribute('gbase',sprintf('%fnS',weights(i,j)));
+            expOneSynapse.setAttribute('erev',sprintf('%fmV',E_reversal{i,j}));
+            expOneSynapse.setAttribute('tauDecay',sprintf('%fms',tau(i,j)));
+            Lems.appendChild(expOneSynapse);
+        end
+        
+    end
+    
+    
+end
+
+for i=1:Tissue_params.numGroups
+    if isempty(Group_members{1,i})~=1
+        for j=1:Tissue_params.numGroups
+            if isempty(Index_array{i,j})~=1
+                
+                
+                No_of_connections=length(Index_array{i,j});
+                projection_data=ID_Matrix(:,[Index_array{i,j}]);
+                for k=1:No_of_connections
+                    synapticConnectionWD=docNode.createElement('synapticConnectionWD');
+                    synapticConnectionWD.setAttribute('synapse',sprintf('g_exp_%d%d',i-1,j-1));
+                    synapticConnectionWD.setAttribute('from',sprintf('pop%d[%d]',i-1,projection_data(1,k)));
+                    synapticConnectionWD.setAttribute('to',sprintf('pop%d[%d]',j-1,projection_data(3,k)));
+                    synapticConnectionWD.setAttribute('delay',sprintf('%fms',projection_data(6,k)));
+                    synapticConnectionWD.setAttribute('destination','synapses');
+                    synapticConnectionWD.setAttribute('weight','1'); %set to one as weights in VERTEX correspond either to
+                    % gbase in nS, for conductance-based synapse, or to Ibase, for current-based synapse. 
+                    network.appendChild(synapticConnectionWD);
+                end
+                
+                
+            end
+        end
+    
+    end
+    
+    
+end
+
 
 Simulation=docNode.createElement('Simulation');
 Simulation.setAttribute('id','sim1');
@@ -110,7 +176,7 @@ Display.setAttribute('timeScale','1ms');
 Display.setAttribute('xmin','0');
 Display.setAttribute('xmax',sprintf('%f',Sim_params(1)));
 Display.setAttribute('ymin','-160');
-Display.setAttribute('ymax','50');
+Display.setAttribute('ymax','100');
 Simulation.appendChild(Display);
 
 total_no_elements=0;

@@ -30,7 +30,7 @@ dim1=0;
 for i=1:Size(1)
     dim1=dim1+length(VERTEX_connections{i,1});    
 end
-ID_Matrix=zeros(5,dim1);
+ID_Matrix=zeros(6,dim1); % added another dimension for delay times
 group_boundaries=zeros(1,Size(1));
 sum=0;
 for i=1:Size(1)
@@ -46,6 +46,7 @@ for i=1:Size(1)
         ID_Matrix(1,start+j)=i-1; %normalize ID_Matrix so that cell and compartment indexing is compatible with neuroml.
         ID_Matrix(3,start+j)=VERTEX_connections{i,1}(j)-1;
         ID_Matrix(5,start+j)=VERTEX_connections{i,2}(j)-1;
+        ID_Matrix(6,start+j)=VERTEX_connections{i,3}(j);
     end
     start=group_boundaries(i);
     
@@ -89,6 +90,7 @@ elseif strcmp(output_type,'all')==1 || strcmp(output_type,'txt')==1
        length3=length('Postsynaptic cell ID');
        length4=length('Postsynaptic cell pop ID');
        length5=length('Target compartment ID');
+       length6=length('Target delay times in ms');
        
        r=length(num2str(max(max(ID_Matrix))));
        if r>length1
@@ -106,11 +108,14 @@ elseif strcmp(output_type,'all')==1 || strcmp(output_type,'txt')==1
        if r>length5
             length5=r;
        end
+       if r>length6
+           length6=r;
+       end
        t=sprintf('%s%s.txt',varargin{1},varargin{2});
-       format_of_txt_heading=sprintf('%%%ds %%%ds %%%ds %%%ds %%%ds\\r\\n',length1,length2,length3,length4,length5);
-       format_of_txt_content=sprintf('%%%dd %%%dd %%%dd %%%dd %%%dd\\r\\n',length1,length2,length3,length4,length5);
+       format_of_txt_heading=sprintf('%%%ds %%%ds %%%ds %%%ds %%%ds %%%ds\\r\\n',length1,length2,length3,length4,length5,length6);
+       format_of_txt_content=sprintf('%%%dd %%%dd %%%dd %%%dd %%%dd %%%df\\r\\n',length1,length2,length3,length4,length5,length6);
        fileID=fopen(t,'w');
-       fprintf(fileID,format_of_txt_heading,'Presynaptic cell ID','Presynaptic cell pop ID','Postsynaptic cell ID','Postsynaptic cell pop ID','Target compartment ID');
+       fprintf(fileID,format_of_txt_heading,'Presynaptic cell ID','Presynaptic cell pop ID','Postsynaptic cell ID','Postsynaptic cell pop ID','Target compartment ID','Target delay times in ms');
        fprintf(fileID,format_of_txt_content,ID_Matrix);
        a=fclose(fileID);
        if a==-1

@@ -68,7 +68,7 @@ runSimulation(params,connections,electrodes);
 
 % conversion to LEMS
 cells_to_display={0};
-VERTEX_Adex_1comp_to_LEMS(params,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_stepI_test2',cells_to_display);
+VERTEX_Adex_1comp_to_LEMS(params,connections,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_stepI_test2',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
 % run LEMS model through the command line using jNeuroML
