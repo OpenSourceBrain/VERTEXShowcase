@@ -20,12 +20,14 @@ if popID~=0
     cellID=(cellID_in_pop+1)+Tissue_params.groupSizeArr(popID+1,1);
 end
 % Visualize results from both VERTEX and LEMS simulations
-plot(Results.v_m(cellID, :), 'LineWidth', 2,'Color','r') 
+x=plot(Results.v_m(cellID, :), 'LineWidth', 2,'Color','r');
+dat_path=which(sprintf('%s.dat',filename));
 hold on
-load(sprintf('jNeuroMLJar/results/%s.dat',filename)); % change this depending where jNeuroMLJar results are saved
-plot(1000*eval(sprintf('%s(:,1)',filename)),1000*eval(sprintf('%s(:,2)',filename)),'LineWidth',2,'Color','b')
+load(dat_path);
+y=plot(1000*eval(sprintf('%s(:,1)',filename)),1000*eval(sprintf('%s(:,2)',filename)),'LineWidth',2,'Color','b');
 set(gcf,'color','w');
 set(gca,'FontSize',16)
-title('Membrane potential for the Adex one compartment neuron in the LEMS and VERTEX simulations', 'FontSize', 16)
+legend([x,y],'VERTEX','LEMS','Location','NorthEastOutside')
+title('Membrane potential of the Adex point neuron in the LEMS and VERTEX simulations', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)

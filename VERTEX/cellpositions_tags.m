@@ -1,12 +1,9 @@
-function cellpositions_tags(VERTEX_params,directory,filename)
+function cellpositions_tags(VERTEX_params,filename)
 % Function cellpositions_tags extracts cell positions form VERTEX structure
 % of the model parameters (named params) and puts cell positions into txt
-% file with neuroml-like tags. cellpositions receives three input arguments:
-% VERTEX parameters' structure (params), name of the directory in a string, and name of the txt
-% file in a string. A newly created txt file can be saved in the same
-% directory as simulation results (RecordingSettings.saveDir) or
-% in a different directory. To save a file as filename.txt, there has to be \  at the end
-% of directory path.
+% file with neuroml-like tags. cellpositions receives two input arguments:
+% VERTEX parameters' structure (params) and name of the txt
+% file in a string.
 if isstruct(VERTEX_params)==1
     b=VERTEX_params.TissueParams;
 end
@@ -17,7 +14,8 @@ end
 
 Position_mat=b.somaPositionMat;
 Formatted_data=[round(Position_mat(:,4)');Position_mat(:,1)';Position_mat(:,2)';Position_mat(:,3)'];
-t=sprintf('%s%s.txt',directory,filename);
+path=fileparts(which('VERTEX_txt.txt'));
+t=sprintf('%s%s%s.txt',path,filesep,filename);
 fileID=fopen(t,'w');
 for i=1:b.numGroups
     Index_vector=(b.groupBoundaryIDArr(i)+1):b.groupBoundaryIDArr(i+1);

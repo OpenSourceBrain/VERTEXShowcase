@@ -1,9 +1,9 @@
-function cellpositions_cellconnectivity(VERTEX_params,connections,network_id,component_array,directory,filename)
+function cellpositions_cellconnectivity(VERTEX_params,connections,network_id,component_array,filename)
 
 Formatted_data=cellpositions(VERTEX_params,'soma_matrix');
 [ID_Matrix, group_boundaries]=cellconnectivity(connections,VERTEX_params,'ID_Matrix+group_boundaries');
 [Group_members, Index_array]=cellconnectivity_tags(VERTEX_params,ID_Matrix,group_boundaries,'arrays');
-synapse_types=synapse_parameters_export(VERTEX_params);
+
 if isstruct(VERTEX_params)==1
     b=VERTEX_params.TissueParams;
 end
@@ -38,12 +38,12 @@ for l=1:length(component_array)
     include.setAttribute('href',sprintf('%s.cell.nml',component_array{l}));
     neuroml.appendChild(include);
 end
-unique_types=unique(synapse_types);
-for l=1:length(unique_types)
-    include=docNode.createElement('include');
-    include.setAttribute('href',sprintf('%s.synapse.nml',unique_types{l}));
-    neuroml.appendChild(include);
-end
+
+
+include=docNode.createElement('include');
+include.setAttribute('href',sprintf('%s.synapse.nml',network_id));
+neuroml.appendChild(include);
+
 network=docNode.createElement('network');
 network.setAttribute('id',sprintf('%s',network_id));
 neuroml.appendChild(network);
@@ -83,7 +83,7 @@ for i=1:b.numGroups
                 projection.setAttribute('id',sprintf('%d',projection_counter));
                 projection.setAttribute('presynapticPopulation',sprintf('pop%d',i));
                 projection.setAttribute('postsynapticPopulation',sprintf('pop%d',j));
-                projection.setAttribute('synapse',sprintf('%s',synapse_types{i,j}));
+                projection.setAttribute('synapse',sprintf('g_exp_%d%d',i-1,j-1));
                 network.appendChild(projection);
                 No_of_connections=length(Index_array{i,j});
                 projection_data=ID_Matrix(:,[Index_array{i,j}]);
@@ -105,7 +105,8 @@ for i=1:b.numGroups
     
     
 end
-t=sprintf('%s%s.net.nml',directory,filename);
+path=fileparts(which('VERTEX_nml.txt'));
+t=sprintf('%s%s%s.net.nml',path,filesep,filename);
 xmlwrite(t,docNode);
 edit(t);
 

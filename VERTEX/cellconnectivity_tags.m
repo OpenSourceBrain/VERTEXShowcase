@@ -58,7 +58,8 @@ if strcmp(output_type,'txt')==1 || strcmp(output_type,'all')==1
     end
 
     projection_counter=0;
-    t=sprintf('%s%s.txt',varargin{1},varargin{2});
+    path=fileparts(which('VERTEX_txt.txt'));
+    t=sprintf('%s%s%s.txt',path,filesep,varargin{1});
     fileID=fopen(t,'w');
     for i=1:b
         if isempty(Group_members{1,i})~=1

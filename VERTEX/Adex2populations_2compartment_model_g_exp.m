@@ -1,4 +1,4 @@
-TissueParams.X=250; % dimensions of the model (X,Y,Z) are given in mm
+TissueParams.X=250; % dimensions of the model (X,Y,Z) are given in micro m
 TissueParams.Y=80;  % X,Y,Z values are chosen so that total number of neurons in 
 TissueParams.Z=20;  % the model is 10.
 TissueParams.neuronDensity=25000;
@@ -102,13 +102,13 @@ ConnectionParams(1).synapseReleaseDelay = 0.5;
 ConnectionParams(2).numConnectionsToAllFromOne{1} = 5;
 ConnectionParams(2).synapseType{1} = 'g_exp';
 ConnectionParams(2).targetCompartments{1} = NeuronParams(1).somaID;
-ConnectionParams(2).weights{1} = -5;
+ConnectionParams(2).weights{1} = 5;
 ConnectionParams(2).tau{1} = 6;
 ConnectionParams(2).E_reversal{1}=-75;
 ConnectionParams(2).numConnectionsToAllFromOne{2} = 4;
 ConnectionParams(2).synapseType{2} = 'g_exp';
 ConnectionParams(2).targetCompartments{2} =NeuronParams(2).dendritesID;
-ConnectionParams(2).weights{2} = -4;
+ConnectionParams(2).weights{2} = 4;
 ConnectionParams(2).tau{2} = 3;
 ConnectionParams(2).E_reversal{2}=-75;
 ConnectionParams(2).axonArborSpatialModel = 'gaussian';
@@ -117,7 +117,7 @@ ConnectionParams(2).axonArborRadius = 100;
 ConnectionParams(2).axonArborLimit = 200;
 ConnectionParams(2).axonConductionSpeed = 0.3;
 ConnectionParams(2).synapseReleaseDelay = 0.5;
-RecordingSettings.saveDir=['results', filesep];
+RecordingSettings.saveDir=['Adex2pop_2comp_10cells', filesep];
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:1:10;
 RecordingSettings.maxRecTime = 100;
@@ -148,10 +148,13 @@ set(gca,'FontSize',16)
 title('Membrane potential for neuron ID=3', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
-% create txt files containing cell positions and cellconnectivity
-cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellpositions'); 
-cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellpositions_tags');
-[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_2comp_g_exp_cellconnectivity_tags');
-cell_components=cell_morphology(params,{'pyr_23layer','basket_inter'},'all',RecordingSettings.saveDir);
-cellpositions_cellconnectivity(params,connections,'Adex2pop_2comp_g_exp',cell_components,RecordingSettings.saveDir,'Adex2pop_2comp_model_g_exp');
+
+% run network and morphology export 
+cellpositions(params,'txt','Adex2pop_2comp_10cells_cellpositions'); 
+cellpositions_tags(params,'Adex2pop_2comp_10cells_cellpositions_tags');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all','Adex2pop_2comp_10cells_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt','Adex2pop_2comp_10cells_cellconnectivity_tags');
+cell_components=cell_morphology(params,{'Adex2pop_2comp_10cells_pop0','Adex2pop_2comp_10cells_pop1'},'all');
+synapse_to_nml(params,'Adex2pop_2comp_10cells');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_2comp_10cells',cell_components,'Adex2pop_2comp_10cells');
+

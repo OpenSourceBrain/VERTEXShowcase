@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Adex2pop_2comp_10cells_g_exp" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   <expOneSynapse erev="0.000000mV" gbase="1.000000nS" id="g_exp_00" tauDecay="2.000000ms"/>
+   <expOneSynapse erev="0.000000mV" gbase="28.000000nS" id="g_exp_01" tauDecay="1.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="5.000000nS" id="g_exp_10" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="4.000000nS" id="g_exp_11" tauDecay="3.000000ms"/>
+</neuroml>

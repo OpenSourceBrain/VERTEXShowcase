@@ -2,20 +2,16 @@ function varargout=cellpositions(VERTEX_params,output_type,varargin)
 %  Function cellpositions extracts cell positions from VERTEX_params;
 %  cellpositions() can then save cell positions into txt file, return formatted
 %  soma position matrix or both. Cellpositions receives 
-%  four input arguments: name of the structure or cell array of
-%  VERTEX parameters, output_type specifying what is returned by the function,
-%  name of the directory in a string, and name of the txt
-%  file in a string. Output_type can be one of the following strings:
+%  three input arguments: name of the structure or cell array of
+%  VERTEX parameters, a string, output_type, specifying what is returned by the function,
+%  and name of the txt file, also as a string. Output_type can be one of the following strings:
 %  1) output_type='soma_matrix' - if this is specified, only soma position matrix
 %  is returned by cellpositions(). 
 %  2) output_type='soma_matrix+txt' - if this is specified soma position
 %  matrix is returned and txt file of cell positions is generated. 
 %  3) output_type='txt' - if this is specified only txt file of cell
-%  positions is generated. In both cases (2 and 3), directory and filename
-%  have to be specified. A newly created txt file can be saved in the same
-%  directory as simulation results (RecordingSettings.saveDir) or
-%  in a different directory. To save a file as filename.txt, there has to be 
-%  \  at the end of directory path.
+%  positions is generated. In both cases (2 and 3), filename has to be
+%  specified.
 if isstruct(VERTEX_params)==1
     b=VERTEX_params.TissueParams;
 end
@@ -41,7 +37,8 @@ if strcmp(output_type,'soma_matrix+txt')==1 || strcmp(output_type,'txt')==1
     if strcmp(output_type,'soma_matrix+txt')==1
         varargout{1}=Formatted_data;
     end
-    t=sprintf('%s%s.txt',varargin{1},varargin{2});
+    path=fileparts(which('VERTEX_txt.txt'));
+    t=sprintf('%s%s%s.txt',path,filesep,varargin{1});
     format_of_txt_heading=sprintf('%%%ds %%%ds %%%ds %%%ds\\r\\n',a,width,width,width);
     format_of_txt_content=sprintf('%%%dd %%%df %%%df %%%df\\r\\n',a,width,width,width);
     fileID=fopen(t,'w');

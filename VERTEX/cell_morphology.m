@@ -1,13 +1,14 @@
-function varargout=cell_morphology(VERTEX_params,cell_id_array,output_type,varargin)
+function varargout=cell_morphology(VERTEX_params,cell_id_array,output_type)
+% cell_morphology works on models with at least two compartments;
 % cell_morphology() receives VERTEX_params structure, the array
 % cell_id_array, which specifies the unique names of cell component types in
-% neuroml, output_type, and, optionally, directory, depending on the output_type:
+% neuroml and output_type:
 % 1) if output_type=='cell_id', the cell_morphology() returns the
-% cell_id_array only; directory is not required to be specified.
+% cell_id_array only.
 % 2) if output_type=='neuroml', the cell_morphology() generates
-% .../cell.nml files only. Directory has to be specified. 
+% .../cell.nml files only.
 % 3) if output_type=='all', the cell morphology() generates ../cell.nml
-% files and returns the cell_id_array. Directory has to be specified.
+% files and returns the cell_id_array.
 
 
 % output_type=='cell_id', output_type=='all', output_type='neuroml'
@@ -55,8 +56,8 @@ if strcmp(output_type,'all')==1 || strcmp(output_type,'neuroml')==1
             segment.appendChild(distal);
             
         end
-    
-        t=sprintf('%s%s.cell.nml',varargin{1},cell_id_array{i});
+        path=fileparts(which('VERTEX_nml.txt'));
+        t=sprintf('%s%s%s.cell.nml',path,filesep,cell_id_array{i});
         xmlwrite(t,docNode);
         
         

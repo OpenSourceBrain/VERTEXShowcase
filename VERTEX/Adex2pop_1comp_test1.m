@@ -1,7 +1,7 @@
 TissueParams.X=1000; % dimensions of the soma layer of the model (X,Y,Z) in micro m
                       % and neuronDensity in neurons per cubic mm
 TissueParams.Y=1000;  % are chosen so that total number of neurons in 
-TissueParams.Z=1000;  % the model is 1.
+TissueParams.Z=1000;  % the model is 2.
 TissueParams.neuronDensity=2;
 TissueParams.numLayers=1;
 TissueParams.layerBoundaryArr=[1000, 0]; 
@@ -39,18 +39,6 @@ NeuronParams(1).Input(1).amplitude=50; % pA
 NeuronParams(1).Input(1).timeOn=50;
 NeuronParams(1).Input(1).timeOff=400;
 NeuronParams(1).Input(1).inputType='i_step';
-ConnectionParams(1).numConnectionsToAllFromOne{1} = 0; 
-ConnectionParams(1).targetCompartments{1}=NeuronParams(1).somaID;
-ConnectionParams(1).synapseType{1} = 'g_exp'; 
-ConnectionParams(1).weights{1} = 10; % for current-based - in pA, for conductance-based - in nS.
-ConnectionParams(1).tau{1} = 2;
-ConnectionParams(1).E_reversal{1}=0;
-ConnectionParams(1).axonArborSpatialModel = 'gaussian';
-ConnectionParams(1).sliceSynapses = false;
-ConnectionParams(1).axonArborRadius = 100;
-ConnectionParams(1).axonArborLimit = 200;
-ConnectionParams(1).axonConductionSpeed = 0.3;
-ConnectionParams(1).synapseReleaseDelay = 0.5;
 
 %Cell population 2
 NeuronParams(2).modelProportion = 0.50;
@@ -74,6 +62,8 @@ NeuronParams(2).Input(1).amplitude=0; % pA reduce amplitude later
 NeuronParams(2).Input(1).timeOn=50;
 NeuronParams(2).Input(1).timeOff=400;
 NeuronParams(2).Input(1).inputType='i_step';
+
+% Connections 
 
 ConnectionParams(1).numConnectionsToAllFromOne{1} = 0; 
 ConnectionParams(1).targetCompartments{1}=NeuronParams(1).somaID;
@@ -115,7 +105,8 @@ ConnectionParams(2).synapseReleaseDelay = 0.5;
 
 
 
-RecordingSettings.saveDir='Adex_1comp_2cell_test1/'; % change this for other simulations
+
+RecordingSettings.saveDir=['Adex2pop_1comp_test1', filesep];
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:2;
 RecordingSettings.maxRecTime = 100;
@@ -127,21 +118,26 @@ SimulationSettings.parallelSim = false;
 [params, connections, electrodes] =initNetwork(TissueParams, NeuronParams,ConnectionParams,RecordingSettings, SimulationSettings);
 % run simulation
 runSimulation(params,connections,electrodes);
-% run export methods to neuroml in order to visualize the networks
-cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions'); 
-cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions_tags');
-[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity_tags');
-cell_components=cell_morphology(params,{'pyr_23layer','basket_inter'},'cell_id');
-cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp_test1',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_test1');
+
+
 
 % conversion to LEMS
 cells_to_display={0,0};
-VERTEX_Adex_1comp_to_LEMS(params,connections,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_2cell_net_test1',cells_to_display);
+model_path=which('VERTEX_Adex_LEMS.xml');
+VERTEX_Adex_1comp_to_LEMS(params,connections,0.01,model_path,['..' filesep '..' filesep 'test_LEMS' filesep],'Adex2pop_1comp_test1',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
-% visualize VERTEX results only
 
-
+plot(Results.v_m(1, :), 'LineWidth', 2,'Color','b') 
+hold on
+plot(Results.v_m(2,:),'LineWidth',2,'Color','r')
+set(gcf,'color','w');
+set(gca,'FontSize',16)
+title('Membrane potential traces of two Adex point neurons', 'FontSize', 16)
+xlabel('Time (ms)', 'FontSize', 16)
+ylabel('Membrane potential (mV)', 'FontSize', 16)
 % run LEMS model through the command line using jNeuroML
+
+
+
 

@@ -15,9 +15,9 @@ NeuronParams(1).neuronModel='adex';
 NeuronParams(1).V_t = -50;
 NeuronParams(1).delta_t = 2;
 NeuronParams(1).a = 2.6; %nS
-NeuronParams(1).tau_w = 50;
-NeuronParams(1).b = 200; %pA
-NeuronParams(1).v_reset = -70;
+NeuronParams(1).tau_w = 65;
+NeuronParams(1).b = 220; %pA
+NeuronParams(1).v_reset = -60;
 NeuronParams(1).v_cutoff = -45; % the membrane potential at which a spike is detected. 
 % VERTEX documentation recommends to set v_cutoff to V_t+5; see http://vertexsimulator.org/tutorial-2/
 NeuronParams(1).numCompartments=1;
@@ -35,7 +35,7 @@ NeuronParams(1).g_l =(10^9)/((20000/2.96)/(pi*13*29.8*10^-8));%nanoSiemens.
 %NeuronParams(1).C=2.96;
 %NeuronParams(1).R_M=20000/2.96;
 NeuronParams(1).E_leak = -70;
-NeuronParams(1).Input(1).amplitude=100; % pA
+NeuronParams(1).Input(1).amplitude=60; % pA
 NeuronParams(1).Input(1).timeOn=50;
 NeuronParams(1).Input(1).timeOff=400;
 NeuronParams(1).Input(1).inputType='i_step';
@@ -53,7 +53,7 @@ ConnectionParams(1).axonConductionSpeed = 0.3;
 ConnectionParams(1).synapseReleaseDelay = 0.5;
 
 
-RecordingSettings.saveDir='Adex_1comp_results_test2/'; % change this for other simulations
+RecordingSettings.saveDir=['Adex_point_neuron_stepI_test2', filesep]; 
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1;
 RecordingSettings.maxRecTime = 100;
@@ -68,7 +68,24 @@ runSimulation(params,connections,electrodes);
 
 % conversion to LEMS
 cells_to_display={0};
-VERTEX_Adex_1comp_to_LEMS(params,connections,['..' filesep '..' filesep 'test_LEMS' filesep 'VERTEX_Adex_LEMS.xml'],RecordingSettings.saveDir,'Adex_1comp_stepI_test2',cells_to_display);
+model_path=which('VERTEX_Adex_LEMS.xml');
+VERTEX_Adex_1comp_to_LEMS(params,connections,0.01,model_path,['..' filesep '..' filesep 'test_LEMS' filesep],'Adex_point_neuron_stepI_test2',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
+subplot(1,2,1)
+plot(Results.spikes(:, 2), Results.spikes(:, 1), 'k.')
+axis([0 500 0 5])
+set(gcf,'color','w');
+set(gca,'YDir','reverse');
+set(gca,'FontSize',16)
+title('Spike raster', 'FontSize', 16)
+xlabel('Time (ms)', 'FontSize', 16)
+ylabel('Neuron ID', 'FontSize', 16)
+subplot(1,2,2)
+plot(Results.v_m(1, :), 'LineWidth', 2,'Color','b') 
+set(gcf,'color','w');
+set(gca,'FontSize',16)
+title('Membrane potential for the Adex point neuron', 'FontSize', 16)
+xlabel('Time (ms)', 'FontSize', 16)
+ylabel('Membrane potential (mV)', 'FontSize', 16)
 % run LEMS model through the command line using jNeuroML

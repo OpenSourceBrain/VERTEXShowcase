@@ -13,6 +13,7 @@ Input_parameters=cell(1,length(Neuron_params));
 for i=1:length(Neuron_params)
     if length(Neuron_params(i).Input)==1 % currently made to support only one type of input to the given cell group.
         if strcmp(Neuron_params(i).Input(1).inputType,'i_step')==1
+            %currently supports only step current inputs
             Input_parameters{1,i}=cell(1,4);
             Input_parameters{1,i}{1,1}=Neuron_params(i).Input(1).inputType;
             Input_parameters{1,i}{1,2}=Neuron_params(i).Input(1).amplitude*10^-3;

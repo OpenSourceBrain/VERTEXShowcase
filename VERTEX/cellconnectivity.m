@@ -1,18 +1,17 @@
 function varargout=cellconnectivity(VERTEX_connections,VERTEX_params,output_type,varargin)
-% cellconnectivity() receives matlab structure matrix specifying VERTEX
+% cellconnectivity() receives matlab matrix specifying VERTEX
 % connecions, VERTEX parameters' structure named params, which has 5
 % fields, including TissueParams; cellconnectivity() then produces a connectivity
 % matrix. cellconnectivity() receives a string named output_type which
 % specifies the output:
 % 1) if output_type=='all', cellconnectivity() returns connection ID_Matrix,
 %    group_boundaries vector and
-%    produces a txt file. In this case directory and filename have to be
-%    specified. Cellconnectivity() thus  receives string specifying file directory 
-%    and string specifying a name of txt file.
+%    produces a txt file. In this case a filename has to be
+%    specified. Cellconnectivity() thus  receives a string specifying a name of txt file.
 % 2) if output_type=='ID_Matrix' cellconnectivity() returns the
 %    ID_Matrix only.
 % 3) if output_type=='txt' cellconnectivity() returns the txt file only.
-%    Again, directory and filename have to be specified. 
+%    Again, a filename has to be specified. 
 % 4) if output_type=='group_boundaries' cellconnectivity() returns group_boundaries vector
 %    only.
 % 5) if output_type=='ID_Matrix+group_boundaries' cellconnectivity returns
@@ -56,6 +55,7 @@ for i=1:Size(1)
         end
     end
     if group_boundary==0
+        j=1;
         ID_Matrix(1,start+j)=i-1; %normalize ID_Matrix so that cell and compartment indexing is compatible with neuroml.
         ID_Matrix(3,start+j)=NaN;
         ID_Matrix(5,start+j)=NaN;
@@ -129,7 +129,8 @@ elseif strcmp(output_type,'all')==1 || strcmp(output_type,'txt')==1
        if r>length6
            length6=r;
        end
-       t=sprintf('%s%s.txt',varargin{1},varargin{2});
+       path=fileparts(which('VERTEX_txt.txt'));
+       t=sprintf('%s%s%s.txt',path,filesep,varargin{1});
        format_of_txt_heading=sprintf('%%%ds %%%ds %%%ds %%%ds %%%ds %%%ds\\r\\n',length1,length2,length3,length4,length5,length6);
        format_of_txt_content=sprintf('%%%dd %%%dd %%%dd %%%dd %%%dd %%%df\\r\\n',length1,length2,length3,length4,length5,length6);
        fileID=fopen(t,'w');
