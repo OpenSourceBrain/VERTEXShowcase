@@ -34,19 +34,32 @@ ID_Matrix=zeros(6,dim1); % added another dimension for delay times
 group_boundaries=zeros(1,Size(1));
 sum=0;
 for i=1:Size(1)
+    
     group_length=length(VERTEX_connections{i,1});
+    if group_length==0
+        group_length=1;
+    end
     sum=sum+group_length;
     group_boundaries(i)=sum;
 end
 
 start=0;
 for i=1:Size(1)
+    
     group_boundary=length(VERTEX_connections{i,1});
-    for j=1:group_boundary
+    if group_boundary~=0
+        for j=1:group_boundary
+            ID_Matrix(1,start+j)=i-1; %normalize ID_Matrix so that cell and compartment indexing is compatible with neuroml.
+            ID_Matrix(3,start+j)=VERTEX_connections{i,1}(j)-1;
+            ID_Matrix(5,start+j)=VERTEX_connections{i,2}(j)-1;
+            ID_Matrix(6,start+j)=VERTEX_connections{i,3}(j);
+        end
+    end
+    if group_boundary==0
         ID_Matrix(1,start+j)=i-1; %normalize ID_Matrix so that cell and compartment indexing is compatible with neuroml.
-        ID_Matrix(3,start+j)=VERTEX_connections{i,1}(j)-1;
-        ID_Matrix(5,start+j)=VERTEX_connections{i,2}(j)-1;
-        ID_Matrix(6,start+j)=VERTEX_connections{i,3}(j);
+        ID_Matrix(3,start+j)=NaN;
+        ID_Matrix(5,start+j)=NaN;
+        ID_Matrix(6,start+j)=NaN;
     end
     start=group_boundaries(i);
     
@@ -67,9 +80,14 @@ for i=1:c.numGroups
     if isempty(Index_vector)~=1
       
          for j=start:group_boundaries(Index_vector(end))
-             k=find(ID_Matrix(1,:)==ID_Matrix(3,j),1);
-             target_population_ID=ID_Matrix(2,k);
-             ID_Matrix(4,j)=target_population_ID;
+             if isnan(ID_Matrix(3,j))~=1
+                 k=find(ID_Matrix(1,:)==ID_Matrix(3,j),1);
+                 target_population_ID=ID_Matrix(2,k);
+                 ID_Matrix(4,j)=target_population_ID;
+             end
+             if isnan(ID_Matrix(3,j))==1
+                 ID_Matrix(4,j)=NaN;
+             end
          end
          start=group_boundaries(Index_vector(end))+1;
     end

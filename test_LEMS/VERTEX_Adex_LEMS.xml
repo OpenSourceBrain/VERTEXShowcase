@@ -40,17 +40,13 @@
                 <TimeDerivative variable="v" value="iMemb / C"/>
                 <TimeDerivative variable="w" value="(a * (v - EL) - w) / tauw"/>
 
-                <OnCondition test="v .gt. v_cutoff">
+                <OnCondition test="v .geq. v_cutoff">
                     <EventOut port="spike"/>
                     <StateAssignment variable="v" value="reset" />
                     <StateAssignment variable="w" value="w + b"/>
                 </OnCondition>
                 
-                <OnCondition test="v .eq. v_cutoff">
-                    <EventOut port="spike"/>
-                    <StateAssignment variable="v" value="reset"/>
-                    <StateAssignment variable="w" value="w+b"/>
-                </OnCondition>
+                
 
            </Dynamics>
 

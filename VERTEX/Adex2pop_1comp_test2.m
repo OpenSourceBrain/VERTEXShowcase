@@ -115,7 +115,7 @@ ConnectionParams(2).synapseReleaseDelay = 0.5;
 
 
 
-RecordingSettings.saveDir='Adex_1comp_2cell_test1/'; % change this for other simulations
+RecordingSettings.saveDir='Adex_1comp_2cell_test2/'; % change this for other simulations
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:2;
 RecordingSettings.maxRecTime = 100;
@@ -128,16 +128,16 @@ SimulationSettings.parallelSim = false;
 % run simulation
 runSimulation(params,connections,electrodes);
 % run export methods to neuroml in order to visualize the networks
-cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions'); 
-cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions_tags');
-[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity_tags');
+cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test2_cellpositions'); 
+cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_test2_cellpositions_tags');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_test2_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test2_cellconnectivity_tags');
 cell_components=cell_morphology(params,{'pyr_23layer','basket_inter'},'cell_id');
-cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp_test1',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_test1');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp_test2',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_test2');
 
 % conversion to LEMS
 cells_to_display={0,0};
-VERTEX_Adex_1comp_to_LEMS(params,connections,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_2cell_net_test1',cells_to_display);
+VERTEX_Adex_1comp_to_LEMS(params,connections,'C:\Users\Rokas\Documents\MATLAB\VERTEXproject\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_2cell_net_test2',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
 % visualize VERTEX results only

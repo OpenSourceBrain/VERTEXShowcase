@@ -12,7 +12,7 @@ end
 
 Simulation_parameters=zeros(1,2);
 Simulation_parameters(1,1)=Sim_params.simulationTime;
-Simulation_parameters(1,2)=Sim_params.timeStep^2;
+Simulation_parameters(1,2)=Sim_params.timeStep;
 
 
 end

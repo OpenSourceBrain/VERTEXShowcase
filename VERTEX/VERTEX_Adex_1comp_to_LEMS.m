@@ -1,4 +1,4 @@
-function VERTEX_Adex_1comp_to_LEMS(VERTEX_params,connections,component_Type_path,Saving_directory,filename,display_save_array)
+function VERTEX_Adex_1comp_to_LEMS(VERTEX_params,connections,simulation_timeStep,component_Type_path,Saving_directory,filename,display_save_array)
 
 %prepare parameters for conversion to LEMS
 Adex_params=VERTEX_Adex_1comp_model_export(VERTEX_params);
@@ -145,7 +145,7 @@ for i=1:Tissue_params.numGroups
                     synapticConnectionWD.setAttribute('synapse',sprintf('g_exp_%d%d',i-1,j-1));
                     synapticConnectionWD.setAttribute('from',sprintf('pop%d[%d]',i-1,projection_data(1,k)));
                     synapticConnectionWD.setAttribute('to',sprintf('pop%d[%d]',j-1,projection_data(3,k)));
-                    synapticConnectionWD.setAttribute('delay',sprintf('%fms',projection_data(6,k)));
+                    synapticConnectionWD.setAttribute('delay',sprintf('%fms',Sim_params(2)*projection_data(6,k)));
                     synapticConnectionWD.setAttribute('destination','synapses');
                     synapticConnectionWD.setAttribute('weight','1'); %set to one as weights in VERTEX correspond either to
                     % gbase in nS, for conductance-based synapse, or to Ibase, for current-based synapse. 
@@ -165,7 +165,7 @@ end
 Simulation=docNode.createElement('Simulation');
 Simulation.setAttribute('id','sim1');
 Simulation.setAttribute('length',sprintf('%fms',Sim_params(1)));
-Simulation.setAttribute('step',sprintf('%fms',Sim_params(2)));
+Simulation.setAttribute('step',sprintf('%fms',simulation_timeStep));
 Simulation.setAttribute('target','net1');
 Lems.appendChild(Simulation);
 Display=docNode.createElement('Display');

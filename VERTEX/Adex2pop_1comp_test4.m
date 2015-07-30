@@ -35,7 +35,7 @@ NeuronParams(1).g_l =(10^9)/((20000/2.96)/(pi*13*29.8*10^-8));%nanoSiemens.
 %NeuronParams(1).C=2.96;
 %NeuronParams(1).R_M=20000/2.96;
 NeuronParams(1).E_leak = -70;
-NeuronParams(1).Input(1).amplitude=50; % pA
+NeuronParams(1).Input(1).amplitude=80; % pA
 NeuronParams(1).Input(1).timeOn=50;
 NeuronParams(1).Input(1).timeOff=400;
 NeuronParams(1).Input(1).inputType='i_step';
@@ -75,17 +75,12 @@ NeuronParams(2).Input(1).timeOn=50;
 NeuronParams(2).Input(1).timeOff=400;
 NeuronParams(2).Input(1).inputType='i_step';
 
-ConnectionParams(1).numConnectionsToAllFromOne{1} = 0; 
-ConnectionParams(1).targetCompartments{1}=NeuronParams(1).somaID;
-ConnectionParams(1).synapseType{1} = 'g_exp'; 
-ConnectionParams(1).weights{1} = 10; % for current-based - in pA, for conductance-based - in nS.
-ConnectionParams(1).tau{1} = 2;
-ConnectionParams(1).E_reversal{1}=0;
-ConnectionParams(1).numConnectionsToAllFromOne{2} = 0;
+
+ConnectionParams(1).numConnectionsToAllFromOne{2} = 1;
 ConnectionParams(1).synapseType{2} = 'g_exp';
 ConnectionParams(1).targetCompartments{2} =NeuronParams(2).somaID;
-ConnectionParams(1).weights{2} = 28;
-ConnectionParams(1).tau{2} = 1;
+ConnectionParams(1).weights{2} = 10;
+ConnectionParams(1).tau{2} = 2;
 ConnectionParams(1).E_reversal{2}=0;
 ConnectionParams(1).axonArborSpatialModel = 'gaussian';
 ConnectionParams(1).sliceSynapses = false;
@@ -97,13 +92,13 @@ ConnectionParams(1).synapseReleaseDelay = 0.5;
 ConnectionParams(2).numConnectionsToAllFromOne{1} = 0;
 ConnectionParams(2).synapseType{1} = 'g_exp';
 ConnectionParams(2).targetCompartments{1} = NeuronParams(1).somaID;
-ConnectionParams(2).weights{1} = -5;
+ConnectionParams(2).weights{1} = 5;
 ConnectionParams(2).tau{1} = 6;
 ConnectionParams(2).E_reversal{1}=-75;
 ConnectionParams(2).numConnectionsToAllFromOne{2} = 0;
 ConnectionParams(2).synapseType{2} = 'g_exp';
 ConnectionParams(2).targetCompartments{2} =NeuronParams(2).somaID;
-ConnectionParams(2).weights{2} = -4;
+ConnectionParams(2).weights{2} = 4;
 ConnectionParams(2).tau{2} = 3;
 ConnectionParams(2).E_reversal{2}=-75;
 ConnectionParams(2).axonArborSpatialModel = 'gaussian';
@@ -115,7 +110,7 @@ ConnectionParams(2).synapseReleaseDelay = 0.5;
 
 
 
-RecordingSettings.saveDir='Adex_1comp_2cell_test1/'; % change this for other simulations
+RecordingSettings.saveDir='Adex_1comp_2cell_test4/'; % change this for other simulations
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:2;
 RecordingSettings.maxRecTime = 100;
@@ -128,20 +123,38 @@ SimulationSettings.parallelSim = false;
 % run simulation
 runSimulation(params,connections,electrodes);
 % run export methods to neuroml in order to visualize the networks
-cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions'); 
-cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellpositions_tags');
-[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity');
-cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test1_cellconnectivity_tags');
+cellpositions(params,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test4_cellpositions'); 
+cellpositions_tags(params,RecordingSettings.saveDir,'Adex2pop_1comp_test4_cellpositions_tags');
+[ID_Matrix, group_boundaries]=cellconnectivity(connections,params,'all',RecordingSettings.saveDir,'Adex2pop_1comp_test4_cellconnectivity');
+cellconnectivity_tags(params,ID_Matrix,group_boundaries,'txt',RecordingSettings.saveDir,'Adex2pop_1comp_test4_cellconnectivity_tags');
 cell_components=cell_morphology(params,{'pyr_23layer','basket_inter'},'cell_id');
-cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp_test1',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_test1');
+cellpositions_cellconnectivity(params,connections,'Adex2pop_1comp_test4',cell_components,RecordingSettings.saveDir,'Adex2pop_1comp_test4');
 
 % conversion to LEMS
 cells_to_display={0,0};
-VERTEX_Adex_1comp_to_LEMS(params,connections,'~\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_2cell_net_test1',cells_to_display);
+VERTEX_Adex_1comp_to_LEMS(params,connections,0.01,'C:\Users\Rokas\Documents\MATLAB\VERTEXproject\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml',RecordingSettings.saveDir,'Adex_1comp_2cell_net_test4',cells_to_display);
 % load Results which later will be visualized
-Results=loadResults(RecordingSettings.saveDir);
-% visualize VERTEX results only
 
+% visualize VERTEX results only
+Results=loadResults(RecordingSettings.saveDir);
+subplot(1,2,1)
+plot(Results.spikes(:, 2), Results.spikes(:, 1), 'k.')
+axis([0 500 0 5])
+set(gcf,'color','w');
+set(gca,'YDir','reverse');
+set(gca,'FontSize',16)
+title('Spike raster', 'FontSize', 16)
+xlabel('Time (ms)', 'FontSize', 16)
+ylabel('Neuron ID', 'FontSize', 16)
+subplot(1,2,2)
+plot(Results.v_m(1, :), 'LineWidth', 2,'Color','b') 
+hold on
+plot(Results.v_m(2,:),'LineWidth',2,'Color','r')
+set(gcf,'color','w');
+set(gca,'FontSize',16)
+title('Membrane potential for neuron ID=3', 'FontSize', 16)
+xlabel('Time (ms)', 'FontSize', 16)
+ylabel('Membrane potential (mV)', 'FontSize', 16)
 
 % run LEMS model through the command line using jNeuroML
 
