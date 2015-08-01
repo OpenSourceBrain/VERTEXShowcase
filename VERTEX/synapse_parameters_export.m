@@ -18,46 +18,34 @@ if iscell(VERTEX_params)==1
     Connection_Params=VERTEX_params{3};
     Tissue_Params=VERTEX_params{1};
 end
-synapses=[Connection_Params.synapseType];
-time_constants=[Connection_Params.tau];
-synapse_weights=[Connection_Params.weights];
-conductance_based=0;
-for j=1:length(unique(synapses))
-    if strcmp(synapses(j),'g_exp')==1
-        conductance_based=1;
-        E_reversal_potentials=[Connection_Params.E_reversal];
-        varargout{1}=cell(Tissue_Params.numGroups,Tissue_Params.numGroups);
-        break
-    end
+
+
+
+
+varargout{1}=cell(Tissue_Params.numGroups,Tissue_Params.numGroups);
+ 
+  
        
-end
+
 
 synapse_types_per_projection=cell(Tissue_Params.numGroups,Tissue_Params.numGroups);
-synapse_weights_per_projection=zeros(Tissue_Params.numGroups,Tissue_Params.numGroups);
-synapse_tau_per_projection=zeros(Tissue_Params.numGroups,Tissue_Params.numGroups);
-start=1;
-end_=Tissue_Params.numGroups;
+synapse_weights_per_projection=cell(Tissue_Params.numGroups,Tissue_Params.numGroups);
+synapse_tau_per_projection=cell(Tissue_Params.numGroups,Tissue_Params.numGroups);
+
 for i=1:Tissue_Params.numGroups
-    a=synapses(start:end_);
-    b=time_constants(start:end_);
-    c=synapse_weights(start:end_);
-    if conductance_based
-    d=E_reversal_potentials(start:end_);
-    end
+    
+    
     for j=1:Tissue_Params.numGroups
        
-        synapse_types_per_projection{i,j}=a{j};
-        synapse_weights_per_projection(i,j)=c{j};
-        synapse_tau_per_projection(i,j)=b{j};
-        if conductance_based
-        varargout{1}{i,j}=d{j};
+        synapse_types_per_projection{i,j}=Connection_Params(i).synapseType{j};
+        synapse_weights_per_projection{i,j}=Connection_Params(i).weights{j};
+        synapse_tau_per_projection{i,j}=Connection_Params(i).tau{j};
+        if strcmp(Connection_Params(i).synapseType{j},'g_exp')==1
+        varargout{1}{i,j}=Connection_Params(i).E_reversal{j};
         end
     
     end
-    if i~=Tissue_Params.numGroups
-    start=end_+1;
-    end_=end_+2;
-    end
+    
 end
 
 
