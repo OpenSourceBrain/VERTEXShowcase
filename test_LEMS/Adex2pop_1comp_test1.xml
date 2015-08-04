@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Lems>
+   <Target component="sim1"/>
+   <Include file="Cells.xml"/>
+   <Include file="Networks.xml"/>
+   <Include file="Simulation.xml"/>
+   <Include file="Inputs.xml"/>
+   <Include file="C:\Users\Rokas\Documents\MATLAB\VERTEXproject_1\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml"/>
+   <pulseGenerator amplitude="0.050000nA" delay="50.000000ms" duration="350.000000ms" id="pulse0"/>
+   <pulseGenerator amplitude="0.000000nA" delay="50.000000ms" duration="350.000000ms" id="pulse1"/>
+   <VERTEX_Adex C="36.024769pF" EL="-70.000000mV" VT="-50.000000mV" a="2.600000nS" b="0.200000nA" delT="2.000000mV" gL="1.801238nS" id="VERTEX_Adex_1comp_group_0" reset="-70.000000mV" tauw="50.000000ms" v_cutoff="-45.000000mV"/>
+   <VERTEX_Adex C="22.091680pF" EL="-72.000000mV" VT="-50.000000mV" a="1.000000nS" b="0.100000nA" delT="2.000000mV" gL="1.472779nS" id="VERTEX_Adex_1comp_group_1" reset="-65.000000mV" tauw="10.000000ms" v_cutoff="-45.000000mV"/>
+   <network id="net1">
+      <population component="VERTEX_Adex_1comp_group_0" id="pop0" size="1"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[0]"/>
+      <population component="VERTEX_Adex_1comp_group_1" id="pop1" size="1"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[0]"/>
+   </network>
+   <expOneSynapse erev="0.000000mV" gbase="10.000000nS" id="g_exp_00" tauDecay="2.000000ms"/>
+   <expOneSynapse erev="0.000000mV" gbase="28.000000nS" id="g_exp_01" tauDecay="1.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="-5.000000nS" id="g_exp_10" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="-4.000000nS" id="g_exp_11" tauDecay="3.000000ms"/>
+   <Simulation id="sim1" length="500.000000ms" step="0.010000ms" target="net1">
+      <Display id="d1" timeScale="1ms" title="Voltage traces and inputs of VERTEX_Adex one comp cell(s)" xmax="500.000000" xmin="0" ymax="100" ymin="-160">
+         <Line color="#FF0000" id="iSyn_pop0_0" quantity="pop0[0]/iSyn" scale="0.005nA" timeScale="1ms"/>
+         <Line color="#FF0000" id="v_pop0_0" quantity="pop0[0]/v" scale="1mV" timeScale="1ms"/>
+         <Line color="#00FF00" id="iSyn_pop1_0" quantity="pop1[0]/iSyn" scale="0.005nA" timeScale="1ms"/>
+         <Line color="#00FF00" id="v_pop1_0" quantity="pop1[0]/v" scale="1mV" timeScale="1ms"/>
+      </Display>
+      <OutputFile fileName="results/Adex2pop_1comp_test1_pop0.dat" id="of0">
+         <OutputColumn id="pop00" quantity="pop0[0]/v"/>
+      </OutputFile>
+      <OutputFile fileName="results/Adex2pop_1comp_test1_pop1.dat" id="of1">
+         <OutputColumn id="pop10" quantity="pop1[0]/v"/>
+      </OutputFile>
+   </Simulation>
+</Lems>

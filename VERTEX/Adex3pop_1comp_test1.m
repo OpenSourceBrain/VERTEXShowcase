@@ -134,7 +134,7 @@ ConnectionParams(3).axonArborLimit = 200;
 ConnectionParams(3).axonConductionSpeed = 0.3;
 ConnectionParams(3).synapseReleaseDelay = 0.5;
 
-RecordingSettings.saveDir=['Adex2pop_1comp_test4', filesep];
+RecordingSettings.saveDir=['Adex3pop_1comp_test1', filesep];
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:3;
 RecordingSettings.maxRecTime = 100;
@@ -150,7 +150,7 @@ runSimulation(params,connections,electrodes);
 % conversion to LEMS
 cells_to_display={0,0,0};
 model_path=which('VERTEX_Adex_LEMS.xml');
-VERTEX_Adex_1comp_to_LEMS(params,connections,0.01,model_path,['..' filesep '..' filesep 'test_LEMS' filesep],'Adex2pop_1comp_test4',cells_to_display);
+VERTEX_Adex_1comp_to_LEMS(params,connections,0.01,model_path,['..' filesep '..' filesep 'test_LEMS' filesep],'Adex3pop_1comp_test1',cells_to_display);
 % load Results which later will be visualized
 Results=loadResults(RecordingSettings.saveDir);
 
@@ -161,7 +161,7 @@ hold on
 plot(Results.v_m(3,:),'LineWidth',2,'Color','m');
 set(gcf,'color','w');
 set(gca,'FontSize',16)
-title('Membrane potential traces of two Adex point neurons', 'FontSize', 16)
+title('Membrane potential traces of three Adex point neurons', 'FontSize', 16)
 xlabel('Time (ms)', 'FontSize', 16)
 ylabel('Membrane potential (mV)', 'FontSize', 16)
 

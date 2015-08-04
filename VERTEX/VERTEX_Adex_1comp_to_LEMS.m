@@ -121,9 +121,9 @@ if strcmp(unique(synapse_types),'g_exp')==1
         for j=1:dim(2)
             expOneSynapse=docNode.createElement('expOneSynapse');
             expOneSynapse.setAttribute('id',sprintf('g_exp_%d%d',i-1,j-1));
-            expOneSynapse.setAttribute('gbase',sprintf('%fnS',weights(i,j)));
+            expOneSynapse.setAttribute('gbase',sprintf('%fnS',weights{i,j}));
             expOneSynapse.setAttribute('erev',sprintf('%fmV',E_reversal{i,j}));
-            expOneSynapse.setAttribute('tauDecay',sprintf('%fms',tau(i,j)));
+            expOneSynapse.setAttribute('tauDecay',sprintf('%fms',tau{i,j}));
             Lems.appendChild(expOneSynapse);
         end
         

@@ -19,33 +19,34 @@ for i=1:Tissue_params.numGroups
         if isempty(Neuron_params(i).C_m)~=1
             Adex_parameters{i,1}=Neuron_params(i).C_m;
         end   
-    else
-        if isfield(Neuron_params(i),'C')==1
-            if isempty(Neuron_params(i).C)~=1
-                if isempty(Neuron_params(i).compartmentLengthArr)~=1 && isempty(Neuron_params(i).compartmentDiameterArr)~=1
-                    Adex_parameters{i,1}=Neuron_params(i).C*pi*Neuron_params(i).compartmentDiameterArr*Neuron_params(i).compartmentLengthArr*10^-8*10^6;
-                    % as expected for LEMS, in picoFarads.
-                end
-                
+    end
+    if isfield(Neuron_params(i),'C')==1
+        if isempty(Neuron_params(i).C)~=1
+            if isempty(Neuron_params(i).compartmentLengthArr)~=1 && isempty(Neuron_params(i).compartmentDiameterArr)~=1
+                Adex_parameters{i,1}=Neuron_params(i).C*pi*Neuron_params(i).compartmentDiameterArr*Neuron_params(i).compartmentLengthArr*10^-8*10^6;
+                % as expected for LEMS, in picoFarads.
             end
+            
         end
-    end    
+    end
+
     
     if isfield(Neuron_params(i),'g_l')==1
         if isempty(Neuron_params(i).g_l)~=1
             Adex_parameters{i,2}=Neuron_params(i).g_l;
         end
-    else
-        if isfield(Neuron_params(i),'R_M')==1    
-            if isempty(Neuron_params(i).R_M)~=1
-                if isempty(Neuron_params(i).compartmentLengthArr)~=1 && isempty(Neuron_params(i).compartmentDiameterArr)~=1
-                    Adex_parameters{i,2}=((10^9)*((Neuron_params(i).R_M))^(-1))*(pi*(Neuron_params(i).compartmentDiameterArr)*(Neuron_params(i).compartmentLengthArr)*10^-8);
-                    % as expected for LEMS, in nanoSiemens.
-                end
-                
+    end
+    
+    if isfield(Neuron_params(i),'R_M')==1
+        if isempty(Neuron_params(i).R_M)~=1
+            if isempty(Neuron_params(i).compartmentLengthArr)~=1 && isempty(Neuron_params(i).compartmentDiameterArr)~=1
+                Adex_parameters{i,2}=((10^9)*((Neuron_params(i).R_M))^(-1))*(pi*(Neuron_params(i).compartmentDiameterArr)*(Neuron_params(i).compartmentLengthArr)*10^-8);
+                % as expected for LEMS, in nanoSiemens.
             end
+            
         end
     end
+
         
         
     

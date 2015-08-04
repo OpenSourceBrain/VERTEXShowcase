@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Lems>
+   <Target component="sim1"/>
+   <Include file="Cells.xml"/>
+   <Include file="Networks.xml"/>
+   <Include file="Simulation.xml"/>
+   <Include file="Inputs.xml"/>
+   <Include file="C:\Users\Rokas\Documents\MATLAB\VERTEXproject_1\VERTEXShowcase\test_LEMS\VERTEX_Adex_LEMS.xml"/>
+   <pulseGenerator amplitude="0.080000nA" delay="50.000000ms" duration="350.000000ms" id="pulse0"/>
+   <pulseGenerator amplitude="0.000000nA" delay="50.000000ms" duration="350.000000ms" id="pulse1"/>
+   <pulseGenerator amplitude="0.000000nA" delay="50.000000ms" duration="350.000000ms" id="pulse2"/>
+   <VERTEX_Adex C="36.024769pF" EL="-70.000000mV" VT="-50.000000mV" a="2.600000nS" b="0.200000nA" delT="2.000000mV" gL="1.801238nS" id="VERTEX_Adex_1comp_group_0" reset="-70.000000mV" tauw="50.000000ms" v_cutoff="-45.000000mV"/>
+   <VERTEX_Adex C="22.091680pF" EL="-72.000000mV" VT="-50.000000mV" a="1.000000nS" b="0.100000nA" delT="2.000000mV" gL="1.472779nS" id="VERTEX_Adex_1comp_group_1" reset="-65.000000mV" tauw="10.000000ms" v_cutoff="-45.000000mV"/>
+   <VERTEX_Adex C="81.092360pF" EL="-70.000000mV" VT="-52.000000mV" a="10.000000nS" b="0.345000nA" delT="2.000000mV" gL="4.054618nS" id="VERTEX_Adex_1comp_group_2" reset="-60.000000mV" tauw="75.000000ms" v_cutoff="-47.000000mV"/>
+   <network id="net1">
+      <population component="VERTEX_Adex_1comp_group_0" id="pop0" size="7"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[0]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[1]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[2]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[3]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[4]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[5]"/>
+      <explicitInput destination="synapses" input="pulse0" target="pop0[6]"/>
+      <population component="VERTEX_Adex_1comp_group_1" id="pop1" size="7"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[0]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[1]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[2]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[3]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[4]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[5]"/>
+      <explicitInput destination="synapses" input="pulse1" target="pop1[6]"/>
+      <population component="VERTEX_Adex_1comp_group_2" id="pop2" size="7"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[0]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[1]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[2]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[3]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[4]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[5]"/>
+      <explicitInput destination="synapses" input="pulse2" target="pop2[6]"/>
+      <synapticConnectionWD delay="1.937500ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="0.750000ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="3.093750ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="2.531250ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="2.062500ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="2.000000ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="2.531250ms" destination="synapses" from="pop0[0]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="2.937500ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="2.375000ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="2.281250ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="2.125000ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="1.343750ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="0.968750ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="2.593750ms" destination="synapses" from="pop0[1]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="2.656250ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="2.531250ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="3.375000ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="3.562500ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="2.093750ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="0.750000ms" destination="synapses" from="pop0[2]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="3.062500ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="3.156250ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="1.875000ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="1.656250ms" destination="synapses" from="pop0[3]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="2.187500ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="1.000000ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="2.968750ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="2.187500ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="1.968750ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="2.875000ms" destination="synapses" from="pop0[4]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="2.187500ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="0.875000ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="0.937500ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="2.062500ms" destination="synapses" from="pop0[5]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="2.718750ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="2.343750ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="3.062500ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="3.031250ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="3.812500ms" destination="synapses" from="pop0[6]" synapse="g_exp_01" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.812500ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="2.281250ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="2.062500ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.125000ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.093750ms" destination="synapses" from="pop0[0]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="2.812500ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="1.375000ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="1.250000ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.937500ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="1.562500ms" destination="synapses" from="pop0[1]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="3.968750ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="2.406250ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="3.375000ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop0[2]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.937500ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.406250ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="3.531250ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="2.250000ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop0[3]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.968750ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.843750ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="2.125000ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.093750ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.125000ms" destination="synapses" from="pop0[4]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.281250ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="2.781250ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="1.312500ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="1.125000ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.437500ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="1.156250ms" destination="synapses" from="pop0[5]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="3.500000ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.406250ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="3.218750ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="3.562500ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="2.843750ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="1.468750ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.250000ms" destination="synapses" from="pop0[6]" synapse="g_exp_02" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.937500ms" destination="synapses" from="pop1[0]" synapse="g_exp_10" to="pop0[0]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop1[0]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="2.187500ms" destination="synapses" from="pop1[0]" synapse="g_exp_10" to="pop0[4]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop1[0]" synapse="g_exp_10" to="pop0[6]" weight="1"/>
+      <synapticConnectionWD delay="0.750000ms" destination="synapses" from="pop1[1]" synapse="g_exp_10" to="pop0[0]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop1[1]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="1.000000ms" destination="synapses" from="pop1[1]" synapse="g_exp_10" to="pop0[4]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop1[1]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.281250ms" destination="synapses" from="pop1[2]" synapse="g_exp_10" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="3.062500ms" destination="synapses" from="pop1[2]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop1[2]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop1[2]" synapse="g_exp_10" to="pop0[6]" weight="1"/>
+      <synapticConnectionWD delay="2.531250ms" destination="synapses" from="pop1[3]" synapse="g_exp_10" to="pop0[0]" weight="1"/>
+      <synapticConnectionWD delay="3.156250ms" destination="synapses" from="pop1[3]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop1[3]" synapse="g_exp_10" to="pop0[4]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop1[3]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="1.343750ms" destination="synapses" from="pop1[4]" synapse="g_exp_10" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop1[4]" synapse="g_exp_10" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="1.875000ms" destination="synapses" from="pop1[4]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="0.875000ms" destination="synapses" from="pop1[4]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="0.968750ms" destination="synapses" from="pop1[5]" synapse="g_exp_10" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="2.093750ms" destination="synapses" from="pop1[5]" synapse="g_exp_10" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop1[5]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="0.937500ms" destination="synapses" from="pop1[5]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.593750ms" destination="synapses" from="pop1[6]" synapse="g_exp_10" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="0.750000ms" destination="synapses" from="pop1[6]" synapse="g_exp_10" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="1.656250ms" destination="synapses" from="pop1[6]" synapse="g_exp_10" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="2.062500ms" destination="synapses" from="pop1[6]" synapse="g_exp_10" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop1[0]" synapse="g_exp_12" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="2.406250ms" destination="synapses" from="pop1[0]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="1.562500ms" destination="synapses" from="pop1[0]" synapse="g_exp_12" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop1[0]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.875000ms" destination="synapses" from="pop1[1]" synapse="g_exp_12" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop1[1]" synapse="g_exp_12" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop1[1]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop1[1]" synapse="g_exp_12" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="1.468750ms" destination="synapses" from="pop1[2]" synapse="g_exp_12" to="pop2[1]" weight="1"/>
+      <synapticConnectionWD delay="2.250000ms" destination="synapses" from="pop1[2]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.343750ms" destination="synapses" from="pop1[2]" synapse="g_exp_12" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop1[2]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.937500ms" destination="synapses" from="pop1[3]" synapse="g_exp_12" to="pop2[2]" weight="1"/>
+      <synapticConnectionWD delay="1.781250ms" destination="synapses" from="pop1[3]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop1[3]" synapse="g_exp_12" to="pop2[5]" weight="1"/>
+      <synapticConnectionWD delay="1.843750ms" destination="synapses" from="pop1[3]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.187500ms" destination="synapses" from="pop1[4]" synapse="g_exp_12" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="1.125000ms" destination="synapses" from="pop1[4]" synapse="g_exp_12" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="1.375000ms" destination="synapses" from="pop1[4]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="1.406250ms" destination="synapses" from="pop1[4]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.312500ms" destination="synapses" from="pop1[5]" synapse="g_exp_12" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="1.156250ms" destination="synapses" from="pop1[5]" synapse="g_exp_12" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="0.968750ms" destination="synapses" from="pop1[5]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="1.343750ms" destination="synapses" from="pop1[5]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop1[6]" synapse="g_exp_12" to="pop2[0]" weight="1"/>
+      <synapticConnectionWD delay="1.968750ms" destination="synapses" from="pop1[6]" synapse="g_exp_12" to="pop2[3]" weight="1"/>
+      <synapticConnectionWD delay="2.593750ms" destination="synapses" from="pop1[6]" synapse="g_exp_12" to="pop2[4]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop1[6]" synapse="g_exp_12" to="pop2[6]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop2[0]" synapse="g_exp_20" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="1.625000ms" destination="synapses" from="pop2[0]" synapse="g_exp_20" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="1.281250ms" destination="synapses" from="pop2[0]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop2[1]" synapse="g_exp_20" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="2.406250ms" destination="synapses" from="pop2[1]" synapse="g_exp_20" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop2[1]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.281250ms" destination="synapses" from="pop2[2]" synapse="g_exp_20" to="pop0[0]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop2[2]" synapse="g_exp_20" to="pop0[4]" weight="1"/>
+      <synapticConnectionWD delay="2.781250ms" destination="synapses" from="pop2[2]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="1.375000ms" destination="synapses" from="pop2[3]" synapse="g_exp_20" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="1.812500ms" destination="synapses" from="pop2[3]" synapse="g_exp_20" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="1.312500ms" destination="synapses" from="pop2[3]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="1.250000ms" destination="synapses" from="pop2[4]" synapse="g_exp_20" to="pop0[1]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop2[4]" synapse="g_exp_20" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="1.125000ms" destination="synapses" from="pop2[4]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="2.125000ms" destination="synapses" from="pop2[5]" synapse="g_exp_20" to="pop0[0]" weight="1"/>
+      <synapticConnectionWD delay="2.500000ms" destination="synapses" from="pop2[5]" synapse="g_exp_20" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="1.468750ms" destination="synapses" from="pop2[5]" synapse="g_exp_20" to="pop0[6]" weight="1"/>
+      <synapticConnectionWD delay="2.312500ms" destination="synapses" from="pop2[6]" synapse="g_exp_20" to="pop0[2]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop2[6]" synapse="g_exp_20" to="pop0[3]" weight="1"/>
+      <synapticConnectionWD delay="1.156250ms" destination="synapses" from="pop2[6]" synapse="g_exp_20" to="pop0[5]" weight="1"/>
+      <synapticConnectionWD delay="1.187500ms" destination="synapses" from="pop2[0]" synapse="g_exp_21" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="1.312500ms" destination="synapses" from="pop2[0]" synapse="g_exp_21" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop2[0]" synapse="g_exp_21" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="1.468750ms" destination="synapses" from="pop2[1]" synapse="g_exp_21" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="1.750000ms" destination="synapses" from="pop2[1]" synapse="g_exp_21" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="2.750000ms" destination="synapses" from="pop2[1]" synapse="g_exp_21" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="3.093750ms" destination="synapses" from="pop2[2]" synapse="g_exp_21" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="2.218750ms" destination="synapses" from="pop2[2]" synapse="g_exp_21" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="1.937500ms" destination="synapses" from="pop2[2]" synapse="g_exp_21" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="1.125000ms" destination="synapses" from="pop2[3]" synapse="g_exp_21" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="1.156250ms" destination="synapses" from="pop2[3]" synapse="g_exp_21" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="1.968750ms" destination="synapses" from="pop2[3]" synapse="g_exp_21" to="pop1[6]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop2[4]" synapse="g_exp_21" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="1.375000ms" destination="synapses" from="pop2[4]" synapse="g_exp_21" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="0.968750ms" destination="synapses" from="pop2[4]" synapse="g_exp_21" to="pop1[5]" weight="1"/>
+      <synapticConnectionWD delay="1.562500ms" destination="synapses" from="pop2[5]" synapse="g_exp_21" to="pop1[0]" weight="1"/>
+      <synapticConnectionWD delay="1.906250ms" destination="synapses" from="pop2[5]" synapse="g_exp_21" to="pop1[1]" weight="1"/>
+      <synapticConnectionWD delay="2.031250ms" destination="synapses" from="pop2[5]" synapse="g_exp_21" to="pop1[3]" weight="1"/>
+      <synapticConnectionWD delay="1.687500ms" destination="synapses" from="pop2[6]" synapse="g_exp_21" to="pop1[2]" weight="1"/>
+      <synapticConnectionWD delay="1.406250ms" destination="synapses" from="pop2[6]" synapse="g_exp_21" to="pop1[4]" weight="1"/>
+      <synapticConnectionWD delay="1.343750ms" destination="synapses" from="pop2[6]" synapse="g_exp_21" to="pop1[5]" weight="1"/>
+   </network>
+   <expOneSynapse erev="0.000000mV" gbase="10.000000nS" id="g_exp_00" tauDecay="2.000000ms"/>
+   <expOneSynapse erev="0.000000mV" gbase="10.000000nS" id="g_exp_01" tauDecay="2.000000ms"/>
+   <expOneSynapse erev="0.000000mV" gbase="10.000000nS" id="g_exp_02" tauDecay="2.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="5.000000nS" id="g_exp_10" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="4.000000nS" id="g_exp_11" tauDecay="3.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="10.000000nS" id="g_exp_12" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="3.000000nS" id="g_exp_20" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="3.000000nS" id="g_exp_21" tauDecay="6.000000ms"/>
+   <expOneSynapse erev="-75.000000mV" gbase="3.000000nS" id="g_exp_22" tauDecay="6.000000ms"/>
+   <Simulation id="sim1" length="500.000000ms" step="0.010000ms" target="net1">
+      <Display id="d1" timeScale="1ms" title="Voltage traces and inputs of VERTEX_Adex one comp cell(s)" xmax="500.000000" xmin="0" ymax="100" ymin="-160">
+         <Line color="#FF0000" id="iSyn_pop0_5" quantity="pop0[5]/iSyn" scale="0.005nA" timeScale="1ms"/>
+         <Line color="#FF0000" id="v_pop0_5" quantity="pop0[5]/v" scale="1mV" timeScale="1ms"/>
+         <Line color="#00FF00" id="iSyn_pop1_4" quantity="pop1[4]/iSyn" scale="0.005nA" timeScale="1ms"/>
+         <Line color="#00FF00" id="v_pop1_4" quantity="pop1[4]/v" scale="1mV" timeScale="1ms"/>
+         <Line color="#0000FF" id="iSyn_pop2_3" quantity="pop2[3]/iSyn" scale="0.005nA" timeScale="1ms"/>
+         <Line color="#0000FF" id="v_pop2_3" quantity="pop2[3]/v" scale="1mV" timeScale="1ms"/>
+      </Display>
+      <OutputFile fileName="results/Adex3pop_1comp_test3_pop0.dat" id="of0">
+         <OutputColumn id="pop05" quantity="pop0[5]/v"/>
+      </OutputFile>
+      <OutputFile fileName="results/Adex3pop_1comp_test3_pop1.dat" id="of1">
+         <OutputColumn id="pop14" quantity="pop1[4]/v"/>
+      </OutputFile>
+      <OutputFile fileName="results/Adex3pop_1comp_test3_pop2.dat" id="of2">
+         <OutputColumn id="pop23" quantity="pop2[3]/v"/>
+      </OutputFile>
+   </Simulation>
+</Lems>

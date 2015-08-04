@@ -6,21 +6,23 @@ function VERTEXcell_vs_LEMScell(VERTEX_params,Results,filename,cellID_in_pop,pop
 %This is usually saved in the jNeuroMLJar subfolder named results.
 if isstruct(VERTEX_params)==1
     Tissue_params=VERTEX_params.TissueParams;
-    
+    Recording_params=VERTEX_params.RecordingSettings;
 end
 
 if iscell(VERTEX_params)==1
     Tissue_params=VERTEX_params{1};
+    Recording_params=VERTEX_params{4};
    
     
 end
 % get cellID in VERTEX format
 cellID=cellID_in_pop+1;
 if popID~=0
-    cellID=(cellID_in_pop+1)+Tissue_params.groupSizeArr(popID+1,1);
+    cellID=cellID_in_pop+1+Tissue_params.groupBoundaryIDArr(popID+1,1);
 end
+index=find(Recording_params.v_m==cellID);
 % Visualize results from both VERTEX and LEMS simulations
-x=plot(Results.v_m(cellID, :), 'LineWidth', 2,'Color','r');
+x=plot(Results.v_m(index, :), 'LineWidth', 2,'Color','r');
 dat_path=which(sprintf('%s.dat',filename));
 hold on
 load(dat_path);
