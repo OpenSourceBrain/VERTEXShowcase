@@ -10,3 +10,5 @@ See [here](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/NeuroML
 
 For current activities related to this project see [these issues](https://github.com/OpenSourceBrain/VERTEXShowcase/issues).
 
+[![Build Status](https://travis-ci.org/OpenSourceBrain/VERTEXShowcase.svg?branch=master)](https://travis-ci.org/OpenSourceBrain/VERTEXShowcase)
+
