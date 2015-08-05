@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="medium_net_1000_pop5" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   <cell id="medium_net_1000_pop5">
+      <morphology id="morphology_medium_net_1000_pop5">
+         <segment id="0">
+            <proximal diameter="24.000000" x="0.000000" y="0.000000" z="-10.000000"/>
+            <distal diameter="24.000000" x="0.000000" y="0.000000" z="0.000000"/>
+         </segment>
+         <segment id="1">
+            <parent segment="0"/>
+            <proximal diameter="1.930000" x="0.000000" y="0.000000" z="0.000000"/>
+            <distal diameter="1.930000" x="0.000000" y="0.000000" z="56.000000"/>
+         </segment>
+         <segment id="2">
+            <parent segment="1"/>
+            <proximal diameter="1.950000" x="0.000000" y="0.000000" z="56.000000"/>
+            <distal diameter="1.950000" x="107.000000" y="0.000000" z="163.000000"/>
+         </segment>
+         <segment id="3">
+            <parent segment="1"/>
+            <proximal diameter="1.950000" x="0.000000" y="0.000000" z="56.000000"/>
+            <distal diameter="1.950000" x="-107.000000" y="0.000000" z="163.000000"/>
+         </segment>
+         <segment id="4">
+            <parent segment="0"/>
+            <proximal diameter="1.930000" x="0.000000" y="0.000000" z="-10.000000"/>
+            <distal diameter="1.930000" x="0.000000" y="0.000000" z="-66.000000"/>
+         </segment>
+         <segment id="5">
+            <parent segment="4"/>
+            <proximal diameter="1.950000" x="0.000000" y="0.000000" z="-66.000000"/>
+            <distal diameter="1.950000" x="-107.000000" y="0.000000" z="-173.000000"/>
+         </segment>
+         <segment id="6">
+            <parent segment="4"/>
+            <proximal diameter="1.950000" x="0.000000" y="0.000000" z="-66.000000"/>
+            <distal diameter="1.950000" x="107.000000" y="0.000000" z="-173.000000"/>
+         </segment>
+      </morphology>
+   </cell>
+</neuroml>
