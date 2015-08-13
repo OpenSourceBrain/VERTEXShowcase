@@ -96,10 +96,13 @@ if no_of_synapticConnection~=0
                        break
                    end
                end
-               continue
+               break
            
            end
-           
+       end
+       
+       for j=0:attributes_length-1
+           attribute=attributes.item(j);
            if strcmp(char(attribute.getName),'to')==1
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
@@ -112,12 +115,17 @@ if no_of_synapticConnection~=0
                        break
                    end
                end
-               
+               break
            end
            
            if strcmp(char(attribute.getName),'synapse')==1
                
-               
+               continue
+           end
+           
+           if strcmp(char(attribute.getName),'delay')==1
+              
+               continue
            end
        end
    end
@@ -147,10 +155,12 @@ if no_of_synapticConnectionWD~=0
                        break
                    end
                end
-               continue
+               break
            
            end
-           
+       end   
+       for j=0:attributes_length-1
+           attribute=attributes.item(j);
            if strcmp(char(attribute.getName),'to')==1
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
@@ -163,14 +173,11 @@ if no_of_synapticConnectionWD~=0
                        break
                    end
                end
-               
+               break
            end
+       end  
            
-           if strcmp(char(attribute.getName),'synapse')==1
-               
-               
-           end
-       end
+       
    end
 
 
@@ -180,10 +187,112 @@ end
 
 
 if no_of_projections~=0
+    for i=0:no_of_projections-1
+        get_connections=get_projections.item(i).getElementsByTagName('connection');
+        get_connectionsWD=get_projections.item(i).getElementsByTagName('connectionWD');
+        no_of_connections=get_connections.getLength;
+        no_of_connectionsWD=get_connectionsWD.getLength;
+        projection_attributes=get_projections.item(i).getAttributes;
+        projection_attributes_length=projection_attributes.getLength;
+        for y=0:projection_attributes_length-1
+            projection_attribute=projection_attributes.item(y);
+            if strcmp(char(projection_attribute.getName),'presynapticPopulation')==1
+                get_pre_pop_name=char(projection_attribute.getValue);
+                for l=1:no_of_populations
+                    if isempty(strfind(get_pre_pop_name,populations_ids_sizes{l,1}))==0
+                        pre_pop_size=population_size_boundaries(l);
+                    end
+                    
+                end
+                continue
+            end
+            if strcmp(char(projection_attribute.getName),'postsynapticPopulation')==1
+                get_post_pop_name=char(projection_attribute.getValue);
+                for l=1:no_of_populations
+                    if isempty(strfind(get_post_pop_name,populations_ids_sizes{l,1}))==0
+                        post_pop_size=population_size_boundaries(l);
+                    end
+                    
+                end
+            end
+        end   
+        if no_of_connections~=0
+            
+            for j=0:no_of_connections-1
+                attributes=get_connections.item(j).getAttributes;
+                attributes_length=attributes.getLength;
+                for k=0:attributes_length-1
+                    attribute=attributes.item(k);
+                    if strcmp(char(attribute.getName),'preCellId')==1
+                        get_string=char(attribute.getValue);
+                        find_string_separator1=strfind(get_string,'/');
+                        find_string_separator2=strfind(get_string,'[');
+                        if isempty(find_string_separator1)==0
+                            if isempty(find_string_separator2)==0
+                                
+                                pre_cellID=str2double(get_string(find_string_separator2+1,end-1))+1;
+                                
+                            else
+                                pre_cellID=str2double(get_string(find_string_separator1(2)+1:find_string_separator1(3)-1))+1;
+                                
+                            end
+                        end
+                        
+                        break
+                    end
+                end
+                
+                for k=0:attributes_length-1
+                    attribute=attributes.item(k);
+                    if strcmp(char(attribute.getName),'postCellId')==1
+                        get_string=char(attribute.getValue);
+                        find_string_separator1=strfind(get_string,'/');
+                        find_string_separator2=strfind(get_string,'[');
+                        if isempty(find_string_separator1)==0
+                            if isempty(find_string_separator2)==0
+                                
+                                post_cellID=str2double(get_string(find_string_separator2+1,end-1))+1;
+                                
+                            else
+                                post_cellID=str2double(get_string(find_string_separator1(2)+1:find_string_separator1(3)-1))+1;
+                                
+                            end
+                            
+                        end
+                            
+                        
+                                
+                            
+                        
+                        break
+                     end
+                 end
+                connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+post_pop_size;
+                counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
+                
+                if strcmp(char(attribute.getName),'synapse')==1
+                    
+                    
+                end
+            end
+        end
+        
+        
+        
+        
+        
+        if no_of_connectionsWD~=0
+            
+            
+            
+            
+        end
+        
+        
     
     
+        
+        
+    end
     
-    
-end
-
-
+end   
