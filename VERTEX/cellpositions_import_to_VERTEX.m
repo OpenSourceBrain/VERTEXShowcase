@@ -1,4 +1,4 @@
-function positions=cellpositions_import_to_VERTEX(xml_or_nml_filename)
+function [positions, TissueParams]=cellpositions_import_to_VERTEX(xml_or_nml_filename,no_of_Strips)
 
 root_node=xmlread(xml_or_nml_filename);
 
@@ -37,6 +37,20 @@ for i=0:Number_of_cells-1
     
     
 end
+
+
+get_max_x=max(positions(:,1));
+get_max_y=max(positions(:,2));
+get_max_z=max(positions(:,3));
+% round to the nearest tenth and set some of the TissueParams
+TissueParams.X=roundn(get_max_x,1);
+TissueParams.Y=roundn(get_max_y,1);
+TissueParams.Z=roundn(get_max_z,1);
+TissueParams.neuronDensity=(Number_of_cells*10^9)/(TissueParams.X*TissueParams.Y*TissueParams.Z);
+TissueParams.layerBoundaryArr=[TissueParams.Z, 0]; 
+TissueParams.numStrips=no_of_Strips;
+TissueParams.maxZOverlap=[-1, -1];
+
 
 
 

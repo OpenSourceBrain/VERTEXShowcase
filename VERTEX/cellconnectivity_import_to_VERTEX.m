@@ -1,6 +1,6 @@
-function connections=cellconnectivity_import_to_VERTEX(filename)
+function [connections,ConnectionParams,synapse_array]=cellconnectivity_import_to_VERTEX(filename)
 
-root_node=xmlread(filename);
+root_node=xmlread(which(filename));
 
 get_populations=root_node.getElementsByTagName('population');
 
@@ -16,24 +16,27 @@ populations_ids_sizes=cell(no_of_populations,2); % the first column contains the
 population_size_boundaries=zeros(no_of_populations,1);
 population_size_boundaries(1)=0;
 no_of_cells=0;
-for i=0:no_of_populations-1
+for y=0:no_of_populations-1
     
-    attributes=get_populations.item(i).getAttributes;
+    attributes=get_populations.item(y).getAttributes;
     attributes_length=attributes.getLength;
     for j=0:attributes_length-1
         attribute=attributes.item(j);
         if strcmp(char(attribute.getName),'id')==1
-            populations_ids_sizes{i+1,1}=char(attribute.getValue);
+            populations_ids_sizes{y+1,1}=char(attribute.getValue);
             continue
         end
         if strcmp(char(attribute.getName),'size')==1
-            populations_ids_sizes{i+1,2}=str2double(attribute.getValue);
+            populations_ids_sizes{y+1,2}=str2double(attribute.getValue);
             no_of_cells=no_of_cells+str2double(attribute.getValue);
-            if i+1~=1
-                population_size_boundaries(i+1)=str2double(attribute.getValue)+population_size_boundaries(i);
+            if y+1~=1
+                population_size_boundaries(y+1)=str2double(attribute.getValue)+population_size_boundaries(y);
+                continue
             end
         end
-           
+        if strcmp(char(attribute.getName),'component')==1
+            
+        end
     end
     
     
@@ -41,20 +44,23 @@ end
 
 connections=cell(no_of_cells,3);
 
-for i=1:no_of_cells
+for y=1:no_of_cells
     
     for j=1:3
         
-        connections{i,j}=[];
+        connections{y,j}=[];
         if j==1 || j==3
-            connections{i,j}=uint16(connections{i,j});
+            connections{y,j}=uint16(connections{y,j});
         end
         if j==2
-            connections{i,j}=uint8(connections{i,j});
+            connections{y,j}=uint8(connections{y,j});
+            
         end
     end
     
 end
+
+
 
 get_synapticConnection=root_node.getElementsByTagName('synapticConnection');
 
@@ -75,12 +81,67 @@ no_of_projections=get_projections.getLength;
 %no_of_connection=get_connection.getLength;
 
 %no_of_connectionWD=get_connectionWD.getLength;
+get_expOneSynapse=root_node.getElementsByTagName('expOneSynapse');
+synapse_array=cell(get_expOneSynapse.getLength,5);
+if get_expOneSynapse.getLength~=0
+    for i=0:get_expOneSynapse.getLength-1
+        synapse_array{i+1,5}='g_exp';
+        attributes=get_expOneSynapse.item(i).getAttributes;
+        attributes_length=attributes.getLength;
+        for l=0:attributes_length-1
+            attribute=attributes.item(l);
+            if strcmp(char(attribute.getName),'id')==1
+               get_string=char(attribute.getValue);
+               synapse_array{i+1,1}=get_string;
+               continue
+            end
+            if strcmp(char(attribute.getName),'erev')==1
+                get_string=char(attribute.getValue);
+                synapse_array{i+1,2}=str2double(strtok(get_string,'m'));
+               continue
+            end
+            if strcmp(char(attribute.getName),'gbase')==1
+                get_string=char(attribute.getValue);
+                synapse_array{i+1,3}=str2double(strtok(get_string,'n'));
+                continue
+                
+            end
+            if strcmp(char(attribute.getName),'tauDecay')==1
+                get_string=char(attribute.getValue);
+                synapse_array{i+1,4}=str2double(strtok(get_string,'m'));
+            end
+            
+        end
+        
+    end
+    
+    
+end
+
+
+ConnectionParams(no_of_populations)=struct();
+
+for y=1:no_of_populations
+    ConnectionParams(y).numConnectionsToAllFromOne =num2cell(zeros(1,no_of_populations));
+    ConnectionParams(y).targetCompartments=num2cell(ones(1,no_of_populations));
+    ConnectionParams(y).synapseType =cell(1,no_of_populations); 
+    ConnectionParams(y).weights =cell(1,no_of_populations);
+    ConnectionParams(y).tau =cell(1,no_of_populations);
+    ConnectionParams(y).E_reversal=cell(1,no_of_populations);
+    ConnectionParams(y).axonArborSpatialModel = 'uniform';
+    ConnectionParams(y).sliceSynapses = false;
+    ConnectionParams(y).axonArborRadius = 100; % set the same value for all populations for now.
+    ConnectionParams(y).axonConductionSpeed = Inf;
+    ConnectionParams(y).synapseReleaseDelay = 0;
+   
+    
+end
 counters_for_post_cells=ones(no_of_cells,1);
 if no_of_synapticConnection~=0
     
   
-   for i=0:no_of_synapticConnection-1
-       attributes=get_synapticConnection.item(i).getAttributes;
+   for y=0:no_of_synapticConnection-1
+       attributes=get_synapticConnection.item(y).getAttributes;
        attributes_length=attributes.getLength;
        for j=0:attributes_length-1
            attribute=attributes.item(j);
@@ -92,13 +153,14 @@ if no_of_synapticConnection~=0
                        pre_cellID=pre_cellID(2:end-1);
                        pre_cellID=str2double(pre_cellID)+1;
                        pre_pop_size=population_size_boundaries(k);
-                       
+                       pre_pop_Index=k;
                        break
                    end
                end
                break
            
            end
+           
        end
        
        for j=0:attributes_length-1
@@ -107,27 +169,42 @@ if no_of_synapticConnection~=0
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
                    if isempty(strfind(get_to_string,populations_ids_sizes{k,1}))==0
-                       [~,post_cellID]=strtok(get_string,'[');
+                       [~,post_cellID]=strtok(get_to_string,'[');
+                       post_pop_Index=k;
                        post_cellID=post_cellID(2:end-1);
                        post_cellID=str2double(post_cellID)+1;
                        connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
+                       connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
                        counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
+                       ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
+                       
                        break
                    end
                end
                break
-           end
-           
-           if strcmp(char(attribute.getName),'synapse')==1
                
-               continue
            end
            
-           if strcmp(char(attribute.getName),'delay')==1
-              
-               continue
-           end
        end
+       for j=0:attributes_length-1
+           attribute=attributes.item(j);
+           if strcmp(char(attribute.getName),'synapse')==1
+               get_synapse_id=char(attribute.getValue);
+               for i=1:get_expOneSynapse.getLength
+                   if strcmp(get_synapse_id,synapse_array{i,1})==1
+                       ConnectionParams(pre_pop_Index).synapseType{1,post_pop_Index}=synapse_array{i,5};
+                       ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=synapse_array{i,3};
+                       ConnectionParams(pre_pop_Index).E_reversal{1,post_pop_Index}=synapse_array{i,2};
+                       ConnectionParams(pre_pop_Index).tau{1,post_pop_Index}=synapse_array{i,4};
+                   end
+                   break
+               end
+               break
+           end
+           
+       end
+       
+       
    end
 
 
@@ -138,8 +215,8 @@ end
 
 if no_of_synapticConnectionWD~=0
     
-    for i=0:no_of_synapticConnectionWD-1
-       attributes=get_synapticConnectionWD.item(i).getAttributes;
+    for y=0:no_of_synapticConnectionWD-1
+       attributes=get_synapticConnectionWD.item(y).getAttributes;
        attributes_length=attributes.getLength;
        for j=0:attributes_length-1
            attribute=attributes.item(j);
@@ -151,7 +228,7 @@ if no_of_synapticConnectionWD~=0
                        pre_cellID=pre_cellID(2:end-1);
                        pre_cellID=str2double(pre_cellID)+1;
                        pre_pop_size=population_size_boundaries(k);
-                       
+                       pre_pop_Index=k;
                        break
                    end
                end
@@ -165,17 +242,46 @@ if no_of_synapticConnectionWD~=0
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
                    if isempty(strfind(get_to_string,populations_ids_sizes{k,1}))==0
+                       post_pop_Index=k;
                        [~,post_cellID]=strtok(get_string,'[');
                        post_cellID=post_cellID(2:end-1);
                        post_cellID=str2double(post_cellID)+1;
                        connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
+                       connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
                        counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
+                       ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
                        break
                    end
                end
+               
+           end
+           
+       end  
+       for j=0:attributes_length-1
+           attribute=attributes.item(j);
+           if strcmp(char(attribute.getName),'synapse')==1
+               get_synapse_id=char(attribute.getValue);
+               for i=1:get_expOneSynapse.getLength
+                   if strcmp(get_synapse_id,synapse_array{i,1})==1
+                       ConnectionParams(pre_pop_Index).synapseType{1,post_pop_Index}=synapse_array{i,5};
+                       ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=synapse_array{i,3};
+                       ConnectionParams(pre_pop_Index).E_reversal{1,post_pop_Index}=synapse_array{i,2};
+                       ConnectionParams(pre_pop_Index).tau{1,post_pop_Index}=synapse_array{i,4};
+                   end
+                   break
+               end
                break
            end
-       end  
+       end
+       for j=0:attributes_length-1
+           attribute=attributes.item(j);
+           if strcmp(char(attribute.getName),'delay')==1
+               delay=strtok(char(attribute.getValue),'m');
+               connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=str2double(delay);
+               break
+           end
+           
+       end
            
        
    end
@@ -187,15 +293,15 @@ end
 
 
 if no_of_projections~=0
-    for i=0:no_of_projections-1
-        get_connections=get_projections.item(i).getElementsByTagName('connection');
-        get_connectionsWD=get_projections.item(i).getElementsByTagName('connectionWD');
+    for y=0:no_of_projections-1
+        get_connections=get_projections.item(y).getElementsByTagName('connection');
+        get_connectionsWD=get_projections.item(y).getElementsByTagName('connectionWD');
         no_of_connections=get_connections.getLength;
         no_of_connectionsWD=get_connectionsWD.getLength;
-        projection_attributes=get_projections.item(i).getAttributes;
+        projection_attributes=get_projections.item(y).getAttributes;
         projection_attributes_length=projection_attributes.getLength;
-        for y=0:projection_attributes_length-1
-            projection_attribute=projection_attributes.item(y);
+        for k=0:projection_attributes_length-1
+            projection_attribute=projection_attributes.item(k);
             if strcmp(char(projection_attribute.getName),'presynapticPopulation')==1
                 get_pre_pop_name=char(projection_attribute.getValue);
                 for l=1:no_of_populations
