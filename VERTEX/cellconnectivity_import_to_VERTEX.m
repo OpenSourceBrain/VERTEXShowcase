@@ -1,4 +1,4 @@
-function [connections,ConnectionParams,synapse_array]=cellconnectivity_import_to_VERTEX(filename)
+function [connections,ConnectionParams]=cellconnectivity_import_to_VERTEX(filename)
 
 root_node=xmlread(which(filename));
 
@@ -49,7 +49,7 @@ for y=1:no_of_cells
     for j=1:3
         
         connections{y,j}=[];
-        if j==1 || j==3
+        if j==1 % later decide how to take into account simulation time and convert the second column to time steps in uint16
             connections{y,j}=uint16(connections{y,j});
         end
         if j==2
@@ -186,6 +186,7 @@ if no_of_synapticConnection~=0
            end
            
        end
+       
        for j=0:attributes_length-1
            attribute=attributes.item(j);
            if strcmp(char(attribute.getName),'synapse')==1
@@ -196,8 +197,9 @@ if no_of_synapticConnection~=0
                        ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=synapse_array{i,3};
                        ConnectionParams(pre_pop_Index).E_reversal{1,post_pop_Index}=synapse_array{i,2};
                        ConnectionParams(pre_pop_Index).tau{1,post_pop_Index}=synapse_array{i,4};
+                       break
                    end
-                   break
+                   
                end
                break
            end
@@ -248,7 +250,6 @@ if no_of_synapticConnectionWD~=0
                        post_cellID=str2double(post_cellID)+1;
                        connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
                        connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
-                       counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
                        ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
                        break
                    end
@@ -267,8 +268,9 @@ if no_of_synapticConnectionWD~=0
                        ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=synapse_array{i,3};
                        ConnectionParams(pre_pop_Index).E_reversal{1,post_pop_Index}=synapse_array{i,2};
                        ConnectionParams(pre_pop_Index).tau{1,post_pop_Index}=synapse_array{i,4};
+                       break
                    end
-                   break
+                   
                end
                break
            end
@@ -282,7 +284,7 @@ if no_of_synapticConnectionWD~=0
            end
            
        end
-           
+       counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1; 
        
    end
 
