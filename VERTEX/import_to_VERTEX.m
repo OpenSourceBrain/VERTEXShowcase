@@ -1,8 +1,12 @@
-function [connections,ConnectionParams]=cellconnectivity_import_to_VERTEX(filename)
+function [connections,ConnectionParams,NeuronParams]=import_to_VERTEX(filename)
 
 root_node=xmlread(which(filename));
 
 get_populations=root_node.getElementsByTagName('population');
+
+get_LEMS=root_node.getElementsByTagName('Lems');
+
+get_LEMS_children=get_LEMS.item(0).getChildNodes;
 
 no_of_populations=get_populations.getLength;
 
@@ -11,7 +15,7 @@ no_of_populations=get_populations.getLength;
     
 %end
 
-populations_ids_sizes=cell(no_of_populations,2); % the first column contains the id names of distinct cell populations;
+populations_ids_sizes_components=cell(no_of_populations,3); % the first column contains the id names of distinct cell populations;
 % the second column contains the sizes of these populations.
 population_size_boundaries=zeros(no_of_populations,1);
 population_size_boundaries(1)=0;
@@ -23,11 +27,11 @@ for y=0:no_of_populations-1
     for j=0:attributes_length-1
         attribute=attributes.item(j);
         if strcmp(char(attribute.getName),'id')==1
-            populations_ids_sizes{y+1,1}=char(attribute.getValue);
+            populations_ids_sizes_components{y+1,1}=char(attribute.getValue);
             continue
         end
         if strcmp(char(attribute.getName),'size')==1
-            populations_ids_sizes{y+1,2}=str2double(attribute.getValue);
+            populations_ids_sizes_components{y+1,2}=str2double(attribute.getValue);
             no_of_cells=no_of_cells+str2double(attribute.getValue);
             if y+1~=1
                 population_size_boundaries(y+1)=str2double(attribute.getValue)+population_size_boundaries(y);
@@ -35,13 +39,76 @@ for y=0:no_of_populations-1
             end
         end
         if strcmp(char(attribute.getName),'component')==1
-            
+            component_name=char(attribute.getValue);
+            populations_ids_sizes_components{y+1,3}=component_name;
         end
     end
     
     
 end
+NeuronParams(no_of_populations)=struct();
 
+for k=1:no_of_populations
+    NeuronParams(k).modelProportion=populations_ids_sizes_components{k,2}/no_of_cells;
+    NeuronParams(k).somaLayer=1;
+    % assume for now one compartment cell models only
+    NeuronParams(k).numCompartments=1;
+    NeuronParams(k).somaID=1;
+    NeuronParams(k).axisAligned = 'z';
+end
+
+counter=0;
+for i=0:get_LEMS_children.getLength-1
+    specific_child=get_LEMS_children.item(i);
+    specific_child_attributes=specific_child.getAttributes;
+    if isempty(specific_child_attributes)==0
+        for y=0:specific_child_attributes.getLength-1
+            attribute=specific_child_attributes.item(y);
+            if strcmp(char(attribute.getName),'id')==1
+                for k=1:no_of_populations
+                    if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
+                        NeuronParams(k).neuronModel=char(specific_child.getNodeName);
+                        for l=0:specific_child_attributes.getLength-1
+                            attribute_in=specific_child_attributes.item(l);
+                            if strcmp(char(attribute_in.getName),'id')~=1
+                                attribute_name=char(attribute_in.getName);
+                                attribute_value=char(attribute_in.getValue);
+                                attribute_value_type=zeros(1,length(attribute_value));
+                                for x=1:length(attribute_value)
+                                    character=str2double(attribute_value(x));
+                                    attribute_value_type(x)=character;
+                                end
+                                find_isnan=find(isnan(attribute_value_type));
+                                if find_isnan(1)==1
+                                    
+                                   numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(3))));
+                                   
+                                else
+                                   numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(2))));
+                                    
+                                end
+                                NeuronParams(k).(matlab.lang.makeValidName(attribute_name))=numerical_value;
+                                
+                            end
+                        end
+                        counter=counter+1;
+                        break
+                    end
+                end
+                break
+            end
+            
+            
+        end
+    end
+    if counter==no_of_populations
+        
+        break
+    end
+end
+
+
+% the following block is for the extraction of cell connectivity information
 connections=cell(no_of_cells,3);
 
 for y=1:no_of_cells
@@ -148,7 +215,7 @@ if no_of_synapticConnection~=0
            if strcmp(char(attribute.getName),'from')==1
                get_string=char(attribute.getValue);
                for k=1:no_of_populations
-                   if isempty(strfind(get_string,populations_ids_sizes{k,1}))==0
+                   if isempty(strfind(get_string,populations_ids_sizes_components{k,1}))==0
                        [~,pre_cellID]=strtok(get_string,'[');
                        pre_cellID=pre_cellID(2:end-1);
                        pre_cellID=str2double(pre_cellID)+1;
@@ -168,7 +235,7 @@ if no_of_synapticConnection~=0
            if strcmp(char(attribute.getName),'to')==1
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
-                   if isempty(strfind(get_to_string,populations_ids_sizes{k,1}))==0
+                   if isempty(strfind(get_to_string,populations_ids_sizes_components{k,1}))==0
                        [~,post_cellID]=strtok(get_to_string,'[');
                        post_pop_Index=k;
                        post_cellID=post_cellID(2:end-1);
@@ -225,7 +292,7 @@ if no_of_synapticConnectionWD~=0
            if strcmp(char(attribute.getName),'from')==1
                get_string=char(attribute.getValue);
                for k=1:no_of_populations
-                   if isempty(strfind(get_string,populations_ids_sizes{k,1}))==0
+                   if isempty(strfind(get_string,populations_ids_sizes_components{k,1}))==0
                        [~,pre_cellID]=strtok(get_string,'[');
                        pre_cellID=pre_cellID(2:end-1);
                        pre_cellID=str2double(pre_cellID)+1;
@@ -243,7 +310,7 @@ if no_of_synapticConnectionWD~=0
            if strcmp(char(attribute.getName),'to')==1
                get_to_string=char(attribute.getValue);
                for k=1:no_of_populations
-                   if isempty(strfind(get_to_string,populations_ids_sizes{k,1}))==0
+                   if isempty(strfind(get_to_string,populations_ids_sizes_components{k,1}))==0
                        post_pop_Index=k;
                        [~,post_cellID]=strtok(get_string,'[');
                        post_cellID=post_cellID(2:end-1);
@@ -307,7 +374,7 @@ if no_of_projections~=0
             if strcmp(char(projection_attribute.getName),'presynapticPopulation')==1
                 get_pre_pop_name=char(projection_attribute.getValue);
                 for l=1:no_of_populations
-                    if isempty(strfind(get_pre_pop_name,populations_ids_sizes{l,1}))==0
+                    if isempty(strfind(get_pre_pop_name,populations_ids_sizes_components{l,1}))==0
                         pre_pop_size=population_size_boundaries(l);
                     end
                     
@@ -317,7 +384,7 @@ if no_of_projections~=0
             if strcmp(char(projection_attribute.getName),'postsynapticPopulation')==1
                 get_post_pop_name=char(projection_attribute.getValue);
                 for l=1:no_of_populations
-                    if isempty(strfind(get_post_pop_name,populations_ids_sizes{l,1}))==0
+                    if isempty(strfind(get_post_pop_name,populations_ids_sizes_components{l,1}))==0
                         post_pop_size=population_size_boundaries(l);
                     end
                     
