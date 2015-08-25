@@ -64,7 +64,9 @@ if get_LEMS.getLength~=0
                 if strcmp(char(attribute.getName),'id')==1
                     for k=1:no_of_populations
                         if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
+                            
                             NeuronParams(k).neuronModel=char(specific_child.getNodeName);
+                            
                             for l=0:specific_child_attributes.getLength-1
                                 attribute_in=specific_child_attributes.item(l);
                                 if strcmp(char(attribute_in.getName),'id')~=1
@@ -344,12 +346,172 @@ if get_LEMS.getLength~=0
         
         
     end
+    
+    
+    
+    
     list_cell_positions=root_node.getElementsByTagName('location');
     if list_cell_positions.getLength~=0
+        Number_of_cells=list_cell_positions.getLength; % generally should be the same as no_of_cells
+        %calculated by adding values of attribute "size" from different populations
+        
+        positions=zeros(Number_of_cells,4);
+        
+        positions(:,4)=1:Number_of_cells;
+        if Number_of_cells==no_of_cells
+            for i=0:Number_of_cells-1
+                
+                attributes=list_cell_positions.item(i).getAttributes;
+                attributes_length=attributes.getLength;
+                for j=0:attributes_length-1
+                    attribute=attributes.item(j);
+                    if strcmp(char(attribute.getName),'x')==1
+                        positions(i+1,1)=str2double(attribute.getValue);
+                        continue
+                    end
+                    
+                    if strcmp(char(attribute.getName),'y')==1
+                        positions(i+1,2)=str2double(attribute.getValue);
+                        continue
+                    end
+                    
+                    if strcmp(char(attribute.getName),'z')==1
+                        positions(i+1,3)=str2double(attribute.getValue);
+                        
+                        
+                    end
+                    
+                    
+                end
+                
+                
+            end
         
         
+            get_max_x=max(positions(:,1));
+            get_max_y=max(positions(:,2));
+            get_max_z=max(positions(:,3));
+            % round to the nearest tenth and set some of the TissueParams
+            TissueParams.X=roundn(get_max_x,1);
+            TissueParams.Y=roundn(get_max_y,1);
+            TissueParams.Z=roundn(get_max_z,1);
+            TissueParams.neuronDensity=(Number_of_cells*10^9)/(TissueParams.X*TissueParams.Y*TissueParams.Z);
+            TissueParams.layerBoundaryArr=[TissueParams.Z, 0];
+            % maybe later include as the optional input argument
+            if no_of_cells<=50
+                
+                TissueParams.numStrips=1;
+            end
+            if no_of_cells >50 && no_of_cells<=1000
+                TissueParams.numStrips=10;
+            end
+            if no_of_cells>1000 && no_of_cells<=5000
+                TissueParams.numStrips=20;
+            end
+            if no_of_cells>5000 && no_of_cells<=10000
+                TissueParams.numStrips=50;
+            end
+            if no_of_cells >10000
+                TissueParams.numStrips=100;
+            end
+            TissueParams.maxZOverlap=[-1, -1];
+            
+            
+            varargout{4}=positions;
+            varargout{5}=TissueParams;
+        end
+    else
+            
+            TissueParams.neuronDensity=25000;
+            V=(no_of_cells*10^9)/TissueParams.neuronDensity;
+            TissueParams.X=V^(1/3);
+            TissueParams.Y=V^(1/3);
+            TissueParams.Z=V^(1/3); %depth of the soma layer
+            TissueParams.layerBoundaryArr=[TissueParams.Z, 0];
+            TissueParams.maxZOverlap=[-1, -1];
+            % maybe later include as the optional input argument
+            if no_of_cells<=50
+                
+                TissueParams.numStrips=1;
+            end
+            if no_of_cells >50 && no_of_cells<=1000
+                TissueParams.numStrips=10;
+            end
+            if no_of_cells>1000 && no_of_cells<=5000
+                TissueParams.numStrips=20;
+            end
+            if no_of_cells>5000 && no_of_cells<=10000
+                TissueParams.numStrips=50;
+            end
+            if no_of_cells >10000
+                TissueParams.numStrips=100;
+            end
+            
+        
+        
+           
+            varargout{4}=TissueParams;
+    end
+    
+    get_explicitInput=root_node.getElementsByTagName('explicitInput');
+    if get_explicitInput.getLength~=0
+        get_cell_inputs=cell(get_explicitInput.getLength,2);
+        Index_array=cell(1,no_of_populations);
+        for k=1:no_of_populations
+            Index_array{1,k}=zeros(1,get_explicitInput.getLength);
+        end
+        for i=0:get_explicitInput.getLength-1
+            Explicit_input=get_explicitInput.item(i);
+            Explicit_input_attributes=Explicit_input.getAttributes;
+            for j=0:Explicit_input_attributes.getLength-1
+                attribute=Explicit_input_attributes.item(j);
+                if strcmp(char(attribute.getName),'input')==1
+                    get_cell_inputs{i+1,1}=char(attribute.getValue);
+                    
+                    continue
+                end
+                if strcmp(char(attribute.getName),'target')==1
+                    target_string=char(attribute.getValue);
+                    target_name=strtok(target_string,'[');
+                    get_cell_inputs{i+1,2}=target_name;
+                    for k=1:no_of_populations
+                        if strcmp(target_name,populations_ids_sizes_components{k,1})==1
+                              Index_array{1,k}(1,i+1)=1;
+                        end
+                        
+                        
+                    end
+                    continue
+                end
+                
+                
+            end
+        
+        
+        
+        end
+        
+        for i=0:get_LEMS_children.getLength-1
+           specific_child=get_LEMS_children.item(i);
+           specific_child_attributes=specific_child.getAttributes;
+           if isempty(specific_child_attributes)==0
+               for y=0:specific_child_attributes.getLength-1
+                   attribute=specific_child_attributes.item(y);
+                   if strcmp(char(attribute.getName),'id')==1
+                       for k=1:no_of_populations
+                           if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
+                               
+                               NeuronParams(k).Input(1)=char(specific_child.getNodeName);
+                           end
+                       end
+                   end
+               end
+           end
+        end
         
     end
+    
+    
 varargout{1}=connections;
 varargout{2}=ConnectionParams;
 varargout{3}=NeuronParams;
