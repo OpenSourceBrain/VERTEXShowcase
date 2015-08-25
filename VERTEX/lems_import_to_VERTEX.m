@@ -78,14 +78,24 @@ if get_LEMS.getLength~=0
                                         attribute_value_type(x)=character;
                                     end
                                     find_isnan=find(isnan(attribute_value_type));
+                                    
                                     if find_isnan(1)==1
-                                        
-                                        numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(3))));
+                                        if numel(find_isnan)>=3
+                                            numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(3))));
+                                        else
+                                            numerical_value=str2double(attribute_value);
+                                            
+                                        end
                                         
                                     else
-                                        numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(2))));
-                                        
+                                        if numel(find_isnan)>=2
+                                            numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(2))));
+                                        else
+                                            numerical_value=str2double(attribute_value);
+                                        end
                                     end
+                                    
+                                    
                                     NeuronParams(k).(matlab.lang.makeValidName(attribute_name))=numerical_value;
                                     
                                 end
@@ -490,23 +500,87 @@ if get_LEMS.getLength~=0
         
         
         end
-        
-        for i=0:get_LEMS_children.getLength-1
-           specific_child=get_LEMS_children.item(i);
-           specific_child_attributes=specific_child.getAttributes;
-           if isempty(specific_child_attributes)==0
-               for y=0:specific_child_attributes.getLength-1
-                   attribute=specific_child_attributes.item(y);
-                   if strcmp(char(attribute.getName),'id')==1
-                       for k=1:no_of_populations
-                           if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
-                               
-                               NeuronParams(k).Input(1)=char(specific_child.getNodeName);
-                           end
-                       end
-                   end
-               end
-           end
+        targets=zeros(1,no_of_populations);
+        get_cell_inputs_for_counting=get_cell_inputs(:,1);
+        input_ids=cell(1,no_of_populations);
+        for k=1:no_of_populations
+            pop_targets=get_cell_inputs_for_counting(Index_array{1,k}~=0);
+            unique_input=unique(pop_targets);
+            if length(unique_input)==1
+                input_ids{1,k}=unique_input;
+                targets(1,k)=length(pop_targets)==populations_ids_sizes_components{k,2};
+            else
+                break
+            end
+            
+        end
+        if all(targets)==1
+            for i=0:get_LEMS_children.getLength-1
+                specific_child=get_LEMS_children.item(i);
+                specific_child_attributes=specific_child.getAttributes;
+                if isempty(specific_child_attributes)==0
+                    for y=0:specific_child_attributes.getLength-1
+                        attribute=specific_child_attributes.item(y);
+                        if strcmp(char(attribute.getName),'id')==1
+                            for k=1:no_of_populations
+                                if strcmp(char(attribute.getValue),input_ids{1,k})==1
+                                    if strcmp(char(specific_child.getNodeName),'pulseGenerator')==1 || strcmp(char(specific_child.getNodeName),'pulseGeneratorDL')==1
+                                       
+                                        NeuronParams(k).Input(1).inputType='i_step';
+                                        for x=0:specific_child_attributes.getLength-1
+                                            attribute_in=specific_child_attributes.item(x);
+                                            if strcmp(char(attribute_in.getName),'amplitude')==1
+                                                
+                                                attribute_value=char(attribute_in.getValue);
+                                                attribute_value_type=zeros(1,length(attribute_value));
+                                                for l=1:length(attribute_value)
+                                                    character=str2double(attribute_value(l));
+                                                    attribute_value_type(l)=character;
+                                                end
+                                                find_isnan=find(isnan(attribute_value_type));
+                                                
+                                                if find_isnan(1)==1
+                                                    if numel(find_isnan)>=3
+                                                        numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(3))));
+                                                    else
+                                                        numerical_value=str2double(attribute_value);
+                                                        
+                                                    end
+                                                    
+                                                else
+                                                    if numel(find_isnan)>=2
+                                                        numerical_value=str2double(strtok(attribute_value,attribute_value(find_isnan(2))));
+                                                    else
+                                                        numerical_value=str2double(attribute_value);
+                                                    end
+                                                end
+                                                NeuronParams(k).Input(1).amplitude=numerical_value;
+                                                
+                                                continue
+                                            end
+                                            if strcmp(char(attribute_in.getName),'delay')==1
+                                                attribute_value=strtok(char(attribute_in.getValue),'m');
+                                                NeuronParams(k).Input(1).timeOn=str2double(attribute_value);
+                                                continue
+                                            end
+                                            if strcmp(char(attribute_in.getName),'duration')==1
+                                                attribute_value=strtok(char(attribute_in.getValue),'m');
+                                                duration=str2double(attribute_value);
+                                                
+                                            end
+                                            
+                                        end
+                                        
+                                    end
+                                    NeuronParams(k).Input(1).timeOff=(NeuronParams(k).Input(1).timeOn)+duration;
+                                    break
+                                end
+                                   
+                            end
+                        end
+                    end
+                end
+            end
         end
         
     end
