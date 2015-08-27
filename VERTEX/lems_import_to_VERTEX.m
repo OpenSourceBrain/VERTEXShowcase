@@ -1,6 +1,21 @@
-function [varargout]=lems_import_to_VERTEX(filename)
+function [varargout]=lems_import_to_VERTEX(filename_run)
 
-root_node=xmlread(which(filename));
+if isempty(strfind(filename_run,'_run'))~=1
+    filename_=strtok(filename_run,'run');
+    filename_=filename_(1:end-1);
+    xml_filename=sprintf('%s.xml',filename_);
+    root_node=xmlread(which(xml_filename));
+elseif isempty(strfind(filename_run,'.xml'))~=1
+       filename_=strtok(filename_run,'.');
+       root_node=xmlread(which(filename_run));
+    
+else
+    filename_=filename_run;
+    xml_filename=sprintf('%s.xml',filename_run);
+    root_node=xmlread(which(xml_filename));
+    
+end
+
 
 get_LEMS=root_node.getElementsByTagName('Lems');
 
@@ -426,9 +441,8 @@ if get_LEMS.getLength~=0
             end
             TissueParams.maxZOverlap=[-1, -1];
             
-            
-            varargout{4}=positions;
-            varargout{5}=TissueParams;
+            varargout{6}=TissueParams;
+            varargout{7}=positions;
         end
     else
             
@@ -460,7 +474,7 @@ if get_LEMS.getLength~=0
         
         
            
-            varargout{4}=TissueParams;
+            varargout{6}=TissueParams;
     end
     
     get_explicitInput=root_node.getElementsByTagName('explicitInput');
@@ -586,9 +600,51 @@ if get_LEMS.getLength~=0
     end
     
     
-varargout{1}=connections;
+
 varargout{2}=ConnectionParams;
 varargout{3}=NeuronParams;
-
+RecordingSettings=struct();
+SimulationSettings=struct();
+get_simulation=root_node.getElementsByTagName('Simulation');
+simulation_attributes=get_simulation.item(0).getAttributes;
+for i=0:simulation_attributes.getLength-1
+    simulation_attribute=simulation_attributes.item(i);
+    if strcmp(char(simulation_attribute.getName),'length')==1
+        get_value=char(simulation_attribute.getValue);
+        if isempty(strfind(get_value,'ms'))~=1
+            
+            SimulationSettings.simulationTime=str2double(strtok(char(simulation_attribute.getValue),'m'));
+            
+        else
+            SimulationSettings.simulationTime=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
+        end
+        
+        continue
+    end
+    if strcmp(char(simulation_attribute.getName),'step')==1
+        if isempty(strfind(get_value,'ms'))~=1
+            
+            SimulationSettings.timeStep=str2double(strtok(char(simulation_attribute.getValue),'m'));
+            
+        else
+            SimulationSettings.timeStep=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
+        end
+        
+    end
+    
+end
+RecordingSettings.saveDir=[filename_, filesep];
+RecordingSettings.LFP=false;
+RecordingSettings.v_m = 1:no_of_cells;
+RecordingSettings.maxRecTime = 100;
+RecordingSettings.sampleRate = 1000*roundn(1/SimulationSettings.timeStep,1);
+SimulationSettings.parallelSim = false;
+varargout{4}=RecordingSettings;
+varargout{5}=SimulationSettings;
+for i=1:no_of_cells
+    connections{i,3}=uint16(ceil(connections{i,3}./ (SimulationSettings.timeStep)));
+    
+end
+varargout{1}=connections;
 end
 
