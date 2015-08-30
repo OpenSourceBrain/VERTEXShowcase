@@ -212,7 +212,7 @@ if get_LEMS.getLength~=0
         ConnectionParams(y).sliceSynapses = false;
         ConnectionParams(y).axonArborRadius = 100; % set the same value for all populations for now.
         ConnectionParams(y).axonConductionSpeed = Inf;
-        ConnectionParams(y).synapseReleaseDelay = 0;
+        ConnectionParams(y).synapseReleaseDelay = 0.5;
         
         
     end
@@ -255,6 +255,7 @@ if get_LEMS.getLength~=0
                             post_cellID=str2double(post_cellID)+1;
                             connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
                             connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
+                            connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=0.5;
                             counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
                             ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
                             
@@ -359,7 +360,7 @@ if get_LEMS.getLength~=0
                 attribute=attributes.item(j);
                 if strcmp(char(attribute.getName),'delay')==1
                     delay=strtok(char(attribute.getValue),'m');
-                    connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=str2double(delay);
+                    connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=str2double(delay)+0.5; % synaptic delay is 0.5 ms by default.
                     break
                 end
                 
@@ -422,6 +423,7 @@ if get_LEMS.getLength~=0
             TissueParams.Z=roundn(get_max_z,1);
             TissueParams.neuronDensity=(Number_of_cells*10^9)/(TissueParams.X*TissueParams.Y*TissueParams.Z);
             TissueParams.layerBoundaryArr=[TissueParams.Z, 0];
+            TissueParams.numLayers=1;
             % maybe later include as the optional input argument
             if no_of_cells<=50
                 
@@ -453,6 +455,7 @@ if get_LEMS.getLength~=0
             TissueParams.Z=V^(1/3); %depth of the soma layer
             TissueParams.layerBoundaryArr=[TissueParams.Z, 0];
             TissueParams.maxZOverlap=[-1, -1];
+            TissueParams.numLayers=1;
             % maybe later include as the optional input argument
             if no_of_cells<=50
                 
@@ -633,17 +636,19 @@ for i=0:simulation_attributes.getLength-1
     end
     
 end
-RecordingSettings.saveDir=[filename_, filesep];
+RecordingSettings.saveDir=[sprintf('%s_import',filename_), filesep];
 RecordingSettings.LFP=false;
 RecordingSettings.v_m = 1:no_of_cells;
 RecordingSettings.maxRecTime = 100;
-RecordingSettings.sampleRate = 1000*roundn(1/SimulationSettings.timeStep,1);
+
+RecordingSettings.sampleRate = 1000*(1/SimulationSettings.timeStep);
 SimulationSettings.parallelSim = false;
 varargout{4}=RecordingSettings;
 varargout{5}=SimulationSettings;
 for i=1:no_of_cells
-    connections{i,3}=uint16(ceil(connections{i,3}./ (SimulationSettings.timeStep)));
     
+       connections{i,3}=uint16(ceil(connections{i,3}./ (SimulationSettings.timeStep)));
+      
 end
 varargout{1}=connections;
 end
