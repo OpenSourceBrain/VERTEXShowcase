@@ -1,7 +1,7 @@
 TissueParams.X=1000; % dimensions of the soma layer of the model (X,Y,Z) in micro m
                       % and neuronDensity in neurons per cubic mm
 TissueParams.Y=1000;  % are chosen so that total number of neurons in 
-TissueParams.Z=1000;  % the model is 3.
+TissueParams.Z=1000;  % the model is 21.
 TissueParams.neuronDensity=21;
 TissueParams.numLayers=1;
 TissueParams.layerBoundaryArr=[1000, 0]; 

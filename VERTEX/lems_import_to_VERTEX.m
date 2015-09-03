@@ -1,4 +1,16 @@
-function [varargout]=lems_import_to_VERTEX(filename_run)
+function [import_connections,positions,params,populations_ids_sizes_components,population_size_boundaries]...
+    =lems_import_to_VERTEX(filename_run)
+
+params=struct();
+params.TissueParams=[];
+params.ConnectionParams=[];
+params.NeuronParams=[];
+params.RecordingSettings=[];
+params.SimulationSettings=[];
+import_connections=[];
+positions=[];
+populations_ids_sizes_components=[]; 
+population_size_boundaries=[];
 
 if isempty(strfind(filename_run,'_run'))~=1
     filename_=strtok(filename_run,'run');
@@ -27,37 +39,39 @@ if get_LEMS.getLength~=0
     
     no_of_populations=get_populations.getLength;
     
-    populations_ids_sizes_components=cell(no_of_populations,3); % the first column contains the id names of distinct cell populations;
-    % the second column contains the sizes of these populations.
-    population_size_boundaries=zeros(no_of_populations,1);
-    population_size_boundaries(1)=0;
-    no_of_cells=0;
-    for y=0:no_of_populations-1
-        
-        attributes=get_populations.item(y).getAttributes;
-        attributes_length=attributes.getLength;
-        for j=0:attributes_length-1
-            attribute=attributes.item(j);
-            if strcmp(char(attribute.getName),'id')==1
-                populations_ids_sizes_components{y+1,1}=char(attribute.getValue);
-                continue
-            end
-            if strcmp(char(attribute.getName),'size')==1
-                populations_ids_sizes_components{y+1,2}=str2double(attribute.getValue);
-                no_of_cells=no_of_cells+str2double(attribute.getValue);
-                if y+1~=1
-                    population_size_boundaries(y+1)=str2double(attribute.getValue)+population_size_boundaries(y);
+    if no_of_populations~=0
+        populations_ids_sizes_components=cell(no_of_populations,3); % the first column contains the id names of distinct cell populations;
+        % the second column contains the sizes of these populations.
+        population_size_boundaries=zeros(no_of_populations,1);
+        population_size_boundaries(1)=0;
+        no_of_cells=0;
+        for y=0:no_of_populations-1
+            
+            attributes=get_populations.item(y).getAttributes;
+            attributes_length=attributes.getLength;
+            for j=0:attributes_length-1
+                attribute=attributes.item(j);
+                if strcmp(char(attribute.getName),'id')==1
+                    populations_ids_sizes_components{y+1,1}=char(attribute.getValue);
                     continue
                 end
+                if strcmp(char(attribute.getName),'size')==1
+                    populations_ids_sizes_components{y+1,2}=str2double(attribute.getValue);
+                    no_of_cells=no_of_cells+str2double(attribute.getValue);
+                    if y+1~=1
+                        population_size_boundaries(y+1)=str2double(attribute.getValue)+population_size_boundaries(y);
+                        continue
+                    end
+                end
+                if strcmp(char(attribute.getName),'component')==1
+                    component_name=char(attribute.getValue);
+                    populations_ids_sizes_components{y+1,3}=component_name;
+                end
             end
-            if strcmp(char(attribute.getName),'component')==1
-                component_name=char(attribute.getValue);
-                populations_ids_sizes_components{y+1,3}=component_name;
-            end
+            
+            
         end
-        
-        
-    end
+    
     NeuronParams(no_of_populations)=struct();
     
     for k=1:no_of_populations
@@ -374,8 +388,7 @@ if get_LEMS.getLength~=0
     end
     
     
-    
-    
+    %% A block for cell locations and TissueParams
     list_cell_positions=root_node.getElementsByTagName('location');
     if list_cell_positions.getLength~=0
         Number_of_cells=list_cell_positions.getLength; % generally should be the same as no_of_cells
@@ -443,8 +456,8 @@ if get_LEMS.getLength~=0
             end
             TissueParams.maxZOverlap=[-1, -1];
             
-            varargout{6}=TissueParams;
-            varargout{7}=positions;
+            params.TissueParams=TissueParams;
+            
         end
     else
             
@@ -477,9 +490,9 @@ if get_LEMS.getLength~=0
         
         
            
-            varargout{6}=TissueParams;
+            params.TissueParams=TissueParams;
     end
-    
+    %% A block for explicitInputs
     get_explicitInput=root_node.getElementsByTagName('explicitInput');
     if get_explicitInput.getLength~=0
         get_cell_inputs=cell(get_explicitInput.getLength,2);
@@ -602,54 +615,66 @@ if get_LEMS.getLength~=0
         
     end
     
+    end
+    % VERTEX assumes that within a given cell population each presynaptic cell provides
+    % a fixed number of synaptic inputs to the postsynaptic neurons in a
+    % given cell population. This method assumes that this condition is met
+    % by lems file; if not, the results will be rounded to the nearest integer as below:
     
-
-varargout{2}=ConnectionParams;
-varargout{3}=NeuronParams;
-RecordingSettings=struct();
-SimulationSettings=struct();
-get_simulation=root_node.getElementsByTagName('Simulation');
-simulation_attributes=get_simulation.item(0).getAttributes;
-for i=0:simulation_attributes.getLength-1
-    simulation_attribute=simulation_attributes.item(i);
-    if strcmp(char(simulation_attribute.getName),'length')==1
-        get_value=char(simulation_attribute.getValue);
-        if isempty(strfind(get_value,'ms'))~=1
+    for pre=1:no_of_populations
+         for post=1:no_of_populations
+              ConnectionParams(pre).numConnectionsToAllFromOne{1,post}=round((ConnectionParams(pre).numConnectionsToAllFromOne{1,post})/populations_ids_sizes_components{pre,2});
+        
+         end
+    end
+    params.ConnectionParams=ConnectionParams;
+    params.NeuronParams=NeuronParams;
+    %% Assign RecordingSettings and SimulationSettings
+    RecordingSettings=struct();
+    SimulationSettings=struct();
+    get_simulation=root_node.getElementsByTagName('Simulation');
+    simulation_attributes=get_simulation.item(0).getAttributes;
+    for i=0:simulation_attributes.getLength-1
+        simulation_attribute=simulation_attributes.item(i);
+        if strcmp(char(simulation_attribute.getName),'length')==1
+            get_value=char(simulation_attribute.getValue);
+            if isempty(strfind(get_value,'ms'))~=1
+                
+                SimulationSettings.simulationTime=str2double(strtok(char(simulation_attribute.getValue),'m'));
+                
+            else
+                SimulationSettings.simulationTime=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
+            end
             
-            SimulationSettings.simulationTime=str2double(strtok(char(simulation_attribute.getValue),'m'));
+            continue
+        end
+        if strcmp(char(simulation_attribute.getName),'step')==1
+            if isempty(strfind(get_value,'ms'))~=1
+                
+                SimulationSettings.timeStep=str2double(strtok(char(simulation_attribute.getValue),'m'));
+                
+            else
+                SimulationSettings.timeStep=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
+            end
             
-        else
-            SimulationSettings.simulationTime=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
         end
         
-        continue
     end
-    if strcmp(char(simulation_attribute.getName),'step')==1
-        if isempty(strfind(get_value,'ms'))~=1
-            
-            SimulationSettings.timeStep=str2double(strtok(char(simulation_attribute.getValue),'m'));
-            
-        else
-            SimulationSettings.timeStep=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
-        end
+    RecordingSettings.saveDir=[sprintf('%s_import',filename_), filesep];
+    RecordingSettings.LFP=false;
+    RecordingSettings.v_m = 1:no_of_cells;
+    RecordingSettings.maxRecTime = 100;
+    
+    RecordingSettings.sampleRate = 1000*(1/SimulationSettings.timeStep);
+    SimulationSettings.parallelSim = false;
+    params.RecordingSettings=RecordingSettings;
+    params.SimulationSettings=SimulationSettings;
+    for i=1:no_of_cells
+        
+        connections{i,3}=uint16(ceil(connections{i,3}./ (SimulationSettings.timeStep)));
         
     end
-    
-end
-RecordingSettings.saveDir=[sprintf('%s_import',filename_), filesep];
-RecordingSettings.LFP=false;
-RecordingSettings.v_m = 1:no_of_cells;
-RecordingSettings.maxRecTime = 100;
-
-RecordingSettings.sampleRate = 1000*(1/SimulationSettings.timeStep);
-SimulationSettings.parallelSim = false;
-varargout{4}=RecordingSettings;
-varargout{5}=SimulationSettings;
-for i=1:no_of_cells
-    
-       connections{i,3}=uint16(ceil(connections{i,3}./ (SimulationSettings.timeStep)));
-      
-end
-varargout{1}=connections;
+    %%Assign connections to import_connections
+    import_connections=connections;
 end
 
