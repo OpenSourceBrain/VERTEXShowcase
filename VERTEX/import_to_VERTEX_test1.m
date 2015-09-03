@@ -1,7 +1,13 @@
 % Load in network structure from NeuroML/LEMS network...
 
-[import_connections,ConnectionParams,NeuronParams,RecordingSettings,SimulationSettings,TissueParams]=lems_import_to_VERTEX('pointIzhikevichCell_stepI_test2.xml');% this xml file is in the folder test_LEMS
+[import_connections,positions,params,populations_ids_sizes_components,population_size_boundaries]=lems_import_to_VERTEX('pointIzhikevichCell_stepI_test2.xml');
 
+[import_connections,positions,TissueParams, NeuronParams,ConnectionParams, ...
+ RecordingSettings, SimulationSettings]=neuroml_import_to_VERTEX('pointIzhikevichCell_stepI_test2.net.nml',...
+    import_connections,positions,params,populations_ids_sizes_components,population_size_boundaries);
+% in this example no cell positions are specified, therefore VERTEX will
+% establish cell locations putting a typical soma position array inside
+% params.
 [params, connections, electrodes] =initNetwork(TissueParams, NeuronParams,ConnectionParams,RecordingSettings, SimulationSettings);
 
 % run simulation
