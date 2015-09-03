@@ -460,7 +460,7 @@ if get_LEMS.getLength~=0
             
         end
     else
-            
+            % default neuronDensity 
             TissueParams.neuronDensity=25000;
             V=(no_of_cells*10^9)/TissueParams.neuronDensity;
             TissueParams.X=V^(1/3);
@@ -491,6 +491,8 @@ if get_LEMS.getLength~=0
         
            
             params.TissueParams=TissueParams;
+    
+        
     end
     %% A block for explicitInputs
     get_explicitInput=root_node.getElementsByTagName('explicitInput');

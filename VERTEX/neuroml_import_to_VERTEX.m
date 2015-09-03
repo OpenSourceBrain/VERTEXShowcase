@@ -14,7 +14,7 @@ if isempty(strfind(filename_run,'_run'))~=1
     nml_filename=sprintf('%.net.nml',filename_);
     does_file_exist=which(nml_filename);
     if isempty(does_file_exist)==1
-        disp('Specified net.nml does not exist. Empty arrays are returned.');
+        disp('Specified net.nml does not exist. Arrays that are based only on Lems are returned.');
         
     else
         root_node=xmlread(which(nml_filename));
@@ -23,7 +23,7 @@ elseif isempty(strfind(filename_run,'.net.nml'))~=1
        %filename_=strtok(filename_run,'.');
        does_file_exist=which(filename_run);
        if isempty(does_file_exist)==1
-           disp('Specified net.nml does not exist. Empty arrays are returned.');
+           disp('Specified net.nml does not exist. Arrays that are based only on Lems are returned.');
            
        else
            root_node=xmlread(which(filename_run));
@@ -33,7 +33,7 @@ else
     nml_filename=sprintf('%s.net.nml',filename_run);
     does_file_exist=which(nml_filename);
     if isempty(does_file_exist)==1
-           disp('Specified net.nml does not exist. Empty arrays are returned.');
+           disp('Specified net.nml does not exist. Arrays that are based only on Lems are returned.');
            
     else
            root_node=xmlread(which(nml_filename));
