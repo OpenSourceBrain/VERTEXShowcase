@@ -615,6 +615,16 @@ if get_LEMS.getLength~=0
             end
         end
         
+    else
+        for i=no_of_populations
+            NeuronParams(i).Input(1).inputType='i_step';
+            NeuronParams(i).Input(1).amplitude=0;
+            NeuronParams(i).Input(1).timeOn=0;
+            NeuronParams(i).Input(1).timeOff=0;
+            
+            
+        end
+        
     end
     
     end
@@ -643,8 +653,10 @@ if get_LEMS.getLength~=0
             if isempty(strfind(get_value,'ms'))~=1
                 
                 SimulationSettings.simulationTime=str2double(strtok(char(simulation_attribute.getValue),'m'));
+                %in_msec=str2double(strtok(char(simulation_attribute.getValue),'m'));
                 
             else
+                %in_sec=str2double(strtok(char(simulation_attribute.getValue),'s'));
                 SimulationSettings.simulationTime=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
             end
             
@@ -653,10 +665,11 @@ if get_LEMS.getLength~=0
         if strcmp(char(simulation_attribute.getName),'step')==1
             if isempty(strfind(get_value,'ms'))~=1
                 
-                SimulationSettings.timeStep=str2double(strtok(char(simulation_attribute.getValue),'m'));
+                timeStep=str2double(strtok(char(simulation_attribute.getValue),'m'));
                 
             else
-                SimulationSettings.timeStep=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
+                
+                timeStep=1000*str2double(strtok(char(simulation_attribute.getValue),'s'));
             end
             
         end
@@ -665,9 +678,12 @@ if get_LEMS.getLength~=0
     RecordingSettings.saveDir=[sprintf('%s_import',filename_), filesep];
     RecordingSettings.LFP=false;
     RecordingSettings.v_m = 1:no_of_cells;
-    RecordingSettings.maxRecTime = 100;
+    RecordingSettings.maxRecTime =100;
     
-    RecordingSettings.sampleRate = 1000*(1/SimulationSettings.timeStep);
+    VERTEX_sampleRate=SimulationSettings.simulationTime/timeStep;
+    SimulationTime_in_sec=SimulationSettings.simulationTime/1000;
+    RecordingSettings.sampleRate = VERTEX_sampleRate/SimulationTime_in_sec;
+    SimulationSettings.timeStep=timeStep;
     SimulationSettings.parallelSim = false;
     params.RecordingSettings=RecordingSettings;
     params.SimulationSettings=SimulationSettings;
