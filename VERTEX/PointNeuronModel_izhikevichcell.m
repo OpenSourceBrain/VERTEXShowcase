@@ -27,7 +27,7 @@ classdef PointNeuronModel_izhikevichcell < PointNeuronModel
       kv = 0.04 .* (NM.v)^2 + 5.*(NM.v)+ 140.0 -NM.U + I_syn + I_input;
       
       kU = N.a .* (N.b.*NM.v - NM.U);
-      
+      %%
       k2v_in = NM.v + 0.5 .* dt .* kv;
       k2U_in = NM.U + 0.5 .* dt .* kU;
       
