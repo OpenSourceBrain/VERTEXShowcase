@@ -1,0 +1,1 @@
+Here you can find methods that visually compare dynamics of VERTEX cell with LEMS cell
