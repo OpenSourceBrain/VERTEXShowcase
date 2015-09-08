@@ -14,8 +14,7 @@ Again, no input is provided to the second cell.
 
 [Adex_point_neuron_stepI_test1.m](Adex_point_neuron_stepI_test1.m) - a simple model of one cell responding to a step current introduced after 50 
 
-[Adex3pop_1comp_test1.m](Adex3pop_1comp_test1.m),[Adex3pop_1comp_test2.m](Adex3pop_1comp_test2.m),  
-[Adex3pop_1comp_test3.m](Adex3pop_1comp_test3.m) - testing conversion of time dynamics between three different Adex one compartmental
+[Adex3pop_1comp_test1.m](Adex3pop_1comp_test1.m), [Adex3pop_1comp_test2.m](Adex3pop_1comp_test2.m),[Adex3pop_1comp_test3.m](Adex3pop_1comp_test3.m) - testing conversion of time dynamics between three different Adex one compartmental
 populations; test1 does not include synaptic connectivity in order to test conversion of cell dynamics to LEMS under specific step current inputs.
 Test2 and Test3 introduce synaptic connectivity.
 
