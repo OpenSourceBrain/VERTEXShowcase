@@ -20,7 +20,7 @@
    <expOneSynapse erev="0.000000mV" gbase="3.000000nS" id="g_exp_01" tauDecay="1.000000ms"/>
    <expOneSynapse erev="-75.000000mV" gbase="-5.000000nS" id="g_exp_10" tauDecay="6.000000ms"/>
    <expOneSynapse erev="-75.000000mV" gbase="-4.000000nS" id="g_exp_11" tauDecay="3.000000ms"/>
-   <Simulation id="sim1" length="300.000000ms" step="0.010000ms" target="net1">
+   <Simulation id="sim1" length="200.000000ms" step="0.010000ms" target="net1">
       <Display id="d1" timeScale="1ms" title="Voltage traces and inputs of the VERTEX Izhikevich Cell(s) exported to LEMS" xmax="300.000000" xmin="0" ymax="100" ymin="-160">
          <Line color="#FF0000" id="Input_pop0_0" quantity="pop0[0]/pulse0/I" scale="1" timeScale="1ms"/>
          <Line color="#FF0000" id="v_pop0_0" quantity="pop0[0]/v" scale="1mV" timeScale="1ms"/>
