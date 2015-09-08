@@ -1,70 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Adex2pop_1comp_10cells" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.githubusercontent.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd">
+   
    <include href="Adex2pop_1comp_10cells_pop0.cell.nml"/>
+   
    <include href="Adex2pop_1comp_10cells_pop1.cell.nml"/>
+   
    <include href="Adex2pop_1comp_10cells.synapse.nml"/>
+   
    <network id="Adex2pop_1comp_10cells">
+      
       <population component="Adex2pop_1comp_10cells_pop0" id="pop1" size="5" type="populationList">
+         
          <instance id="0">
+            
             <location x="17.411730" y="33.848517" z="13.136440"/>
+         
          </instance>
+         
          <instance id="1">
+            
             <location x="57.153483" y="78.461136" z="5.419006"/>
+         
          </instance>
+         
          <instance id="2">
+            
             <location x="105.671286" y="54.786379" z="11.228555"/>
+         
          </instance>
+         
          <instance id="3">
+            
             <location x="163.782869" y="38.474552" z="18.806442"/>
+         
          </instance>
+         
          <instance id="4">
+            
             <location x="217.986724" y="31.369401" z="12.039115"/>
+         
          </instance>
+      
       </population>
+      
       <population component="Adex2pop_1comp_10cells_pop1" id="pop2" size="5" type="populationList">
+         
          <instance id="0">
+            
             <location x="18.449885" y="50.752077" z="13.540822"/>
+         
          </instance>
+         
          <instance id="1">
+            
             <location x="79.562293" y="67.954544" z="12.764227"/>
+         
          </instance>
+         
          <instance id="2">
+            
             <location x="104.386294" y="57.956426" z="15.434735"/>
+         
          </instance>
+         
          <instance id="3">
+            
             <location x="163.288784" y="48.881881" z="14.125719"/>
+         
          </instance>
+         
          <instance id="4">
+            
             <location x="213.295690" y="57.795471" z="7.380478"/>
+         
          </instance>
+      
       </population>
-      <projection id="0" postsynapticPopulation="pop1" presynapticPopulation="pop1" synapse="g_exp_00">
+      
+      <projection id="projection_0" postsynapticPopulation="pop1" presynapticPopulation="pop1" synapse="g_exp_00">
+         
          <connection id="0" postCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop1/0/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="1" postCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop1/1/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="2" postCellId="../pop1/4/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="3" postCellId="../pop1/4/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop1/3/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="4" postCellId="../pop1/1/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop1/4/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+      
       </projection>
-      <projection id="1" postsynapticPopulation="pop2" presynapticPopulation="pop1" synapse="g_exp_01">
+      
+      <projection id="projection_1" postsynapticPopulation="pop2" presynapticPopulation="pop1" synapse="g_exp_01">
+         
          <connection id="0" postCellId="../pop2/1/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop1/0/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="1" postCellId="../pop2/2/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop1/1/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="2" postCellId="../pop2/0/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="3" postCellId="../pop2/1/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop1/3/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+         
          <connection id="4" postCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop1/4/Adex2pop_1comp_10cells_pop0" preSegmentId="0"/>
+      
       </projection>
-      <projection id="2" postsynapticPopulation="pop1" presynapticPopulation="pop2" synapse="g_exp_10">
+      
+      <projection id="projection_2" postsynapticPopulation="pop1" presynapticPopulation="pop2" synapse="g_exp_10">
+         
          <connection id="0" postCellId="../pop1/0/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop2/0/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="1" postCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop2/1/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="2" postCellId="../pop1/0/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop2/2/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="3" postCellId="../pop1/3/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="4" postCellId="../pop1/2/Adex2pop_1comp_10cells_pop0" postSegmentId="0" preCellId="../pop2/4/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+      
       </projection>
-      <projection id="3" postsynapticPopulation="pop2" presynapticPopulation="pop2" synapse="g_exp_11">
+      
+      <projection id="projection_3" postsynapticPopulation="pop2" presynapticPopulation="pop2" synapse="g_exp_11">
+         
          <connection id="0" postCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop2/0/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="1" postCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop2/1/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="2" postCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop2/2/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="3" postCellId="../pop2/1/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+         
          <connection id="4" postCellId="../pop2/3/Adex2pop_1comp_10cells_pop1" postSegmentId="0" preCellId="../pop2/4/Adex2pop_1comp_10cells_pop1" preSegmentId="0"/>
+      
       </projection>
+   
    </network>
+
 </neuroml>
