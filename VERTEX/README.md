@@ -16,7 +16,7 @@ To see membrane potential traces look at the [images](https://github.com/OpenSou
 To see network and morphology export to nml look at the [NeuroML2](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/NeuroML2)subfolder of VERTEXShowcase
 and [OSB 3D explorer](http://opensourcebrain.org/projects/vertexshowcase).
 
-To see LEMS xml files look at the [test_LEMS](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/test_LEMS) suboflder of VERTEXShowcase.
+To see LEMS xml files look at the [test_LEMS](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/test_LEMS) subfolder of VERTEXShowcase.
 
 
 
