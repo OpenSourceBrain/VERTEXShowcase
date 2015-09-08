@@ -2,7 +2,7 @@ Here you can find examples of VERTEX models that use methods found in Utils
 
 a) simple models for testing conversion of model time dynamics to LEMS:
 
-[Adex2pop_1comp_test1.m](Adex2pop_1comp_test1.m) - two cells, no synaptic connectivity, for testing whether current step inputs are successfully converted to LEMS;
+[(Adex2pop_1comp_test1.m) - two cells, no synaptic connectivity, for testing whether current step inputs are successfully converted to LEMS;
 delayed step current is introduced to the cell population 1 only and the amplitude is insufficient to elict action potentials (APs).
 
 Adex2pop_1comp_test2.m - similar to ..test1.m; two cells, no synaptic connectivity, however, amplitude to the first cell is increased so to elicit a small number of APs.
