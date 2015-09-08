@@ -12,8 +12,11 @@ when you run the first model, and then is used later to place all other xml file
 Scripts in this folder are either VERTEX models or methods to export VERTEX model structure and dynamics.
 
 To see membrane potential traces look at the [images](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/images) of VERTEXShowcase.
-To see network and morphology export to nml look at the NeuroML2 subfolder of VERTEXShowcase and OSB 3D explorer.
-To see LEMS xml files look at the test_LEMS suboflder of VERTEXShowcase.)
+
+To see network and morphology export to nml look at the [NeuroML2](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/NeuroML2)subfolder of VERTEXShowcase
+and [OSB 3D explorer](http://opensourcebrain.org/projects/vertexshowcase).
+
+To see LEMS xml files look at the [test_LEMS](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/test_LEMS) suboflder of VERTEXShowcase.
 
 
 
