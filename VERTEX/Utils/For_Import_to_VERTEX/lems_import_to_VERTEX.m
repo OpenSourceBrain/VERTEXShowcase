@@ -1,5 +1,5 @@
 function [import_connections,positions,params,populations_ids_sizes_components,population_size_boundaries]...
-    =lems_import_to_VERTEX(filename_run)
+    =lems_import_to_VERTEX(varargin)
 
 params=struct();
 params.TissueParams=[];
@@ -11,10 +11,9 @@ import_connections=[];
 positions=[];
 populations_ids_sizes_components=[]; 
 population_size_boundaries=[];
-
+filename_run=varargin{1};
 if isempty(strfind(filename_run,'_run'))~=1
-    filename_=strtok(filename_run,'run');
-    filename_=filename_(1:end-1);
+    filename_=filename_run(1:end-4);
     xml_filename=sprintf('%s.xml',filename_);
     root_node=xmlread(which(xml_filename));
 elseif isempty(strfind(filename_run,'.xml'))~=1
@@ -71,9 +70,24 @@ if get_LEMS.getLength~=0
             
             
         end
-    
+    if nargin~=1
+        if isfield(varargin{2},'neuronModel')==1
+            NeuronParams=varargin{2};
+            for k=1:no_of_populations
+                 NeuronParams(k).modelProportion=populations_ids_sizes_components{k,2}/no_of_cells;
+                 NeuronParams(k).somaLayer=1;
+                 % assume for now one compartment cell models only
+                 NeuronParams(k).numCompartments=1;
+                 NeuronParams(k).somaID=1;
+                 NeuronParams(k).axisAligned = 'z';
+            end
+        
+        
+        end
+        
+    else
     NeuronParams(no_of_populations)=struct();
-    
+   
     for k=1:no_of_populations
         NeuronParams(k).modelProportion=populations_ids_sizes_components{k,2}/no_of_cells;
         NeuronParams(k).somaLayer=1;
@@ -139,10 +153,14 @@ if get_LEMS.getLength~=0
                 
             end
         end
+    
         if counter==no_of_populations
             
             break
         end
+    end
+    
+        
     end
     
     
