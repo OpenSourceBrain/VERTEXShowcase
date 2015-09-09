@@ -1,4 +1,4 @@
-Here you can find examples of VERTEX models that use export methods found in [Utils](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/VERTEX/Utils/Export)
+Here you can find examples of VERTEX models that use export methods found in [Utils](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/VERTEX/Utils/For_Export_from_VERTEX)
 
 To see the overlap between representative results in LEMS and VERTEX simulators click [Image](https://github.com/OpenSourceBrain/VERTEXShowcase/tree/master/images) after description of each script.
 
