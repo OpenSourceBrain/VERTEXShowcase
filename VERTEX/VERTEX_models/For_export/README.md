@@ -23,7 +23,7 @@ Again, no input is provided to the second cell. [Image](https://github.com/OpenS
 [Adex3pop_1comp_test1.m](Adex3pop_1comp_test1.m), [Adex3pop_1comp_test2.m](Adex3pop_1comp_test2.m),[Adex3pop_1comp_test3.m](Adex3pop_1comp_test3.m) - testing conversion of time dynamics between three different Adex one compartmental
 populations.
 [Image1](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test1_pop0.jpg) ,[Image2](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test1_pop1.jpg), [Image3](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test1_pop2.jpg) for test1
-[To see change in cell responses of the population 2](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test2_pop2.jpg) for test2
+[To see changes in cell responses of the population 2 (pop1)](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test2_pop2.jpg) for test2
 [Image1](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test3_pop0_5.jpg), [Image2](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test3_pop1_4.jpg), [Image3](https://github.com/OpenSourceBrain/VERTEXShowcase/blob/master/images/Adex3pop_1comp_test3_pop2_3.jpg) for test3
 
 [pointIzhikevichCell_stepI_test1.m](pointIzhikevichCell_stepI_test1.m) - testing time dynamics of newly defined cell class, PointNeuronModel_izhikevichcell, which is equivalent to the model in LEMS. 
