@@ -38,7 +38,7 @@ classdef PointNeuronModel_${name} < PointNeuronModel
       #if ( $state.get($s)==0)
          NM.$s = $state.get($s).*ones(number,1);
       #else 
-         NM.v = Neuron.$state.get($s).*ones(number,1);
+         NM.$s = Neuron.$state.get($s).*ones(number,1);
       #end
    #end
 #end
@@ -63,7 +63,21 @@ classdef PointNeuronModel_${name} < PointNeuronModel
        #foreach ($par in $parameters.keySet() )
           #set( $variable = $variable.replace("$par","N.$par") )
        #end
-      kv=$variable;
+       #foreach ($sf in $state_functions.keySet())
+            #set( $variable_in=$state_functions.get($sf) )
+                #foreach ($s in $state.keySet())
+                   #if (($s == "V") || ($s == "v") )
+                     #set( $variable_in = $variable_in.replace("$s","NM.v") )
+                   #else
+                     #set( $variable_in = $variable_in.replace("$s","NM.$s") )
+                   #end 
+                #end
+                #foreach ($par in $parameters.keySet() )
+                    #set( $variable_in = $variable_in.replace("$par","N.$par") )
+                #end
+            #set( $variable = $variable.replace("$sf","$variable_in") )
+       #end
+       kv=$variable;
    #else
        #foreach ($s in $state.keySet())
           #if (($s == "V") || ($s == "v") )
@@ -75,6 +89,20 @@ classdef PointNeuronModel_${name} < PointNeuronModel
        #foreach ($par in $parameters.keySet() )
           #set( $variable = $variable.replace("$par","N.$par") )
        #end
+       #foreach ($st in $state_functions.keySet())
+          #set( $variable_in=$state_functions.get($sf) )
+            #foreach ($s in $state.keySet())
+              #if (($s == "V") || ($s == "v") )
+                #set( $variable_in = $variable_in.replace("$s","NM.v") )
+              #else
+                #set( $variable_in = $variable_in.replace("$s","NM.$s") )
+              #end 
+            #end
+            #foreach ($par in $parameters.keySet() )
+              #set( $variable_in = $variable_in.replace("$par","N.$par") )
+            #end
+          #set( $variable = $variable.replace("$sf","$variable_in") )
+       #end
        k$d=$variable;
    #end
 #end
@@ -82,9 +110,9 @@ classdef PointNeuronModel_${name} < PointNeuronModel
       
 #foreach ($s in $state.keySet())
    #if (($s == "V" ) || ($s == "v"))
-      k2v_in = NM.v + 0.5 .* dt .* kv;
+      k2v = NM.v + 0.5 .* dt .* kv;
    #else
-      k2($s)in=NM.$s + 0.5.*dt.*k$s;
+      k2$s=NM.$s + 0.5.*dt.*k$s;
    #end
 
 #end
@@ -94,7 +122,7 @@ classdef PointNeuronModel_${name} < PointNeuronModel
    #if (( $d == "V" ) || ($d == "v") )
        #foreach ($s in $state.keySet())
           #if (($s == "V") || ($s == "v"))
-            #set( $variable = $variable.replace("$s","k2v_in") )
+            #set( $variable = $variable.replace("$s","k2v") )
           #else
              #set( $variable = $variable.replace("$s","NM.$s") )
           #end 
@@ -102,19 +130,50 @@ classdef PointNeuronModel_${name} < PointNeuronModel
        #foreach ($par in $parameters.keySet() )
           #set( $variable = $variable.replace("$par","N.$par") )
        #end
+       #foreach ($sf in $state_functions.keySet())
+            #set( $variable_in=$state_functions.get($sf) )
+                #foreach ($s in $state.keySet())
+                   #if (($s == "V") || ($s == "v") )
+                     #set( $variable_in = $variable_in.replace("$s","k2v") )
+                   #else
+                     #set( $variable_in = $variable_in.replace("$s","NM.$s") )
+                   #end 
+                #end
+                #foreach ($par in $parameters.keySet() )
+                    #set( $variable_in = $variable_in.replace("$par","N.$par") )
+                #end
+            #set( $variable = $variable.replace("$sf","$variable_in") )
+       #end
+       
       kv=$variable;
    #else
        #foreach ($s in $state.keySet())
           #if (($s == "V") || ($s == "v") )
             #set( $variable = $variable.replace("$s","NM.v") )
           #elseif ($s == $d)
-            #set( $variable = $variable.replace("$s","k2($s)in") )
+            #set( $variable = $variable.replace("$s","k2$s") )
           #else
             #set( $variable = $variable.replace("$s","NM.$s") )
           #end 
        #end
        #foreach ($par in $parameters.keySet() )
           #set( $variable = $variable.replace("$par","N.$par") )
+       #end
+       #foreach ($st in $state_functions.keySet())
+          #set( $variable_in=$state_functions.get($sf) )
+            #foreach ($s in $state.keySet())
+             #if (($s == "V") || ($s == "v") )
+                #set( $variable_n = $variable_in.replace("$s","NM.v") )
+             #elseif ($s == $d)
+                #set( $variable_in = $variable_in.replace("$s","k2$s") )
+             #else
+                #set( $variable_in = $variable_in.replace("$s","NM.$s") )
+             #end 
+            #end
+            #foreach ($par in $parameters.keySet() )
+              #set( $variable_in = $variable_in.replace("$par","N.$par") )
+            #end
+          #set( $variable = $variable.replace("$sf","$variable_in") )
        #end
        k$d=$variable;
    #end
@@ -150,10 +209,10 @@ classdef PointNeuronModel_${name} < PointNeuronModel
   
 
   methods(Static)
-    
+    #set($counter=1)
     function params = getRequiredParams()
       params = [getRequiredParams@PointNeuronModel, ...
-                {#foreach ($par in $parameters.keySet())'$par',#end}];
+                {#foreach ($par in $parameters.keySet()) #if ($parameters.size()==$counter)'$par'#else '$par', #set($counter=$counter+1)#end #end}];
     end
     
   end
