@@ -40,7 +40,8 @@ if get_LEMS.getLength~=0
     
     if no_of_populations~=0
         populations_ids_sizes_components=cell(no_of_populations,3); % the first column contains the id names of distinct cell populations;
-        % the second column contains the sizes of these populations.
+        % the second column contains the sizes of these populations. The
+        % third column contains component names.
         population_size_boundaries=zeros(no_of_populations,1);
         population_size_boundaries(1)=0;
         no_of_cells=0;
@@ -108,7 +109,7 @@ if get_LEMS.getLength~=0
                     for k=1:no_of_populations
                         if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
                             
-                            NeuronParams(k).neuronModel=char(specific_child.getNodeName);
+                            NeuronParams(k).neuronModel=sprintf('%s_flat',populations_ids_sizes_components{k,3}); %char(specific_child.getNodeName)
                             
                             for l=0:specific_child_attributes.getLength-1
                                 attribute_in=specific_child_attributes.item(l);
