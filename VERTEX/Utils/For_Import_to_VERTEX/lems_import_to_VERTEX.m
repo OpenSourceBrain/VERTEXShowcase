@@ -82,10 +82,53 @@ if get_LEMS.getLength~=0
                  NeuronParams(k).somaID=1;
                  NeuronParams(k).axisAligned = 'z';
             end
-        
-        
+            
+            
+            for i=0:get_LEMS_children.getLength-1
+                specific_child=get_LEMS_children.item(i);
+                specific_child_attributes=specific_child.getAttributes;
+                if isempty(specific_child_attributes)==0
+                    for y=0:specific_child_attributes.getLength-1
+                        attribute=specific_child_attributes.item(y);
+                        if strcmp(char(attribute.getName),'id')==1
+                            for k=1:no_of_populations
+                                if strcmp(char(attribute.getValue),populations_ids_sizes_components{k,3})==1
+                                    for x=1:length(varargin{2})
+                                        if strcmp(sprintf('%s_flat',char(attribute.getValue)),varargin{2}(x).neuronModel)==1
+                                            for l=0:specific_child_attributes.getLength-1
+                                                attribute_in=specific_child_attributes.item(l);
+                                                if isfield(varargin{2},char(attribute_in.getName))==1
+                                                    if isempty(varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName))))==0
+                                                      get_physical_unit=char(attribute_in.getValue);
+                                                      get_physical_unit=get_physical_unit(end);
+                                                      if strcmp(get_physical_unit,'V')==1
+                                                         NeuronParams(x).(matlab.lang.makeValidName(char(attribute_in.getName)))=(1000)*varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                      elseif strcmp(get_physical_unit,'S')==1
+                                                         NeuronParams(x).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^9)*varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                      elseif strcmp(get_physical_unit,'A')==1
+                                                          NeuronParams(x).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^12)*varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                      elseif strcmp(get_physical_unit,'F')==1
+                                                          NeuronParams(x).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^12)*varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                      elseif strcmp(get_physical_unit,'s')==1
+                                                          NeuronParams(x).(matlab.lang.makeValidName(char(attribute_in.getName)))=1000*varargin{2}(x).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                      
+                                                          
+                                                      end
+                                                    end
+                                                    
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
         end
-        
+                                
+                                
     else
     NeuronParams(no_of_populations)=struct();
    
@@ -581,8 +624,16 @@ if get_LEMS.getLength~=0
                                         for x=0:specific_child_attributes.getLength-1
                                             attribute_in=specific_child_attributes.item(x);
                                             if strcmp(char(attribute_in.getName),'amplitude')==1
-                                                
+                                                scaling_factor=1;
                                                 attribute_value=char(attribute_in.getValue);
+                                                if strcmp(attribute_value(end-1),'n')==1
+                                                    scaling_factor=1000;
+                                                elseif strcmp(attribute_value(end-1),'u')==1
+                                                    scaling_factor=10^6;
+                                                elseif strcmp(attribute_value(end-1),'m')==1
+                                                    scaling_factor=10^9;
+                                                
+                                                end
                                                 attribute_value_type=zeros(1,length(attribute_value));
                                                 for l=1:length(attribute_value)
                                                     character=str2double(attribute_value(l));
@@ -605,7 +656,7 @@ if get_LEMS.getLength~=0
                                                         numerical_value=str2double(attribute_value);
                                                     end
                                                 end
-                                                NeuronParams(k).Input(1).amplitude=numerical_value;
+                                                NeuronParams(k).Input(1).amplitude=scaling_factor*numerical_value;
                                                 
                                                 continue
                                             end
