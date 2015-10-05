@@ -71,7 +71,7 @@ if get_LEMS.getLength~=0
             
             
         end
-    if nargin~=1
+    if nargin > 1
         if isfield(varargin{2},'neuronModel')==1
             NeuronParams=varargin{2};
             for k=1:no_of_populations
@@ -237,7 +237,255 @@ if get_LEMS.getLength~=0
     
     no_of_synapticConnectionWD=get_synapticConnectionWD.getLength;
     
-    get_expOneSynapse=root_node.getElementsByTagName('expOneSynapse');
+    if nargin > 2
+       if isfield(varargin{3},'synapseType')==1
+           SynapseParams=varargin{3};
+           synapse_array=cell(length(SynapseParams)+1,length(fieldnames(SynapseParams)));
+           field_names=fieldnames(SynapseParams);
+           for k=1:length(fieldnames(SynapseParams))
+               synapse_array{1,k}=char(field_names(k));
+               
+           end
+          for i=0:get_LEMS_children.getLength-1
+                specific_child=get_LEMS_children.item(i);
+                specific_child_attributes=specific_child.getAttributes;
+                if isempty(specific_child_attributes)==0
+                    for y=0:specific_child_attributes.getLength-1
+                        attribute=specific_child_attributes.item(y);
+                        if strcmp(char(attribute.getName),'id')==1
+                           for j=1:length(SynapseParams)
+                               if strcmp(char(attribute.getValue),SynapseParams(j).synapseType(1:end-5))==1      %compare the id before the string "flat"
+                                   for xx=1:length(field_names)
+                                       if strcmp(synapse_array{1,xx},'synapseType')==1
+                                           synapse_array{j+1,xx}=SynapseParams(j).synapseType;
+                                       end
+                                   end
+                                   for jj=0:specific_child_attributes.getLength-1
+                                       attribute_in=specific_child_attributes.item(jj);
+                                       if isfield(SynapseParams,char(attribute_in.getName))==1
+                                                    if isempty(SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName))))==0
+                                                        get_physical_unit=char(attribute_in.getValue);
+                                                        get_physical_unit=get_physical_unit(end);
+                                                        if strcmp(get_physical_unit,'V')==1
+                                                            SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)))=(1000)*SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                        elseif strcmp(get_physical_unit,'S')==1
+                                                            SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^9)*SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                        elseif strcmp(get_physical_unit,'A')==1
+                                                            SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^12)*SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                        elseif strcmp(get_physical_unit,'F')==1
+                                                            SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)))=(10^12)*SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                        elseif strcmp(get_physical_unit,'s')==1
+                                                            SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)))=1000*SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                        end
+                                                        for ii=1:length(field_names)
+                                                            if strcmp(char(attribute_in.getName),synapse_array{1,ii})==1
+                                                                synapse_array{1+j,ii}=SynapseParams(j).(matlab.lang.makeValidName(char(attribute_in.getName)));
+                                                            end
+                                                            
+                                                        end
+                                                    end
+                                       end
+                                       
+                                   end
+                               end
+                               
+                           end
+                        end
+                    end
+                end
+          end
+           
+       end
+       
+       ConnectionParams(no_of_populations)=struct();
+    
+       for y=1:no_of_populations
+           ConnectionParams(y).numConnectionsToAllFromOne =num2cell(zeros(1,no_of_populations));
+           ConnectionParams(y).targetCompartments=num2cell(ones(1,no_of_populations));
+           for x=1:length(field_names)
+              ConnectionParams(y).(matlab.lang.makeValidName(synapse_array{1,x})) =cell(1,no_of_populations);
+           end
+           ConnectionParams(y).weights=cell(1,no_of_populations);
+           ConnectionParams(y).axonArborSpatialModel = 'uniform';
+           ConnectionParams(y).sliceSynapses = false;
+           ConnectionParams(y).axonArborRadius = 100; % set the same value for all populations for now.
+           ConnectionParams(y).axonConductionSpeed = Inf;
+           ConnectionParams(y).synapseReleaseDelay = 0.5;
+           
+           
+       end
+       counters_for_post_cells=ones(no_of_cells,1);
+       if no_of_synapticConnection~=0
+           
+           
+           for y=0:no_of_synapticConnection-1
+               attributes=get_synapticConnection.item(y).getAttributes;
+               attributes_length=attributes.getLength;
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'from')==1
+                       get_string=char(attribute.getValue);
+                       for k=1:no_of_populations
+                           if isempty(strfind(get_string,populations_ids_sizes_components{k,1}))==0
+                               [~,pre_cellID]=strtok(get_string,'[');
+                               pre_cellID=pre_cellID(2:end-1);
+                               pre_cellID=str2double(pre_cellID)+1;
+                               pre_pop_size=population_size_boundaries(k);
+                               pre_pop_Index=k;
+                               break
+                           end
+                       end
+                       break
+                       
+                   end
+                   
+               end
+               
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'to')==1
+                       get_to_string=char(attribute.getValue);
+                       for k=1:no_of_populations
+                           if isempty(strfind(get_to_string,populations_ids_sizes_components{k,1}))==0
+                               [~,post_cellID]=strtok(get_to_string,'[');
+                               post_pop_Index=k;
+                               post_cellID=post_cellID(2:end-1);
+                               post_cellID=str2double(post_cellID)+1;
+                               connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
+                               connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
+                               connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=0.5;
+                               counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
+                               ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
+                               
+                               break
+                           end
+                       end
+                       break
+                       
+                   end
+                   
+               end
+               
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'synapse')==1
+                       
+                       for i=1:length(SynapseParams)
+                           for x=1:length(field_names)
+                               
+                               if strcmp(synapse_array{1,x},'gbase')==1
+                                   ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=1*synapse_array{i+1,x};
+                               else
+                                   
+                                   ConnectionParams(pre_pop_Index).(matlab.lang.makeValidName(synapse_array{1,x})){1,post_pop_Index}=synapse_array{i+1,x};
+                               end
+                               
+                           end
+                           
+                       end
+                       break
+                   end
+                   
+               end
+               
+               
+           end
+           
+           
+           
+           
+       end
+       
+       if no_of_synapticConnectionWD~=0
+           
+           for y=0:no_of_synapticConnectionWD-1
+               attributes=get_synapticConnectionWD.item(y).getAttributes;
+               attributes_length=attributes.getLength;
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'from')==1
+                       get_string=char(attribute.getValue);
+                       for k=1:no_of_populations
+                           if isempty(strfind(get_string,populations_ids_sizes_components{k,1}))==0
+                               [~,pre_cellID]=strtok(get_string,'[');
+                               pre_cellID=pre_cellID(2:end-1);
+                               pre_cellID=str2double(pre_cellID)+1;
+                               pre_pop_size=population_size_boundaries(k);
+                               pre_pop_Index=k;
+                               break
+                           end
+                       end
+                       break
+                       
+                   end
+               end
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'to')==1
+                       get_to_string=char(attribute.getValue);
+                       for k=1:no_of_populations
+                           if isempty(strfind(get_to_string,populations_ids_sizes_components{k,1}))==0
+                               post_pop_Index=k;
+                               [~,post_cellID]=strtok(get_string,'[');
+                               post_cellID=post_cellID(2:end-1);
+                               post_cellID=str2double(post_cellID)+1;
+                               connections{pre_cellID+pre_pop_size,1}(counters_for_post_cells(pre_cellID+pre_pop_size))=post_cellID+population_size_boundaries(k);
+                               connections{pre_cellID+pre_pop_size,2}(counters_for_post_cells(pre_cellID+pre_pop_size))=1;
+                               ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}=ConnectionParams(pre_pop_Index).numConnectionsToAllFromOne{1,k}+1;
+                               break
+                           end
+                       end
+                       
+                   end
+                   
+               end
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'synapse')==1
+                       
+                       for i=1:length(SynapseParams)
+                         for  x=1:length(field_names)
+                           if strcmp(synapse_array{1,x},'gbase')==1
+                                   ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=1*synapse_array{i+1,x};
+                           else
+                                   
+                                   ConnectionParams(pre_pop_Index).(matlab.lang.makeValidName(synapse_array{1,x})){1,post_pop_Index}=synapse_array{i+1,x};
+                           end
+                         end
+                           
+                       end
+                       break
+                   end
+                   
+               end
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'delay')==1
+                       delay=strtok(char(attribute.getValue),'m');
+                       connections{pre_cellID+pre_pop_size,3}(counters_for_post_cells(pre_cellID+pre_pop_size))=str2double(delay)+0.5; % synaptic delay is 0.5 ms by default.
+                       break
+                   end
+                   
+               end
+               for j=0:attributes_length-1
+                   attribute=attributes.item(j);
+                   if strcmp(char(attribute.getName),'weight')==1
+                       ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=str2double(char(attribute.getValue))*ConnectionParams(pre_pop_Index).weights{1,post_pop_Index};
+                   end
+                   
+               end
+               counters_for_post_cells(pre_cellID+pre_pop_size)=counters_for_post_cells(pre_cellID+pre_pop_size)+1;
+               
+           end
+           
+           
+           
+       end
+       
+       
+       
+    else
+    get_expOneSynapse=root_node.getElementsByTagName('expOneSynapse'); % mainly for testing; if no SynapseParams are provided, it is assumed that synapses are expOneSynapses.
     synapse_array=cell(get_expOneSynapse.getLength,5);
     if get_expOneSynapse.getLength~=0
         for i=0:get_expOneSynapse.getLength-1
@@ -425,7 +673,7 @@ if get_LEMS.getLength~=0
                             ConnectionParams(pre_pop_Index).weights{1,post_pop_Index}=synapse_array{i,3};
                             ConnectionParams(pre_pop_Index).E_reversal{1,post_pop_Index}=synapse_array{i,2};
                             ConnectionParams(pre_pop_Index).tau{1,post_pop_Index}=synapse_array{i,4};
-                            break
+                            
                         end
                         
                     end
@@ -447,6 +695,7 @@ if get_LEMS.getLength~=0
         
         
         
+    end
     end
     
     
